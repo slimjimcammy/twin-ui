@@ -6,19 +6,26 @@ import { Flex } from "./components/layout/Flex";
 import TextInput from "./components/ui/TextInput";
 import Button from "./components/ui/Button";
 import Textarea from "./components/ui/Textarea";
-
+import LikeButton from "./components/ui/LikeButton";
 export default function App() {
+  
   return (
+    
     <Container padding="small" height="screen">
       <Text variant="h1" color="default" width="stretch" font="heading">
         Hello World
       </Text>
       <Icon src="/vite.svg" alt="Logo" />
       <Grid cols="two" spacing="none" align="center" justify="center">
-        <Button className="flex items-center gap-2" size="md">
+        <Button className="flex items-center gap-2" variant="tan" size="sm">
           {/* <Icon src="/vite.svg" alt="Logo" size="sm" /> */}
-          Button
+          Post
         </Button>
+        <Button className="flex items-center gap-2" variant="taro" size="sm">
+          {/* <Icon src="/vite.svg" alt="Logo" size="sm" /> */}
+          Connect MIDI
+        </Button>
+        <LikeButton variant="bright"  size="sm"/> 
         <TextInput
           label="Name"
           placeholder="Enter your name"
