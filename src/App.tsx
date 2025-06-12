@@ -3,10 +3,10 @@ import { Grid } from "./components/layout/Grid";
 import { Icon } from "./components/ui/Icon";
 import { Text } from "./components/ui/Text";
 import { Flex } from "./components/layout/Flex";
-import TextInput from "./components/ui/TextInput";
 import Button from "./components/ui/Button";
 import Textarea from "./components/ui/Textarea";
 import LikeButton from "./components/ui/LikeButton";
+import InputField from "./components/ui/TextInput";
 export default function App() {
   
   return (
@@ -26,7 +26,9 @@ export default function App() {
           Connect MIDI
         </Button>
         <LikeButton variant="bright"  size="sm"/> 
-        <TextInput
+         <LikeButton iconType="play" variant="bright"  size="sm"/> 
+        <InputField
+          type="text"
           label="Name"
           placeholder="Enter your name"
           required
@@ -40,6 +42,14 @@ export default function App() {
         height="xl"
         helperText="This is a helper text"
         required
+      />
+      <InputField
+        type="file"
+        label="Upload MP3"
+        helperText="Only .mp3 files accepted"
+        width="fit"
+        required
+        onChange={(e) => console.log("KYOTO Virtual Ryot Remix")}
       />
     </Container>
   );

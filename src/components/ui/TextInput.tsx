@@ -38,16 +38,24 @@ const inputVariants = cva(
   }
 );
 
-export interface TextInputProps extends VariantProps<typeof inputVariants> {
+const fileInputClasses =
+  "file:mr-4 file:py-2 file:px-4 file:rounded file:border-2 file:text-sm file:font-semibold file:bg-gray-400 file:text-black hover:file:bg-gray-600 hover:file:text-white";
+
+export interface InputFieldProps extends VariantProps<typeof inputVariants> {
+  type?: "text" | "file";
   label?: string;
   placeholder?: string;
   helperText?: string;
   className?: string;
   inputClassName?: string;
   required?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  accept?: string;
 }
 
-export default function TextInput({
+export default function InputField({
+
+  type = "text",
   label,
   placeholder,
   helperText,
@@ -56,7 +64,10 @@ export default function TextInput({
   required,
   variant,
   width,
-}: TextInputProps) {
+  onChange,
+  accept,
+}: InputFieldProps) {
+  const isFile = type === "file";
   return (
     <Flex direction="column" gap="small" className={className}>
       {label && (
@@ -66,10 +77,12 @@ export default function TextInput({
         </Flex>
       )}
       <input
-        type="text"
-        placeholder={placeholder}
+        type={type}
+        placeholder={isFile? undefined: placeholder}
         required={required}
-        className={cn(inputVariants({ variant, width }), inputClassName)}
+        accept={isFile ? accept ?? ".mp3, audio" : undefined}
+        onChange={onChange}
+        className={cn(inputVariants({ variant, width }), isFile? fileInputClasses : "", inputClassName)}
       />
       {helperText && (
         <Text variant="p" color="light">
