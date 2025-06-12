@@ -74,9 +74,9 @@ export default function Textarea({
   maxLength,
 }: TextareaProps) {
   return (
-    <Flex direction="column" gap="small" className={className}>
+    <Flex direction="column" gap="sm" className={className}>
       {label && (
-        <Flex direction="row" gap="small" align="center" justify="start">
+        <Flex direction="row" gap="sm" align="center" justify="start">
           <Text variant="h6">{label}</Text>
           {required && <Text variant="p">*</Text>}
         </Flex>

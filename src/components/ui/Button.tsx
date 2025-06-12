@@ -9,7 +9,7 @@ export interface ButtonProps extends VariantProps<typeof buttonVariants> {
 const buttonVariants = cva("hover:bg-gray-100 p-2 rounded-sm", {
   variants: {
     variant: {
-      default: [
+      primary: [
         "bg-black",
         "text-white",
         "border-black",
@@ -30,20 +30,27 @@ const buttonVariants = cva("hover:bg-gray-100 p-2 rounded-sm", {
         "transition-all",
         "duration-150",
       ].join(" "),
+      tertiary: [
+        "bg-transparent",
+        "text-black",
+        "border-transparent",
+        "hover:bg-gray-100",
+        "hover:text-black",
+      ].join(" "),
     },
     width: {
       default: "w-fit",
       stretch: "w-full",
     },
     size: {
-      default: "pt-2 pb-2 pl-3 pr-3 text-md",
-      sm: "pt-1 pb-1 pl-2 pr-2 text-sm",
-      md: "pt-2 pb-2 pl-4 pr-4 text-md",
-      lg: "pt-3 pb-3 pl-5 pr-5 text-lg",
+      default: "pt-2 pb-2 pl-2.5 pr-2.5 text-md",
+      sm: "pt-1 pb-1 pl-1.5 pr-1.5 text-sm",
+      md: "pt-2 pb-2 pl-2.5 pr-2.5 text-md",
+      lg: "pt-3 pb-3 pl-3.5 pr-3.5 text-lg",
     },
   },
   defaultVariants: {
-    variant: "default",
+    variant: "primary",
     width: "default",
     size: "default",
   },

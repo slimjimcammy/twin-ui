@@ -1,5 +1,6 @@
 import { cn } from "../cn";
 import { cva, type VariantProps } from "class-variance-authority";
+import type { ElementType } from "react";
 
 const textVariants = cva("", {
   variants: {
@@ -26,12 +27,38 @@ const textVariants = cva("", {
       default: "font-[Public_Sans]",
       heading: "font-[Lexend_Deca]",
     },
-    defaultVariants: {
-      variant: "default",
-      width: "default",
+    transform: {
+      none: "",
+      uppercase: "uppercase",
+      lowercase: "lowercase",
+      capitalize: "capitalize",
+    },
+    align: {
+      left: "text-left",
+      center: "text-center",
+      right: "text-right",
     },
   },
+  defaultVariants: {
+    variant: "default",
+    width: "default",
+    font: "default",
+    color: "default",
+    transform: "none",
+    align: "left",
+  },
 });
+
+const elementMap = new Map<string, ElementType>([
+  ["default", "p"],
+  ["h1", "h1"],
+  ["h2", "h2"],
+  ["h3", "h3"],
+  ["h4", "h4"],
+  ["h5", "h5"],
+  ["h6", "h6"],
+  ["p", "p"],
+]);
 
 export interface TextProps extends VariantProps<typeof textVariants> {
   children: React.ReactNode;
@@ -41,18 +68,25 @@ export interface TextProps extends VariantProps<typeof textVariants> {
 export function Text({
   children,
   className,
-  variant,
+  variant = "default",
   color,
   width,
   font,
+  transform,
+  align,
   ...props
 }: TextProps) {
+  const Component = elementMap.get(variant || "default") || "p";
+
   return (
-    <p
-      className={cn(textVariants({ variant, color, width, font }), className)}
+    <Component
+      className={cn(
+        textVariants({ variant, color, width, font, transform, align }),
+        className
+      )}
       {...props}
     >
       {children}
-    </p>
+    </Component>
   );
 }

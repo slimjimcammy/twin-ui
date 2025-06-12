@@ -1,23 +1,24 @@
 import { cn } from "../cn";
 import { cva, type VariantProps } from "class-variance-authority";
 
-const containerVariants = cva("mx-auto w-full box-border", {
+const containerVariants = cva("w-full box-border", {
   variants: {
     width: {
-      full: "w-full",
+      stretch: "w-full",
       default: "w-auto",
       screen: "w-screen",
     },
     height: {
-      full: "h-full",
+      stretch: "h-full",
       default: "h-auto",
       screen: "h-screen",
     },
     padding: {
       none: "p-0",
-      small: "p-4",
-      default: "p-6",
-      large: "p-8",
+      xs: "p-2",
+      sm: "p-4",
+      md: "p-6",
+      lg: "p-8",
     },
     border: {
       none: "border-none",
@@ -51,10 +52,15 @@ const containerVariants = cva("mx-auto w-full box-border", {
       bottomRightLeft:
         "border-br-black border-br-2 border-br-solid border-l-black border-l-2 border-l-solid",
     },
+    center: {
+      true: "mx-auto",
+      false: "mx-0",
+    },
   },
   defaultVariants: {
     width: "default",
-    padding: "default",
+    padding: "none",
+    center: false,
   },
 });
 
@@ -70,11 +76,12 @@ export function Container({
   padding,
   className = "",
   border,
+  center,
 }: ContainerProps) {
   return (
     <div
       className={cn(
-        containerVariants({ width, height, padding, border }),
+        containerVariants({ width, height, padding, border, center }),
         className
       )}
     >
