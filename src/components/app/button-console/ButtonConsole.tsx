@@ -1,53 +1,75 @@
-import { cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../cn";
 import { Flex } from "../../layout/Flex";
-import Widget from "../../layout/Widget";
-import ButtonConsoleItem from "./ButtonConsoleItem";
+import Button from "../../ui/Button";
+import type { ComponentProps } from "react";
 
 const buttonConsoleVariants = cva("relative", {
   variants: {
     variant: {
-      default: "h-[50px]",
-      sm: "h-[40px]",
-      md: "h-[50px]",
-      lg: "h-[60px]",
-      fit: "h-fit",
+      inline: "",
+      alone: "border-[#212732] border-[0.5px] border-solid",
     },
     width: {
       default: "w-auto",
       stretch: "w-full",
       fit: "w-fit",
     },
+    rounded: {
+      none: "",
+      sm: "rounded-sm",
+      md: "rounded-md",
+      lg: "rounded-lg",
+    },
   },
   defaultVariants: {
-    variant: "default",
+    variant: "inline",
     width: "default",
+    rounded: "md",
   },
 });
 
-export interface ButtonConsoleProps {
-  children: React.ReactNode;
+export interface ButtonConsoleProps
+  extends VariantProps<typeof buttonConsoleVariants> {
+  buttons: Array<ComponentProps<typeof Button> & { children: React.ReactNode }>;
   className?: string;
-  variant?: "default" | "sm" | "md" | "lg" | "fit";
   width?: "default" | "stretch" | "fit";
 }
 
 export default function ButtonConsole({
-  children,
+  buttons,
   className,
   variant,
   width,
+  rounded,
 }: ButtonConsoleProps) {
   return (
-    <Widget
-      variant="sm"
-      className={cn(buttonConsoleVariants({ variant, width }), className)}
+    <Flex
+      direction="row"
+      gap={variant === "alone" ? "none" : "md"}
+      width="stretch"
+      align="center"
+      className={cn(
+        buttonConsoleVariants({ variant, width, rounded }),
+        className,
+        "overflow-x-auto"
+      )}
     >
-      <Flex direction="row" gap="sm" width="stretch" align="center">
-        {children}
-      </Flex>
-    </Widget>
+      {buttons.map(({ children, ...buttonProps }, index) => (
+        <Button
+          key={index}
+          {...buttonProps}
+          rounded={variant === "alone" ? "none" : "md"}
+          className={cn(
+            buttonProps.className,
+            index !== buttons.length - 1 &&
+              variant === "alone" &&
+              "border-[#212732] border-r-[0.5px] border-solid"
+          )}
+        >
+          {children}
+        </Button>
+      ))}
+    </Flex>
   );
 }
-
-ButtonConsole.Item = ButtonConsoleItem;

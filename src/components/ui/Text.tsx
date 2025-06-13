@@ -13,10 +13,14 @@ const textVariants = cva("", {
       h5: "text-lg font-bold",
       h6: "text-base font-bold",
       p: "text-sm",
+      pSm: "text-xs",
+      pXs: "text-xxs",
     },
     color: {
-      default: "text-black",
-      light: "text-gray-500",
+      default: "text-[#F5F6FA]",
+      dimmed: "text-[#8B93A8]",
+      sub: "text-[#343B4C]",
+      dark: "text-[#212732]",
     },
     width: {
       default: "w-auto",
@@ -38,6 +42,12 @@ const textVariants = cva("", {
       center: "text-center",
       right: "text-right",
     },
+    weight: {
+      thin: "font-thin",
+      light: "font-light",
+      default: "font-normal",
+      bold: "font-bold",
+    },
   },
   defaultVariants: {
     variant: "default",
@@ -46,6 +56,7 @@ const textVariants = cva("", {
     color: "default",
     transform: "none",
     align: "left",
+    weight: "default",
   },
 });
 
@@ -74,6 +85,7 @@ export function Text({
   font,
   transform,
   align,
+  weight,
   ...props
 }: TextProps) {
   const Component = elementMap.get(variant || "default") || "p";
@@ -81,7 +93,7 @@ export function Text({
   return (
     <Component
       className={cn(
-        textVariants({ variant, color, width, font, transform, align }),
+        textVariants({ variant, color, width, font, transform, align, weight }),
         className
       )}
       {...props}

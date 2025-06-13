@@ -6,7 +6,7 @@ export interface ButtonProps extends VariantProps<typeof buttonVariants> {
   className?: string;
 }
 
-const buttonVariants = cva("hover:bg-gray-100 p-2 rounded-sm", {
+const buttonVariants = cva("", {
   variants: {
     variant: {
       primary: [
@@ -20,11 +20,8 @@ const buttonVariants = cva("hover:bg-gray-100 p-2 rounded-sm", {
         "duration-150",
       ].join(" "),
       secondary: [
-        "bg-white",
-        "text-black",
-        "border-black",
-        "border-2",
-        "hover:bg-gray-200",
+        "bg-[#F5F6FA]",
+        "hover:bg-gray-300",
         "hover:text-black",
         "hover:border-transparent",
         "transition-all",
@@ -34,13 +31,20 @@ const buttonVariants = cva("hover:bg-gray-100 p-2 rounded-sm", {
         "bg-transparent",
         "text-black",
         "border-transparent",
-        "hover:bg-gray-100",
+        "hover:bg-[#343B4C]",
         "hover:text-black",
       ].join(" "),
     },
     width: {
       default: "w-fit",
       stretch: "w-full",
+    },
+    rounded: {
+      none: "",
+      sm: "rounded-sm",
+      md: "rounded-md",
+      lg: "rounded-lg",
+      circle: "rounded-full",
     },
     size: {
       default: "pt-2 pb-2 pl-2.5 pr-2.5 text-md",
@@ -53,6 +57,7 @@ const buttonVariants = cva("hover:bg-gray-100 p-2 rounded-sm", {
     variant: "primary",
     width: "default",
     size: "default",
+    rounded: "md",
   },
 });
 
@@ -62,9 +67,15 @@ export default function Button({
   variant,
   width,
   size,
+  rounded,
 }: ButtonProps) {
   return (
-    <button className={cn(buttonVariants({ variant, width, size }), className)}>
+    <button
+      className={cn(
+        buttonVariants({ variant, width, size, rounded }),
+        className
+      )}
+    >
       {children}
     </button>
   );

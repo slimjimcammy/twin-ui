@@ -38,7 +38,11 @@ export default function Image({
     <img
       src={src}
       alt={alt}
-      className={cn(imageVariants({ width, height }), className)}
+      className={cn(
+        imageVariants({ width, height }),
+        className,
+        "object-cover"
+      )}
       {...props}
     />
   );
