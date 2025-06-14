@@ -2,19 +2,22 @@ import { cn } from "../cn";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Flex } from "../layout/Flex";
 import { Text } from "./Text";
-
-const textareaVariants = cva(
+import Button from "./Button";
+import { useRef } from "react";
+const fileInputVariants = cva(
   [
     "font-[Public_Sans]",
     "p-2",
-    "border-2 border-black border-solid",
-    "rounded-sm",
+    "border-2 border-gray-700 border-solid",
+    "rounded",
     "transition-all duration-150",
     "focus:outline-none",
     "focus:border-transparent focus:border-b-2 focus:border-b-black",
     "focus:bg-gray-100",
-    "resize-none",
-    "min-h-[100px]",
+    "mr-4",
+    "text-white",
+    "hover:bg-[#343B4C]",
+    "hover:text-white",
   ].join(" "),
   {
     variants: {
@@ -32,73 +35,71 @@ const textareaVariants = cva(
         lg: "w-64",
         xl: "w-96",
       },
-      height: {
-        default: "h-[100px]",
-        sm: "h-[80px]",
-        md: "h-[120px]",
-        lg: "h-[160px]",
-        xl: "h-[200px]",
-        auto: "h-auto",
-      },
     },
     defaultVariants: {
       variant: "default",
       width: "default",
-      height: "default",
     },
   }
 );
 
-export interface TextareaProps extends VariantProps<typeof textareaVariants> {
+export interface InputFieldProps extends VariantProps<typeof fileInputVariants> {
   label?: string;
   placeholder?: string;
   helperText?: string;
   className?: string;
-  textareaClassName?: string;
+  inputClassName?: string;
   required?: boolean;
-  rows?: number;
-  maxLength?: number;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  accept?: string;
+  name?: string;
+  inputId?: string,
 }
 
-export default function Textarea({
+export default function InputField({
+
   label,
   placeholder,
   helperText,
   className,
-  textareaClassName,
+  inputClassName,
   required,
   variant,
   width,
-  height,
-  rows,
-  maxLength,
-}: TextareaProps) {
+  onChange,
+  accept,
+  name,
+  inputId = "file-upload",
+  
+}: InputFieldProps) 
+
+{
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const handleClick = () => {
+    fileInputRef.current?.click();
+  };
   return (
     <Flex direction="column" gap="sm" className={className}>
-      {label && (
-        <Flex direction="row" gap="sm" align="center" justify="start">
-          <Text variant="h6">{label}</Text>
-          {required && <Text variant="p">*</Text>}
-        </Flex>
-      )}
-      <textarea
-        placeholder={placeholder}
+    {label && <Text variant="h6">{label}</Text>}
+      <input
+        ref={fileInputRef}
+        id={inputId}
+        type="file"
+        name={name}
         required={required}
-        className={cn(
-          textareaVariants({ variant, width, height }),
-          textareaClassName
-        )}
-        rows={rows}
-        maxLength={maxLength}
+        accept={accept}
+        onChange={onChange}
+        className="hidden"
       />
+      <Button
+        onClick={handleClick}
+        className={cn(fileInputVariants({ variant, width }), inputClassName)}
+      >
+        Choose File
+      </Button>
       {helperText && (
-        <Text variant="p" color="dark">
+        <Text variant="p" color="default">
           {helperText}
-        </Text>
-      )}
-      {maxLength && (
-        <Text variant="p" color="dark" className="text-right">
-          {maxLength} characters maximum
         </Text>
       )}
     </Flex>

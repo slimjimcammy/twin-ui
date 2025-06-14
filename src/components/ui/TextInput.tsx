@@ -7,12 +7,13 @@ const inputVariants = cva(
   [
     "font-[Public_Sans]",
     "p-2",
-    "border-2 border-black border-solid",
+    "border-2 border-gray-600 border-solid",
     "rounded-sm",
     "transition-all duration-150",
     "focus:outline-none",
-    "focus:border-transparent focus:border-b-2 focus:border-b-black",
-    "focus:bg-gray-100",
+    "focus:border-transparent focus:border-b-2 focus:border-white",
+    "focus:bg-gray-600",
+    "text-white",
   ].join(" "),
   {
     variants: {
@@ -38,11 +39,9 @@ const inputVariants = cva(
   }
 );
 
-const fileInputClasses =
-  "file:mr-4 file:py-2 file:px-4 file:rounded file:border-2 file:text-sm file:font-semibold file:bg-gray-400 file:text-black hover:file:bg-gray-600 hover:file:text-white";
 
-export interface InputFieldProps extends VariantProps<typeof inputVariants> {
-  type?: "text" | "file";
+export interface TextFieldProps extends VariantProps<typeof inputVariants> {
+  type?: "text";
   label?: string;
   placeholder?: string;
   helperText?: string;
@@ -53,7 +52,7 @@ export interface InputFieldProps extends VariantProps<typeof inputVariants> {
   accept?: string;
 }
 
-export default function InputField({
+export default function TextField({
 
   type = "text",
   label,
@@ -66,8 +65,7 @@ export default function InputField({
   width,
   onChange,
   accept,
-}: InputFieldProps) {
-  const isFile = type === "file";
+}: TextFieldProps) {
   return (
     <Flex direction="column" gap="sm" className={className}>
       {label && (
@@ -78,14 +76,14 @@ export default function InputField({
       )}
       <input
         type={type}
-        placeholder={isFile? undefined: placeholder}
+        placeholder={placeholder}
         required={required}
-        accept={isFile ? accept ?? ".mp3, audio" : undefined}
+        accept={accept ? "Whatever is acceptable" : undefined}
         onChange={onChange}
-        className={cn(inputVariants({ variant, width }), isFile? fileInputClasses : "", inputClassName)}
+        className={cn(inputVariants({ variant, width }), inputClassName)}
       />
-      {helperText && (
-        <Text variant="p" color="dark">
+      {helperText && (  
+        <Text variant="p" color="default">
           {helperText}
         </Text>
       )}

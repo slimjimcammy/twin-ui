@@ -5,11 +5,16 @@ import { Text } from "./components/ui/Text";
 import ButtonConsole from "./components/app/button-console/ButtonConsole";
 import { Flex } from "./components/layout/Flex";
 import { Icon } from "./components/ui/Icon";
+import Form from "./components/ui/Form";
+import FileInput from "./components/ui/FileInput";
+import TextField from "./components/ui/TextInput";
 
 export default function App() {
   
   return (
     <Page className="bg-[#05070A]">
+      <FileInput width="sm" helperText="only mp3 or audio"/> 
+      <TextField label="Hello" placeholder="Enter Name" helperText="Help"/>
       <HorizontalNav
         centerJustify="center"
         slotLeft={
@@ -75,6 +80,7 @@ export default function App() {
           />
         }
       />
+
       <ForYou />
     </Page>
   );

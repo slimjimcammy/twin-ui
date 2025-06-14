@@ -6,11 +6,13 @@ import { cn } from "../cn";
 export interface FormProps extends VariantProps<typeof formVariants> {
   children: React.ReactNode;
   className?: string;
+  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
+  onChange?: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const formVariants = cva("flex flex-col gap-2", {
   variants: {
-    variant: {
+    variant: {  
       default: "",
     },
   },
@@ -19,8 +21,12 @@ const formVariants = cva("flex flex-col gap-2", {
   },
 });
 
-export default function Form({ children, className, variant }: FormProps) {
+export default function Form({ children, className, variant, onSubmit, onChange, }: FormProps) {
   return (
-    <form className={cn(formVariants({ variant }), className)}>{children}</form>
+    <form 
+      onSubmit={onSubmit}
+      onChange={onChange}
+      className={cn(formVariants({ variant }), className)}>{children}
+    </form>
   );
 }
