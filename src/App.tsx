@@ -1,56 +1,81 @@
-import { Container } from "./components/layout/Container";
-import { Grid } from "./components/layout/Grid";
-import { Icon } from "./components/ui/Icon";
+import ForYou from "./pages/ForYou";
+import { Page } from "./components/layout/Page";
+import HorizontalNav from "./components/app/horizontal-nav/HorizontalNav";
 import { Text } from "./components/ui/Text";
+import ButtonConsole from "./components/app/button-console/ButtonConsole";
 import { Flex } from "./components/layout/Flex";
-import Button from "./components/ui/Button";
-import Textarea from "./components/ui/Textarea";
-import LikeButton from "./components/ui/LikeButton";
-import InputField from "./components/ui/TextInput";
+import { Icon } from "./components/ui/Icon";
+
 export default function App() {
   
   return (
-    
-    <Container padding="small" height="screen">
-      <Text variant="h1" color="default" width="stretch" font="heading">
-        Hello World
-      </Text>
-      <Icon src="/vite.svg" alt="Logo" />
-      <Grid cols="two" spacing="none" align="center" justify="center">
-        <Button className="flex items-center gap-2" variant="tan" size="sm">
-          {/* <Icon src="/vite.svg" alt="Logo" size="sm" /> */}
-          Post
-        </Button>
-        <Button className="flex items-center gap-2" variant="taro" size="sm">
-          {/* <Icon src="/vite.svg" alt="Logo" size="sm" /> */}
-          Connect MIDI
-        </Button>
-        <LikeButton variant="bright"  size="sm"/> 
-         <LikeButton iconType="play" variant="bright"  size="sm"/> 
-        <InputField
-          type="text"
-          label="Name"
-          placeholder="Enter your name"
-          required
-          helperText="Put both first and last name"
-        />
-      </Grid>
-      <Textarea
-        label="Message"
-        placeholder="Enter your message"
-        width="default"
-        height="xl"
-        helperText="This is a helper text"
-        required
+    <Page className="bg-[#05070A]">
+      <HorizontalNav
+        centerJustify="center"
+        slotLeft={
+          <Text variant="h4" color="default" font="heading">
+            TWIN
+          </Text>
+        }
+        slotCenter={
+          <ButtonConsole
+            variant="inline"
+            buttons={[
+              {
+                children: (
+                  <Flex direction="row" gap="sm" align="center">
+                    <Icon src="/vite.svg" alt="Logo" />
+                    <Text variant="p" color="default" font="default">
+                      For You
+                    </Text>
+                  </Flex>
+                ),
+                variant: "tertiary",
+              },
+              {
+                children: (
+                  <Text variant="p" color="default" font="default">
+                    Forum
+                  </Text>
+                ),
+                variant: "tertiary",
+              },
+              {
+                children: (
+                  <Text variant="p" color="default" font="default">
+                    Record
+                  </Text>
+                ),
+                variant: "tertiary",
+              },
+            ]}
+          />
+        }
+        slotRight={
+          <ButtonConsole
+            variant="inline"
+            buttons={[
+              {
+                children: (
+                  <Text variant="p" color="default" font="default">
+                    Sign In
+                  </Text>
+                ),
+                variant: "tertiary",
+              },
+              {
+                children: (
+                  <Text variant="p" color="dark" font="default">
+                    Sign Up
+                  </Text>
+                ),
+                variant: "secondary",
+              },
+            ]}
+          />
+        }
       />
-      <InputField
-        type="file"
-        label="Upload MP3"
-        helperText="Only .mp3 files accepted"
-        width="fit"
-        required
-        onChange={(e) => console.log("KYOTO Virtual Ryot Remix")}
-      />
-    </Container>
+      <ForYou />
+    </Page>
   );
 }

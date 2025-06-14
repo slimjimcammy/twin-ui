@@ -69,9 +69,9 @@ export default function InputField({
 }: InputFieldProps) {
   const isFile = type === "file";
   return (
-    <Flex direction="column" gap="small" className={className}>
+    <Flex direction="column" gap="sm" className={className}>
       {label && (
-        <Flex direction="row" gap="small" align="center" justify="start">
+        <Flex direction="row" gap="sm" align="center" justify="start">
           <Text variant="h6">{label}</Text>
           {required && <Text variant="p">*</Text>}
         </Flex>
@@ -85,7 +85,7 @@ export default function InputField({
         className={cn(inputVariants({ variant, width }), isFile? fileInputClasses : "", inputClassName)}
       />
       {helperText && (
-        <Text variant="p" color="light">
+        <Text variant="p" color="dark">
           {helperText}
         </Text>
       )}
