@@ -8,9 +8,9 @@ import { Icon } from "./components/ui/Icon";
 
 export default function App() {
   return (
-    <Page className="bg-[#05070A]">
+    <Page className="bg-[#05070A] max-w-[1440px] mx-auto">
       <HorizontalNav
-        centerJustify="center"
+        centerJustify="start"
         slotLeft={
           <Text variant="h4" color="default" font="heading">
             TWIN
