@@ -83,7 +83,7 @@ export default function TextField({
         className={cn(inputVariants({ variant, width }), inputClassName)}
       />
       {helperText && (  
-        <Text variant="p" color="default">
+        <Text variant="pSm" color="default">
           {helperText}
         </Text>
       )}

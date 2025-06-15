@@ -13,8 +13,12 @@ export default function App() {
   
   return (
     <Page className="bg-[#05070A]">
-      <FileInput width="sm" helperText="only mp3 or audio"/> 
+      <Form>
+        <FileInput width="sm" helperText="only mp3 or audio"/> 
       <TextField label="Hello" placeholder="Enter Name" helperText="Help"/>
+      <TextField label="Bye Bye" placeholder="Enter the matrix" helperText="HelpterText"/>
+      </Form>
+      
       <HorizontalNav
         centerJustify="center"
         slotLeft={
