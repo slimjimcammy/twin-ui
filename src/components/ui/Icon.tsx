@@ -26,7 +26,7 @@ export interface IconProps extends VariantProps<typeof iconVariants> {
 
 export function Icon({ src, alt, className, size, ...props }: IconProps) {
   return (
-    <div className={cn(iconVariants({ size }), className)}>
+    <div className={cn(iconVariants({ size }), className, "overflow-hidden")}>
       <Image src={src} alt={alt} width="stretch" height="stretch" {...props} />
     </div>
   );
