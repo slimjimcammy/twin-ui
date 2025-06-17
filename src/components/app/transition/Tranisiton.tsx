@@ -9,7 +9,7 @@ import Button from "../../ui/Button";
 
 export default function Transition() {
   return (
-    <Widget className="w-1/3 group">
+    <Widget className="w-1/3 group hover:cursor-pointer">
       <Flex direction="column" className="relative">
         <Flex direction="row">
           <Widget className="w-1/2 overflow-hidden rounded-r-none relative border-none rounded-b-none">

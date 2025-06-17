@@ -6,7 +6,7 @@ export interface ButtonProps extends VariantProps<typeof buttonVariants> {
   className?: string;
 }
 
-const buttonVariants = cva("", {
+const buttonVariants = cva("hover:cursor-pointer", {
   variants: {
     variant: {
       primary: [
