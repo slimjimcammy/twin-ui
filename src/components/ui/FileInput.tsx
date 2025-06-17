@@ -93,6 +93,7 @@ export default function InputField({
       />
       <Button
         onClick={handleClick}
+        size='sm'
         className={cn(fileInputVariants({ variant, width }), inputClassName)}
       >
         Choose File
