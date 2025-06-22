@@ -28,11 +28,11 @@ const buttonVariants = cva("hover:cursor-pointer", {
         "duration-150",
       ].join(" "),
       tertiary: [
-        "bg-transparent",
+        "bg-[#05070A]",
         "text-black",
         "border-transparent",
         "hover:bg-[#343B4C]",
-        "hover:text-black",
+        "hover:text-[#05070A]",
       ].join(" "),
     },
     width: {
