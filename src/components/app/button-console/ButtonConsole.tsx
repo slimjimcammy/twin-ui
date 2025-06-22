@@ -34,6 +34,7 @@ export interface ButtonConsoleProps
   buttons: Array<ComponentProps<typeof Button> & { children: React.ReactNode }>;
   className?: string;
   width?: "default" | "stretch" | "fit";
+  orientation: "horizontal" | "vertical";
 }
 
 export default function ButtonConsole({
@@ -42,17 +43,17 @@ export default function ButtonConsole({
   variant,
   width,
   rounded,
+  orientation,
 }: ButtonConsoleProps) {
   return (
     <Flex
-      direction="row"
+      direction={orientation === "horizontal" ? "row" : "column"}
       gap={variant === "alone" ? "none" : "md"}
       width="stretch"
       align="center"
       className={cn(
         buttonConsoleVariants({ variant, width, rounded }),
-        className,
-        "overflow-x-auto"
+        className
       )}
     >
       {buttons.map(({ children, ...buttonProps }, index) => (
