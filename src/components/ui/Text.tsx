@@ -15,6 +15,7 @@ const textVariants = cva("", {
       p: "text-sm",
       pSm: "text-xs",
       pXs: "text-xxs",
+      pXXs: "text-[14px]",
     },
     color: {
       default: "text-[#F5F6FA]",

@@ -2,7 +2,7 @@ import { Text } from "../components/ui/Text";
 import { Grid } from "../components/layout/Grid";
 import Widget from "../components/layout/Widget";
 import { Flex } from "../components/layout/Flex";
-import Transition from "../components/app/transition/Tranisiton";
+import Transition from "../components/app/transition/Transition";
 
 export default function ForYou() {
   return (

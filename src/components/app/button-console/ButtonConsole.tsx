@@ -53,6 +53,7 @@ export default function ButtonConsole({
       align="center"
       className={cn(
         buttonConsoleVariants({ variant, width, rounded }),
+        "overflow-hidden",
         className
       )}
     >
