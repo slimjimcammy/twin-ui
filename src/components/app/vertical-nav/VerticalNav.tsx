@@ -1,13 +1,8 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../cn";
 import { Flex } from "../../layout/Flex";
-import VerticalNavGroup from "./VerticalNavGroup";
-import VerticalNavItem from "./VerticalNavItem";
-import VerticalNavFooter from "./VerticalNavFooter";
-import VerticalNavHeader from "./VerticalNavHeader";
 import Widget from "../../layout/Widget";
 import { Text } from "../../ui/Text";
-import ButtonConsole from "../button-console/ButtonConsole";
 import Button from "../../ui/Button";
 
 const verticalNavVariants = cva("relative", {
@@ -61,25 +56,31 @@ export function VerticalNav({
       variant="sm"
       className={cn(
         verticalNavVariants({ variant, height }),
-        `${expanded ? "p-4 w-[250px]" : "p-0 w-fit"}`,
+        `${expanded ? "p-4 w-[200px]" : "p-0 w-fit"}`,
         className
       )}
     >
       <Flex direction="column" gap="lg" height="stretch">
         {groups.map((group, g_index) => (
           <Flex key={g_index} direction="column" gap="sm">
-            {expanded && <Text variant="h6">{group.label}</Text>}
+            {expanded && (
+              <Text variant="pXXs" color="dimmed">
+                {group.label}
+              </Text>
+            )}
             <Flex direction="column" width="fit">
               {group.actions.map((action, a_index) => (
                 <Button
                   key={a_index}
-                  className={expanded ? "w-full h-fit py-3" : "w-fit p-4 h-fit"}
+                  className={
+                    expanded ? "w-full h-fit py-3 px-2" : "w-fit p-4 h-fit"
+                  }
                   variant="tertiary"
                 >
                   <Flex direction="row" align="center" gap="lg">
                     {action.icon}
                     {expanded && (
-                      <Text color="default" variant="pXs">
+                      <Text color="default" variant="pXXs" weight="light">
                         {action.label}
                       </Text>
                     )}
@@ -93,9 +94,3 @@ export function VerticalNav({
     </Widget>
   );
 }
-
-// Attach compound components
-VerticalNav.Group = VerticalNavGroup;
-VerticalNav.Item = VerticalNavItem;
-VerticalNav.Footer = VerticalNavFooter;
-VerticalNav.Header = VerticalNavHeader;

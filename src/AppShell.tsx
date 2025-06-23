@@ -4,7 +4,6 @@ import ButtonConsole from "./components/app/button-console/ButtonConsole";
 import { Text } from "./components/ui/Text";
 import { Flex } from "./components/layout/Flex";
 import { VerticalNav } from "./components/app/vertical-nav/VerticalNav";
-import { Container } from "./components/layout/Container";
 import { ExploreIcon } from "./icons/ExploreIcon";
 import { FollowIcon } from "./icons/FollowIcon";
 import { ForumIcon } from "./icons/ForumIcon";
@@ -18,7 +17,7 @@ interface AppShellProps {
 
 export default function AppShell({ children }: AppShellProps) {
   return (
-    <Page className="bg-[#05070A] max-w-[1440px] mx-auto flex flex-col gap-4">
+    <Page className="bg-[#05070A] max-w-[1440px] mx-auto flex flex-col gap-4 overflow-x-hidden">
       <HorizontalNav
         centerJustify="start"
         slotLeft={
@@ -80,11 +79,6 @@ export default function AppShell({ children }: AppShellProps) {
               label: "ACCOUNT",
               actions: [
                 {
-                  icon: <ProfileIcon color="#F5F6FA" />,
-                  label: "Profile",
-                  variant: "tertiary",
-                },
-                {
                   icon: <RecordIcon color="#F5F6FA" />,
                   label: "Record",
                   variant: "tertiary",
@@ -92,6 +86,11 @@ export default function AppShell({ children }: AppShellProps) {
                 {
                   icon: <SettingsIcon color="#F5F6FA" />,
                   label: "Settings",
+                  variant: "tertiary",
+                },
+                {
+                  icon: <ProfileIcon color="#F5F6FA" />,
+                  label: "Profile",
                   variant: "tertiary",
                 },
               ],
