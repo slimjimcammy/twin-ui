@@ -7,17 +7,18 @@ const inputVariants = cva(
   [
     "font-[Public_Sans]",
     "p-2",
-    "border-2 border-black border-solid",
     "rounded-sm",
     "transition-all duration-150",
     "focus:outline-none",
-    "focus:border-transparent focus:border-b-2 focus:border-b-black",
-    "focus:bg-gray-100",
+    "focus:border-transparent",
+    "focus:border-[#F5F6FA] border-[0.5px] border-solid focus:px-3",
+    "text-[#F5F6FA]",
+    "text-[12px]",
   ].join(" "),
   {
     variants: {
       variant: {
-        default: "",
+        default: "border-[#212732] border-[0.5px] border-solid",
         error: "border-red-500 focus:border-b-red-500",
         success: "border-green-500 focus:border-b-green-500",
       },
@@ -58,10 +59,12 @@ export default function TextInput({
   width,
 }: TextInputProps) {
   return (
-    <Flex direction="column" gap="sm" className={className}>
+    <Flex direction="column" className="gap-1">
       {label && (
         <Flex direction="row" gap="sm" align="center" justify="start">
-          <Text variant="h6">{label}</Text>
+          <Text className="text-[12px]" weight="light">
+            {label}
+          </Text>
           {required && <Text variant="p">*</Text>}
         </Flex>
       )}
@@ -72,7 +75,7 @@ export default function TextInput({
         className={cn(inputVariants({ variant, width }), inputClassName)}
       />
       {helperText && (
-        <Text variant="p" color="light">
+        <Text color="dimmed" className="text-[10px]">
           {helperText}
         </Text>
       )}
