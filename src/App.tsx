@@ -5,8 +5,8 @@ import ViewTransition from "./pages/view-transition/ViewTransition";
 export default function App() {
   return (
     <AppShell>
-      {/* <ForYou /> */}
-      <ViewTransition />
+      <ForYou />
+      {/* <ViewTransition /> */}
     </AppShell>
   );
 }

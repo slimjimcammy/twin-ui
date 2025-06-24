@@ -12,9 +12,7 @@ export function TransitionCover({
   align: "left" | "right";
 }) {
   return (
-    <Widget
-      className={`w-1/2 overflow-hidden rounded-${align === "left" ? "r" : "l"}-none relative border-none rounded-b-none`}
-    >
+    <Widget className="w-1/2 overflow-hidden relative border-none rounded-none">
       <div className="absolute inset-0 bg-gradient-to-t from-[#05070a] from-15% via-[#05070a]/40 via-45% to-transparent z-10" />
       <Image
         src={src}
