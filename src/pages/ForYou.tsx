@@ -3,6 +3,8 @@ import { Grid } from "../components/layout/Grid";
 import Widget from "../components/layout/Widget";
 import { Flex } from "../components/layout/Flex";
 import Transition from "../components/app/transition/Transition";
+import TextInput from "../components/ui/TextInput";
+import { RightArrowIcon } from "../icons/RightArrowIcon";
 
 export default function ForYou() {
   return (
@@ -13,9 +15,24 @@ export default function ForYou() {
       height="stretch"
       width="stretch"
     >
-      <Text variant="h1" color="default" font="heading">
-        Explore
-      </Text>
+      <Flex direction="row" align="center" justify="between">
+        <Text
+          variant="h1"
+          color="default"
+          font="heading"
+          className="hidden sm:block"
+        >
+          Explore
+        </Text>
+        <Flex direction="row" align="center" gap="sm">
+          <TextInput label="Base" required placeholder="Search..." />
+          <div className="mt-4">
+            <RightArrowIcon size={20} color="#F5F6FA" />
+          </div>
+          <TextInput label="Twin" required placeholder="Search..." />
+        </Flex>
+      </Flex>
+
       <Widget className="flex-1 min-h-0 p-4 overflow-y-auto">
         <Grid cols="three">
           <Transition
