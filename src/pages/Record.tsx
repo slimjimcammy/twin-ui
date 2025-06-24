@@ -1,9 +1,8 @@
-import Form from "../components/ui/Form"
+
 import TextField from "../components/ui/TextInput"
 import FileInput from "../components/ui/FileInput"
 import { Grid } from "../components/layout/Grid";
 import { Text } from "../components/ui/Text";
-import HorizontalNav from "../components/app/horizontal-nav/HorizontalNav";
 import Button from "../components/ui/Button";
 import Widget from "../components/layout/Widget";
 import Image from "../components/ui/Image";
@@ -11,18 +10,12 @@ import { Container } from "../components/layout/Container";
 export default function Record() {
     return (
         <Container className="mt-10" width='default'>
-            
-        
-        <Grid cols='two'>
-            <Grid cols='one' spacing='sm' justify='center' align='center'>
-            <Text font="heading">1. Fill Out Form <Text variant='pSm'>(Fill all required fields)</Text></Text>
-            <Text font="heading">2. Connect MIDI device <Text variant='pSm'> (Await confirmpation pop-up) </Text> </Text>
-            <Text font="heading">3. Hit record on Cerato  <Text variant='pSm'> (Button on X deck, on the Y)</Text> </Text>
-            <Text font="heading">4. Press capture here <Text variant='pSm'> (and start DJ-ing!)</Text></Text>
-            <Button shape="circle" size="sm" variant="secondary">Connect MIDI</Button>
-        </Grid>
-            <Text> </Text>
-            <TextField width='md' label="Transition name"/>
+        <Text variant="h1" weight='bold' className="pb-4">
+            RECORD
+        </Text>
+        <Grid cols='two' spacing='xl' className="border rounded-sm p-5 border-white">
+            <Grid cols='two'>
+                <TextField width='md' label="Transition name"/>
             <FileInput label="Audio" width="md" /> 
             <TextField label="Song 1" placeholder="KYOTO" helperText="Help"/>
             <TextField label="Song 2" placeholder="JACKIE CHAN" helperText="HelpterText"/>
@@ -76,8 +69,18 @@ export default function Record() {
                 </Text>
                 </Widget>
             </Widget>
+            </Grid>
+            <Grid cols='two' spacing='sm' justify='center' align='start'>
+            <Text variant='h4' font="heading">1. Fill Out Form <Text variant='pSm'>(Fill all required fields)</Text></Text>
+            <Text variant='h4' font="heading">2. Connect MIDI device <Text variant='pSm'> (Await confirmpation pop-up) </Text> </Text>
+            <Text variant='h4' font="heading">3. Hit record on Cerato  <Text variant='pSm'> (Button on X deck, on the Y)</Text> </Text>
+            <Text variant='h4' font="heading">4. Press capture here <Text variant='pSm'> (and start DJ-ing!)</Text></Text>
+            <Button shape="circle" size="sm" variant="secondary">Connect MIDI</Button>
+               <Button size="md" variant="secondary">POST</Button>
         </Grid>
-      <HorizontalNav 
+        </Grid>
+       
+      {/* <HorizontalNav 
             slotLeft={<TextField label="Transition name"/>}
             slotRight={<Grid cols='one' spacing='sm' justify='center' align='center'>
             <Text font="heading">1. Fill Out Form <Text variant='pSm'>(Fill all required fields)</Text></Text>
@@ -146,7 +149,7 @@ export default function Record() {
                           </Widget>
                         </Widget>}>
         </HorizontalNav>
-        <Button size="md" variant="secondary">POST</Button>
+         */}
         </Container>
          );
 
