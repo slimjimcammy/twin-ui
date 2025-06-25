@@ -14,19 +14,32 @@ const formVariants = cva("flex flex-col gap-2", {
   variants: {
     variant: {  
       default: "",
+      inline: "flex sm:flex-row sm:items-center", 
+    },
+    theme: {
+      none: "",
+      light: "bg-white text-black",
+      dark: "bg-black text-white"
+    },
+    size: {
+      sm: "text-sm gap-5",
+      md: "text-md gap-10",
+      lg: "text-lg gap-20",
     },
   },
   defaultVariants: {
     variant: "default",
+    theme:"none",
+    size:"md",
   },
 });
 
-export default function Form({ children, className, variant, onSubmit, onChange, }: FormProps) {
+export default function Form({ children, className, variant, theme, size, onSubmit, onChange, }: FormProps) {
   return (
     <form 
       onSubmit={onSubmit}
       onChange={onChange}
-      className={cn(formVariants({ variant }), className)}>{children}
+      className={cn(formVariants({ variant, theme, size }), className)}>{children}
     </form>
   );
 }

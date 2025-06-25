@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { Flex } from "../layout/Flex";
 import { Text } from "./Text";
 import Button from "./Button";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 const fileInputVariants = cva(
   [
     "font-[Public_Sans]",
@@ -75,9 +75,15 @@ export default function InputField({
 
 {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [fileName, setFileName] = useState<string | null>(null);
   const handleClick = () => {
     fileInputRef.current?.click();
   };
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) setFileName(file.name);
+    onChange?.(e);
+  }
   return (
     <Flex direction="column" gap="sm" className={className}>
     {label && <Text variant="h6">{label}</Text>}
@@ -88,7 +94,7 @@ export default function InputField({
         name={name}
         required={required}
         accept={accept}
-        onChange={onChange}
+        onChange={handleFileChange}
         className="hidden"
       />
       <Button
@@ -98,6 +104,11 @@ export default function InputField({
       >
         Choose File
       </Button>
+      {fileName && (
+      <Text variant="p" color="default" className="text-sm text-gray-500 mt-1">
+        Selected: {fileName}
+      </Text>
+    )}
       {helperText && (
         <Text variant="p" color="default">
           {helperText}
