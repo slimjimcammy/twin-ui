@@ -10,7 +10,7 @@ export default function ForYou() {
   return (
     <Flex
       direction="column"
-      gap="lg"
+      gap="md"
       className="pl-4 h-full min-h-0"
       height="stretch"
       width="stretch"
@@ -19,22 +19,36 @@ export default function ForYou() {
         <Text
           variant="h1"
           color="default"
-          font="heading"
+          font="header"
           className="hidden sm:block"
         >
           Explore
         </Text>
         <Flex direction="row" align="center" gap="sm">
-          <TextInput label="Base" required placeholder="Search..." />
-          <div className="mt-4">
+          <TextInput
+            label="Base"
+            required
+            placeholder="Search..."
+            padding="sm"
+          />
+          <div className="mt-lg">
             <RightArrowIcon size={20} color="#F5F6FA" />
           </div>
-          <TextInput label="Twin" required placeholder="Search..." />
+          <TextInput
+            label="Twin"
+            required
+            placeholder="Search..."
+            padding="sm"
+          />
         </Flex>
       </Flex>
 
-      <Widget className="flex-1 min-h-0 p-4 overflow-y-auto">
-        <Grid cols="three">
+      <Widget height="stretch" className="flex-1 min-h-0" padding="md">
+        <Grid
+          cols="three"
+          spacing="md"
+          className="flex-1 min-h-0 overflow-y-auto"
+        >
           <Transition
             leftCoverSrc="/beyonce.jpg"
             leftTitle="Beyonce adoiuhawiof owa wao fawhi"

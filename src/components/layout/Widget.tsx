@@ -1,8 +1,8 @@
 import { cn } from "../cn";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Container } from "./Container";
+import { Flex, type FlexProps } from "./Flex";
 
-const widgetVariants = cva("border-[#212732] border-[0.5px] border-solid", {
+const widgetVariants = cva("border-line border-[0.5px] border-solid", {
   variants: {
     variant: {
       sm: "rounded-sm",
@@ -11,7 +11,7 @@ const widgetVariants = cva("border-[#212732] border-[0.5px] border-solid", {
     },
     glow: {
       none: "",
-      light: "shadow-[0_0_32px_4px_rgba(52,59,76,0.15)]",
+      light: "shadow-glow",
     },
   },
   defaultVariants: {
@@ -20,25 +20,26 @@ const widgetVariants = cva("border-[#212732] border-[0.5px] border-solid", {
   },
 });
 
-export interface WidgetProps extends VariantProps<typeof widgetVariants> {
+export interface WidgetProps
+  extends FlexProps,
+    VariantProps<typeof widgetVariants> {
   children: React.ReactNode;
   className?: string;
-  padding?: "none" | "xs" | "sm" | "md" | "lg";
 }
 
 export default function Widget({
   children,
   className,
   variant,
-  padding,
   glow,
+  ...props
 }: WidgetProps) {
   return (
-    <Container
-      padding={padding}
+    <Flex
       className={cn(widgetVariants({ variant, glow }), className)}
+      {...props}
     >
       {children}
-    </Container>
+    </Flex>
   );
 }

@@ -56,31 +56,33 @@ export function VerticalNav({
       variant="sm"
       className={cn(
         verticalNavVariants({ variant, height }),
-        `${expanded ? "p-4 w-[200px]" : "p-0 w-fit"}`,
+        `${expanded ? "p-md w-[200px]" : "p-0 w-fit"}`,
         className
       )}
     >
-      <Flex direction="column" gap="lg" height="stretch">
+      <Flex direction="column" gap="lg" height="stretch" width="stretch">
         {groups.map((group, g_index) => (
           <Flex key={g_index} direction="column" gap="sm">
             {expanded && (
-              <Text variant="pXXs" color="dimmed">
+              <Text variant="caption" color="dimmed">
                 {group.label}
               </Text>
             )}
-            <Flex direction="column" width="fit">
+            <Flex direction="column" width={expanded ? "stretch" : "fit"}>
               {group.actions.map((action, a_index) => (
                 <Button
                   key={a_index}
+                  width={expanded ? "stretch" : "default"}
                   className={
-                    expanded ? "w-full h-fit py-3 px-2" : "w-fit p-4 h-fit"
+                    expanded ? "w-full h-fit py-md px-lg" : "w-fit p-md h-fit"
                   }
-                  variant="tertiary"
+                  variant="primary"
+                  size={expanded ? "default" : "centeredMd"}
                 >
-                  <Flex direction="row" align="center" gap="lg">
+                  <Flex direction="row" align="center" gap="md">
                     {action.icon}
                     {expanded && (
-                      <Text color="default" variant="pXXs" weight="light">
+                      <Text color="default" variant="p" weight="light">
                         {action.label}
                       </Text>
                     )}

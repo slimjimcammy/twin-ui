@@ -1,7 +1,9 @@
 import { cn } from "../cn";
 import { cva, type VariantProps } from "class-variance-authority";
 
-export interface FlexProps extends VariantProps<typeof flexVariants> {
+export interface FlexProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof flexVariants> {
   children: React.ReactNode;
   className?: string;
 }
@@ -35,19 +37,36 @@ const flexVariants = cva("flex", {
     },
     gap: {
       none: "gap-0",
-      sm: "gap-1",
-      md: "gap-2",
-      lg: "gap-3",
+      sm: "gap-sm",
+      md: "gap-md",
+      lg: "gap-lg",
+      xl: "gap-xl",
     },
     width: {
       default: "w-auto",
       stretch: "w-full",
       fit: "w-fit",
+      screen: "w-screen",
     },
     height: {
       default: "h-auto",
       stretch: "h-full",
       fit: "h-fit",
+      screen: "h-screen",
+    },
+    padding: {
+      none: "",
+      sm: "p-sm",
+      md: "p-md",
+      lg: "p-lg",
+      xl: "p-xl",
+    },
+    radius: {
+      none: "",
+      sm: "rounded-sm",
+      md: "rounded-md",
+      lg: "rounded-lg",
+      round: "rounded-full",
     },
     defaultVariants: {
       direction: "row",
@@ -55,6 +74,8 @@ const flexVariants = cva("flex", {
       align: "start",
       wrap: "wrap",
       gap: "none",
+      padding: "none",
+      radius: "none",
     },
   },
 });
@@ -67,13 +88,26 @@ export function Flex({
   align,
   wrap,
   gap,
+  width,
   height,
+  padding,
+  radius,
   ...props
 }: FlexProps) {
   return (
     <div
       className={cn(
-        flexVariants({ direction, justify, align, wrap, gap, height }),
+        flexVariants({
+          direction,
+          justify,
+          align,
+          wrap,
+          width,
+          gap,
+          height,
+          padding,
+          radius,
+        }),
         className
       )}
       {...props}

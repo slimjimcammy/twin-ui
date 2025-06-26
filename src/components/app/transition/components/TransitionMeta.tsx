@@ -12,28 +12,28 @@ export function TransitionMeta({
 }) {
   return (
     <Flex direction="column" justify="between" className="pb-4 ps-4" gap="md">
-      <Flex direction="row" gap="lg" align="center">
+      <Flex direction="row" gap="md" align="center">
         <img
           src={userAvatarSrc}
           alt={userName}
           className="rounded-full"
-          style={{ width: 24, height: 24 }}
+          style={{ width: 20, height: 20 }}
         />
         <Text
-          variant="p"
+          variant="caption"
           color="default"
-          font="heading"
+          font="header"
           className="overflow-hidden whitespace-nowrap text-ellipsis pr-2"
         >
           {userName}
         </Text>
       </Flex>
       <Text
-        variant="p"
+        variant="caption"
         color="default"
         font="default"
         weight="thin"
-        className="line-clamp-2 h-10"
+        className="line-clamp-2 h-[32px]"
       >
         {description}
       </Text>

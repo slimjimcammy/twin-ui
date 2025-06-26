@@ -24,14 +24,15 @@ export function TransitionActions({
                   src="/heart.svg"
                   alt="Like"
                   className="brightness-0 invert"
-                  style={{ width: 24, height: 24 }}
+                  style={{ width: 16, height: 16 }}
                 />
-                <Text variant="p" color="default" font="default">
+                <Text variant="strong" color="default" font="header">
                   {likes}
                 </Text>
               </Flex>
             ),
-            variant: "tertiary",
+            variant: "primary",
+            size: "sm",
           },
           {
             children: (
@@ -40,14 +41,15 @@ export function TransitionActions({
                   src="/comment.svg"
                   alt="Comment"
                   className="brightness-0 invert"
-                  style={{ width: 24, height: 24 }}
+                  style={{ width: 16, height: 16 }}
                 />
-                <Text variant="p" color="default" font="default">
+                <Text variant="strong" color="default" font="header">
                   {comments}
                 </Text>
               </Flex>
             ),
-            variant: "tertiary",
+            variant: "primary",
+            size: "sm",
           },
           {
             children: (
@@ -56,14 +58,15 @@ export function TransitionActions({
                   src="/share.svg"
                   alt="Share"
                   className="brightness-0 invert"
-                  style={{ width: 24, height: 24 }}
+                  style={{ width: 16, height: 16 }}
                 />
-                <Text variant="p" color="default" font="default">
+                <Text variant="strong" color="default" font="header">
                   {shares}
                 </Text>
               </Flex>
             ),
-            variant: "tertiary",
+            variant: "primary",
+            size: "sm",
           },
         ]}
       />

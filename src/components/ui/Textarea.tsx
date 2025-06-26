@@ -5,32 +5,18 @@ import { Text } from "./Text";
 
 const textareaVariants = cva(
   [
-    "font-[Public_Sans]",
-    "p-2",
-    "border-2 border-black border-solid",
-    "rounded-sm",
+    "font-default",
+    "border-line border-[0.5px] border-solid",
     "transition-all duration-150",
     "focus:outline-none",
-    "focus:border-transparent focus:border-b-2 focus:border-b-black",
-    "focus:bg-gray-100",
     "resize-none",
-    "min-h-[100px]",
   ].join(" "),
   {
     variants: {
-      variant: {
-        default: "",
-        error: "border-red-500 focus:border-b-red-500",
-        success: "border-green-500 focus:border-b-green-500",
-      },
       width: {
         default: "w-auto",
         stretch: "w-full",
         fit: "w-fit",
-        sm: "w-24",
-        md: "w-48",
-        lg: "w-64",
-        xl: "w-96",
       },
       height: {
         default: "h-[100px]",
@@ -40,16 +26,23 @@ const textareaVariants = cva(
         xl: "h-[200px]",
         auto: "h-auto",
       },
+      padding: {
+        default: "px-md py-sm focus:px-lg focus:py-md",
+        sm: "px-sm py-xs focus:px-md focus:py-xs",
+        md: "px-lg py-md focus:px-xl focus:py-lg",
+      },
     },
     defaultVariants: {
-      variant: "default",
       width: "default",
       height: "default",
+      padding: "default",
     },
   }
 );
 
-export interface TextareaProps extends VariantProps<typeof textareaVariants> {
+export interface TextareaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    VariantProps<typeof textareaVariants> {
   label?: string;
   placeholder?: string;
   helperText?: string;
@@ -67,10 +60,10 @@ export default function Textarea({
   className,
   textareaClassName,
   required,
-  variant,
   width,
   height,
   rows,
+  padding,
   maxLength,
 }: TextareaProps) {
   return (
@@ -84,23 +77,15 @@ export default function Textarea({
       <textarea
         placeholder={placeholder}
         required={required}
-        className={cn(
-          textareaVariants({ variant, width, height }),
-          textareaClassName
-        )}
         rows={rows}
         maxLength={maxLength}
+        className={cn(
+          textareaVariants({ width, height, padding }),
+          textareaClassName
+        )}
       />
-      {helperText && (
-        <Text variant="p" color="light">
-          {helperText}
-        </Text>
-      )}
-      {maxLength && (
-        <Text variant="p" color="light" className="text-right">
-          {maxLength} characters maximum
-        </Text>
-      )}
+      {helperText && <Text variant="p">{helperText}</Text>}
+      {maxLength && <Text variant="p">{maxLength} characters maximum</Text>}
     </Flex>
   );
 }

@@ -17,12 +17,12 @@ export function TransitionCover({
       <Image
         src={src}
         alt={title}
-        className="object-cover transition-opacity duration-200 opacity-65 group-hover:opacity-100"
+        className={`object-cover transition-opacity duration-200 opacity-65 group-hover:opacity-100 ${align === "left" ? "rounded-tl-md" : "rounded-tr-md"}`}
       />
       <Text
-        variant="h6"
+        variant="strong"
         color="default"
-        font="heading"
+        font="header"
         align={align}
         className={`absolute bottom-4 ${align === "left" ? "left-4" : "right-4"} z-20 w-fit overflow-hidden whitespace-nowrap text-ellipsis`}
       >

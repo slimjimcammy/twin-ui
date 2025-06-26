@@ -30,7 +30,7 @@ export default function Transition({
   shares,
 }: TransitionProps) {
   return (
-    <Widget className="group hover:cursor-pointer overflow-hidden">
+    <Widget className="group hover:cursor-pointer" height="fit" variant="md">
       <Flex direction="column" className="relative">
         <Flex direction="row">
           <TransitionCover src={leftCoverSrc} title={leftTitle} align="left" />
