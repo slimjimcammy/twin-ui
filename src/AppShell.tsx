@@ -1,4 +1,3 @@
-import { Page } from "./components/layout/Page";
 import HorizontalNav from "./components/app/horizontal-nav/HorizontalNav";
 import ButtonConsole from "./components/app/button-console/ButtonConsole";
 import { Text } from "./components/ui/Text";
@@ -17,11 +16,19 @@ interface AppShellProps {
 
 export default function AppShell({ children }: AppShellProps) {
   return (
-    <Page className="bg-[#05070A] max-w-[1440px] mx-auto flex flex-col gap-4 overflow-x-hidden">
+    <Flex
+      direction="column"
+      padding="md"
+      height="screen"
+      width="screen"
+      gap="sm"
+      className="max-w-[1440px] mx-auto overflow-x-hidden"
+      justify="between"
+    >
       <HorizontalNav
         centerJustify="start"
         slotLeft={
-          <Text variant="h4" color="default" font="heading">
+          <Text variant="h4" color="default" font="header">
             TWIN
           </Text>
         }
@@ -33,25 +40,32 @@ export default function AppShell({ children }: AppShellProps) {
             buttons={[
               {
                 children: (
-                  <Text variant="p" color="default" font="default">
+                  <Text variant="caption" color="default" font="default">
                     Sign In
                   </Text>
                 ),
-                variant: "tertiary",
+                variant: "primary",
+                size: "sm",
               },
               {
                 children: (
-                  <Text variant="p" color="dark" font="default">
+                  <Text variant="caption" color="dark" font="default">
                     Sign Up
                   </Text>
                 ),
                 variant: "secondary",
+                size: "sm",
               },
             ]}
           />
         }
       />
-      <Flex direction="row" height="stretch" className="py-2 h-full min-h-0">
+      <Flex
+        direction="row"
+        height="stretch"
+        padding="sm"
+        className="h-full min-h-0"
+      >
         <VerticalNav
           expanded={false}
           groups={[
@@ -97,8 +111,8 @@ export default function AppShell({ children }: AppShellProps) {
             },
           ]}
         />
-        <div className="flex-1 h-full min-h-0">{children}</div>
+        {children}
       </Flex>
-    </Page>
+    </Flex>
   );
 }

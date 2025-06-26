@@ -1,7 +1,9 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../cn";
 
-export interface GridProps extends VariantProps<typeof gridVariants> {
+export interface GridProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof gridVariants> {
   children: React.ReactNode;
   className?: string;
 }
@@ -20,11 +22,10 @@ const gridVariants = cva("grid", {
     },
     spacing: {
       none: "gap-0",
-      xs: "gap-1",
-      sm: "gap-2",
-      md: "gap-4",
-      lg: "gap-6",
-      xl: "gap-8",
+      sm: "gap-sm",
+      md: "gap-md",
+      lg: "gap-lg",
+      xl: "gap-xl",
     },
     align: {
       start: "items-start",
@@ -38,10 +39,20 @@ const gridVariants = cva("grid", {
       end: "justify-end",
       between: "justify-between",
     },
+    width: {
+      fit: "w-fit",
+      stretch: "w-full",
+      screen: "w-screen",
+    },
+    height: {
+      fit: "h-fit",
+      stretch: "h-full",
+      screen: "h-screen",
+    },
   },
   defaultVariants: {
     cols: "auto-fit",
-    spacing: "md",
+    spacing: "sm",
     align: "stretch",
     justify: "start",
   },
@@ -53,11 +64,25 @@ export function Grid({
   spacing,
   align,
   justify,
-  className = "",
+  width,
+  height,
+  className,
+  ...props
 }: GridProps) {
   return (
     <div
-      className={cn(gridVariants({ cols, spacing, align, justify, className }))}
+      className={cn(
+        gridVariants({
+          cols,
+          spacing,
+          align,
+          justify,
+          width,
+          height,
+          className,
+        })
+      )}
+      {...props}
     >
       {children}
     </div>

@@ -22,15 +22,25 @@ const containerVariants = cva("box-border", {
       xl: "p-10 p-5",
       xxl: "p-12 p-6",
     },
+    radius: {
+      none: "",
+      sm: "rounded-sm",
+      md: "rounded-md",
+      lg: "rounded-lg",
+      round: "rounded-full",
+    },
   },
   defaultVariants: {
     width: "default",
     height: "default",
     padding: "none",
+    radius: "none",
   },
 });
 
-export interface ContainerProps extends VariantProps<typeof containerVariants> {
+export interface ContainerProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof containerVariants> {
   children: React.ReactNode;
   className?: string;
 }
@@ -40,11 +50,17 @@ export function Container({
   width,
   height,
   padding,
-  className = "",
+  radius,
+  className,
+  ...props
 }: ContainerProps) {
   return (
     <div
-      className={cn(containerVariants({ width, height, padding }), className)}
+      className={cn(
+        containerVariants({ width, height, padding, radius }),
+        className
+      )}
+      {...props}
     >
       {children}
     </div>

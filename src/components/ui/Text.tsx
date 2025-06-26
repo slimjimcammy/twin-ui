@@ -11,17 +11,18 @@ const textVariants = cva("", {
       h3: "text-2xl font-bold",
       h4: "text-xl font-bold",
       h5: "text-lg font-bold",
-      h6: "text-base font-bold",
-      p: "text-sm",
-      pSm: "text-xs",
-      pXs: "text-xxs",
-      pXXs: "text-[14px]",
+      h6: "text-base font-default",
+      p: "text-base font-default",
+      p2: "text-sm font-light",
+      span: "text-base font-default",
+      span2: "text-sm font-light",
+      caption: "text-xs font-light",
+      strong: "text-sm font-bold",
     },
     color: {
-      default: "text-[#F5F6FA]",
-      dimmed: "text-[#8B93A8]",
-      sub: "text-[#343B4C]",
-      dark: "text-[#212732]",
+      default: "text-light",
+      dimmed: "text-subtitle",
+      dark: "text-primary",
     },
     width: {
       default: "w-auto",
@@ -29,8 +30,8 @@ const textVariants = cva("", {
       fit: "w-fit",
     },
     font: {
-      default: "font-[Public_Sans]",
-      heading: "font-[Lexend_Deca]",
+      default: "font-default",
+      header: "font-header",
     },
     transform: {
       none: "",
@@ -70,6 +71,11 @@ const elementMap = new Map<string, ElementType>([
   ["h5", "h5"],
   ["h6", "h6"],
   ["p", "p"],
+  ["p2", "p"],
+  ["caption", "p"],
+  ["strong", "p"],
+  ["span", "span"],
+  ["span2", "span"],
 ]);
 
 export interface TextProps extends VariantProps<typeof textVariants> {
@@ -80,7 +86,7 @@ export interface TextProps extends VariantProps<typeof textVariants> {
 export function Text({
   children,
   className,
-  variant = "default",
+  variant,
   color,
   width,
   font,

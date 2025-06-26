@@ -8,7 +8,7 @@ const buttonConsoleVariants = cva("relative", {
   variants: {
     variant: {
       inline: "",
-      alone: "border-[#212732] border-[0.5px] border-solid",
+      alone: "border-line border-[0.5px] border-solid",
     },
     width: {
       default: "w-auto",
