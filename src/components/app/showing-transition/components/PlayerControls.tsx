@@ -25,7 +25,13 @@ export function PlayerControls({
   onSkip10,
 }: PlayerControlsProps) {
   return (
-    <Flex justify="center" gap="lg" align="center">
+    <Flex
+      justify="center"
+      gap="md"
+      align="center"
+      width="fit"
+      className="mx-auto"
+    >
       <Button variant="secondary" rounded="circle" onClick={onRewind5}>
         <Rewind5Icon size={12} />
       </Button>

@@ -22,9 +22,10 @@ const buttonVariants = cva("hover:cursor-pointer", {
         "bg-light",
         "text-dark",
         "border-transparent",
-        "hover:bg-dark",
+        "hover:bg-subtitle",
         "hover:text-light",
       ].join(" "),
+      disabled: ["bg-primary", "text-subtitle", "hover:cursor-not-alowed"],
     },
     width: {
       default: "w-fit",

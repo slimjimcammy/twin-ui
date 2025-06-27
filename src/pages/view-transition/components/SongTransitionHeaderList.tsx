@@ -27,12 +27,12 @@ export function SongTransitionHeaderList({
     <Flex
       direction="column"
       width="stretch"
-      gap="lg"
-      className="max-h-[325px] overflow-y-auto"
+      gap="md"
+      className="overflow-y-auto"
     >
       {transitions.map((item, idx) => (
         <Flex direction="row" align="center" justify="between" key={idx}>
-          <Flex direction="row" gap="md" align="center" className="min-w-0">
+          <Flex direction="row" gap="sm" align="center" className="min-w-0">
             <Widget className="w-[30px] h-[30px] overflow-hidden flex-shrink-0">
               <Image
                 src={item.from.imageSrc}
@@ -49,15 +49,18 @@ export function SongTransitionHeaderList({
                 height="stretch"
               />
             </Widget>
-            <Text variant="pXXs" weight="light" className="truncate">
+            <Text variant="caption" weight="light" className="truncate">
               {item.from.name} song to
-              <span className="text-[#8B93A8]"> {item.to.name}</span>
+              <Text variant="span2" color="dimmed">
+                {" "}
+                {item.to.name}
+              </Text>
             </Text>
           </Flex>
 
           <Flex direction="row" align="center" gap="sm">
             <HeartIcon color="#F5F6FA" size={16} />
-            <Text variant="pXXs">{item.likes}</Text>
+            <Text variant="caption">{item.likes}</Text>
           </Flex>
         </Flex>
       ))}

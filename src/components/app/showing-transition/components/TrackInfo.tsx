@@ -20,9 +20,9 @@ export type TrackInfoProps = {
 
 export function TrackInfo({ user, socials, description }: TrackInfoProps) {
   return (
-    <Flex direction="column" gap="lg" className="px-4 pb-4">
+    <Flex direction="column" gap="md" className="px-4 pb-4">
       <Flex direction="row" align="center" justify="between">
-        <Flex direction="row" align="center" gap="md">
+        <Flex direction="row" align="center" gap="sm">
           <Image
             src={user.avatarSrc}
             alt="Profile picture"
@@ -48,7 +48,8 @@ export function TrackInfo({ user, socials, description }: TrackInfoProps) {
                   </Text>
                 </Flex>
               ),
-              variant: "tertiary",
+              variant: "primary",
+              size: "sm",
             },
             {
               children: (
@@ -64,7 +65,8 @@ export function TrackInfo({ user, socials, description }: TrackInfoProps) {
                   </Text>
                 </Flex>
               ),
-              variant: "tertiary",
+              variant: "primary",
+              size: "sm",
             },
             {
               children: (
@@ -80,13 +82,14 @@ export function TrackInfo({ user, socials, description }: TrackInfoProps) {
                   </Text>
                 </Flex>
               ),
-              variant: "tertiary",
+              variant: "primary",
+              size: "sm",
             },
           ]}
         />
       </Flex>
       <Text
-        variant="pSm"
+        variant="span2"
         weight="light"
         color="dimmed"
         className="line-clamp-5"

@@ -101,13 +101,18 @@ export default function ViewTransition() {
   return (
     <Flex
       direction="column"
-      gap="lg"
+      gap="md"
       className="pl-4 h-full min-h-0 overflow-y-hidden"
       height="stretch"
       width="stretch"
     >
       <Widget padding="none" className="h-full overflow-hidden w-full">
-        <Flex direction="column" className="w-full">
+        <Flex
+          direction="column"
+          width="stretch"
+          height="stretch"
+          className="min-h-0"
+        >
           <ShowingTransition
             fromArtist={{ name: "Beyonce", imageSrc: "/beyonce.jpg" }}
             toArtist={{ name: "Dragons", imageSrc: "/dragons.jpg" }}
