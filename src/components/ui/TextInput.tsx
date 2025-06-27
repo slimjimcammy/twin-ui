@@ -64,7 +64,9 @@ export interface TextInputProps
   flexProps?: Omit<FlexProps, "children" | "className">;
 }
 
-export default function TextInput({
+export default function TextField({
+
+  type = "text",
   label,
   placeholder,
   helperText,
@@ -87,7 +89,7 @@ export default function TextInput({
         </Flex>
       )}
       <input
-        type="text"
+        type={type}
         placeholder={placeholder}
         required={required}
         className={cn(

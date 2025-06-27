@@ -8,16 +8,31 @@ export interface FormProps
     VariantProps<typeof formVariants> {
   children: React.ReactNode;
   className?: string;
+  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
+  onChange?: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const formVariants = cva("flex flex-col gap-2", {
   variants: {
-    variant: {
+    variant: {  
       default: "",
+      inline: "flex sm:flex-row sm:items-center", 
+    },
+    theme: {
+      none: "",
+      light: "bg-white text-black",
+      dark: "bg-black text-white"
+    },
+    size: {
+      sm: "text-sm gap-5",
+      md: "text-md gap-10",
+      lg: "text-lg gap-20",
     },
   },
   defaultVariants: {
     variant: "default",
+    theme:"none",
+    size:"md",
   },
 });
 

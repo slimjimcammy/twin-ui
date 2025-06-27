@@ -51,6 +51,10 @@ const buttonVariants = cva("hover:cursor-pointer", {
       none: "",
       center: "mx-auto",
     },
+    shape: {
+      default: " ",
+      circle: " rounded-full aspect-square",
+    },
   },
   defaultVariants: {
     variant: "primary",
@@ -72,6 +76,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
+      {...props}
       className={cn(
         buttonVariants({ variant, width, size, rounded }),
         className

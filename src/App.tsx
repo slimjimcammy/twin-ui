@@ -5,8 +5,9 @@ import ViewTransition from "./pages/view-transition/ViewTransition";
 import ThemeProvider from "./theme/ThemeProvider";
 import { defaultTheme } from "./theme/utils/defaultTheme";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+        
 export default function App() {
+  
   return (
     <ThemeProvider theme={defaultTheme}>
       <AppShell>
@@ -19,5 +20,6 @@ export default function App() {
         </BrowserRouter>
       </AppShell>
     </ThemeProvider>
+
   );
 }

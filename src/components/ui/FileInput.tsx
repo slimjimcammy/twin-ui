@@ -34,6 +34,7 @@ export default function FileInput({
       <Button onClick={() => fileInputRef.current?.click()} {...buttonProps}>
         Choose File
       </Button>
+
       {helperText && (
         <Text variant="p" color="default">
           {helperText}
