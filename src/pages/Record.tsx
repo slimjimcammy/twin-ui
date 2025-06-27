@@ -7,7 +7,15 @@ import Button from "../components/ui/Button";
 import Widget from "../components/layout/Widget";
 import Image from "../components/ui/Image";
 import { Container } from "../components/layout/Container";
+import { useState } from "react";
 export default function Record() {
+    const [midiConnected, setMidiConnected] = useState(false)
+
+    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        setMidiConnected(true)
+    }
+
     return (
         <Container className="mt-10" width='default'>
         <Text variant="h1" weight='bold' className="pb-4">
@@ -81,13 +89,13 @@ export default function Record() {
             <Text variant='h4' font="heading">2. Connect MIDI device <Text variant='pSm'> (Await confirmpation pop-up) </Text> </Text>
             <Text variant='h4' font="heading">3. Hit record on Cerato  <Text variant='pSm'> (Button on X deck, on the Y)</Text> </Text>
             <Text variant='h4' font="heading">4. Press capture here <Text variant='pSm'> (and start DJ-ing!)</Text></Text>
-            <Form variant='inline'>
-                <Button shape="circle" size="sm" variant="secondary">Connect MIDI</Button>
+            <Form onSubmit={handleFormSubmit}>
+                <Button shape="circle" size="sm" variant="secondary" type="submit">Connect MIDI</Button>
+                <Button shape="circle" size='sm' variant='secondary' disabled={!midiConnected} className={!midiConnected ? "opacity-50 cursor-not-allwed" : ""}>Record</Button>
             </Form>
             <Form variant='inline' className="p-0">
                 <Button size="md" variant="secondary">POST</Button>
             </Form>
-           
         </Grid>
         </Grid>
         </Container>

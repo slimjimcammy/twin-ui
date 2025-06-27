@@ -98,6 +98,7 @@ export default function InputField({
         className="hidden"
       />
       <Button
+        type="button"
         onClick={handleClick}
         size='sm'
         className={cn(fileInputVariants({ variant, width }), inputClassName)}
