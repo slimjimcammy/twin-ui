@@ -1,82 +1,176 @@
-import { Container } from "../components/layout/Container";
 import { Text } from "../components/ui/Text";
 import { Grid } from "../components/layout/Grid";
 import Widget from "../components/layout/Widget";
-import Image from "../components/ui/Image";
 import { Flex } from "../components/layout/Flex";
+import Transition from "../components/app/transition/Transition";
+import TextInput from "../components/ui/TextInput";
+import { RightArrowIcon } from "../icons/RightArrowIcon";
 
 export default function ForYou() {
   return (
-    <Container className="mt-12">
-      <Text variant="h1" color="default" font="heading">
-        Explore
-      </Text>
-      <Grid cols="three" spacing="md" className="mt-12">
-        <Widget className="h-[500px] overflow-hidden" glow="light" padding="md">
-          <Flex direction="row" width="stretch" justify="between" gap="md">
-            <Widget
-              className="w-full aspect-square relative overflow-hidden"
-              padding="sm"
-            >
-              <Image
-                src="/beyonce.jpg"
-                alt="Album Cover"
-                className="absolute inset-0 w-full h-full object-cover opacity-25"
-              />
-              <Widget
-                padding="sm"
-                className="absolute bottom-sm left-sm w-fit h-fit bg-[#05070A] z-10"
-                glow="light"
-              >
-                <Text
-                  variant="pSm"
-                  color="default"
-                  font="heading"
-                  align="left"
-                  width="fit"
-                >
-                  Beyonce Song
-                </Text>
-              </Widget>
-            </Widget>
-            <Widget
-              className="w-full aspect-square relative overflow-hidden"
-              padding="sm"
-            >
-              <Image
-                src="/dragons.jpg"
-                alt="Album Cover"
-                className="absolute inset-0 w-full h-full object-cover opacity-10"
-              />
-              <Widget
-                padding="sm"
-                className="absolute bottom-sm left-sm w-fit h-fit bg-[#05070A] z-10"
-                glow="light"
-              >
-                <Text
-                  variant="pSm"
-                  color="default"
-                  font="heading"
-                  align="left"
-                  width="fit"
-                >
-                  Bad Liar
-                </Text>
-              </Widget>
-            </Widget>
-          </Flex>
-        </Widget>
-        <Widget className="h-[500px]" glow="light">
-          <Text variant="h2" color="default" font="heading">
-            For You
-          </Text>
-        </Widget>
-        <Widget className="h-[500px]" glow="light">
-          <Text variant="h2" color="default" font="heading">
-            For You
-          </Text>
-        </Widget>
-      </Grid>
-    </Container>
+    <Flex
+      direction="column"
+      gap="md"
+      className="pl-4 h-full min-h-0"
+      height="stretch"
+      width="stretch"
+    >
+      <Flex direction="row" align="center" justify="between">
+        <Text
+          variant="h1"
+          color="default"
+          font="header"
+          className="hidden sm:block"
+        >
+          Explore
+        </Text>
+        <Flex direction="row" align="center" gap="sm">
+          <TextInput
+            label="Base"
+            required
+            placeholder="Search..."
+            padding="sm"
+          />
+          <div className="mt-lg">
+            <RightArrowIcon size={20} color="#F5F6FA" />
+          </div>
+          <TextInput
+            label="Twin"
+            required
+            placeholder="Search..."
+            padding="sm"
+          />
+        </Flex>
+      </Flex>
+
+      <Widget height="stretch" className="flex-1 min-h-0" padding="md">
+        <Grid
+          cols="three"
+          spacing="md"
+          className="flex-1 min-h-0 overflow-y-auto"
+        >
+          <Transition
+            leftCoverSrc="/beyonce.jpg"
+            leftTitle="Beyonce adoiuhawiof owa wao fawhi"
+            rightCoverSrc="/dragons.jpg"
+            rightTitle="Dragons"
+            userAvatarSrc="/beyonce.jpg"
+            userName="minski"
+            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. oiahoifha owoi aoao oawhdio aua iiua hiu diaiu iua iuw iu"
+            likes={40}
+            comments={2}
+            shares={1}
+          />
+          <Transition
+            leftCoverSrc="/dragons.jpg"
+            leftTitle="Dragons"
+            rightCoverSrc="/beyonce.jpg"
+            rightTitle="Beyonce"
+            userAvatarSrc="/dragons.jpg"
+            userName="dragonfan"
+            description="Another description for a different transition."
+            likes={12}
+            comments={5}
+            shares={3}
+          />
+          <Transition
+            leftCoverSrc="/beyonce.jpg"
+            leftTitle="Beyonce"
+            rightCoverSrc="/beyonce.jpg"
+            rightTitle="Beyonce Again"
+            userAvatarSrc="/beyonce.jpg"
+            userName="queenb"
+            description="Beyonce everywhere!"
+            likes={100}
+            comments={20}
+            shares={10}
+          />
+          <Transition
+            leftCoverSrc="/dragons.jpg"
+            leftTitle="Dragons"
+            rightCoverSrc="/dragons.jpg"
+            rightTitle="More Dragons"
+            userAvatarSrc="/dragons.jpg"
+            userName="dragonmaster"
+            description="All about dragons."
+            likes={55}
+            comments={8}
+            shares={4}
+          />
+          <Transition
+            leftCoverSrc="/beyonce.jpg"
+            leftTitle="Beyonce"
+            rightCoverSrc="/dragons.jpg"
+            rightTitle="Dragons"
+            userAvatarSrc="/beyonce.jpg"
+            userName="minski"
+            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
+            likes={40}
+            comments={2}
+            shares={1}
+          />
+          <Transition
+            leftCoverSrc="/dragons.jpg"
+            leftTitle="Dragons"
+            rightCoverSrc="/beyonce.jpg"
+            rightTitle="Beyonce"
+            userAvatarSrc="/dragons.jpg"
+            userName="dragonfan"
+            description="Another description for a different transition."
+            likes={12}
+            comments={5}
+            shares={3}
+          />
+          <Transition
+            leftCoverSrc="/beyonce.jpg"
+            leftTitle="Beyonce"
+            rightCoverSrc="/beyonce.jpg"
+            rightTitle="Beyonce Again"
+            userAvatarSrc="/beyonce.jpg"
+            userName="queenb"
+            description="Beyonce everywhere!"
+            likes={100}
+            comments={20}
+            shares={10}
+          />
+          <Transition
+            leftCoverSrc="/dragons.jpg"
+            leftTitle="Dragons"
+            rightCoverSrc="/dragons.jpg"
+            rightTitle="More Dragons"
+            userAvatarSrc="/dragons.jpg"
+            userName="dragonmaster"
+            description="All about dragons."
+            likes={55}
+            comments={8}
+            shares={4}
+          />
+          <Transition
+            leftCoverSrc="/beyonce.jpg"
+            leftTitle="Beyonce"
+            rightCoverSrc="/dragons.jpg"
+            rightTitle="Dragons"
+            userAvatarSrc="/beyonce.jpg"
+            userName="minski"
+            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
+            likes={40}
+            comments={2}
+            shares={1}
+          />
+          <Transition
+            leftCoverSrc="/dragons.jpg"
+            leftTitle="Dragons"
+            rightCoverSrc="/beyonce.jpg"
+            rightTitle="Beyonce"
+            userAvatarSrc="/dragons.jpg"
+            userName="dragonfan"
+            description="Another description for a different transition."
+            likes={12}
+            comments={5}
+            shares={3}
+          />
+        </Grid>
+      </Widget>
+    </Flex>
   );
 }

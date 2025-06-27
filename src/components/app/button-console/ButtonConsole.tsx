@@ -8,7 +8,7 @@ const buttonConsoleVariants = cva("relative", {
   variants: {
     variant: {
       inline: "",
-      alone: "border-[#212732] border-[0.5px] border-solid",
+      alone: "border-line border-[0.5px] border-solid",
     },
     width: {
       default: "w-auto",
@@ -34,6 +34,7 @@ export interface ButtonConsoleProps
   buttons: Array<ComponentProps<typeof Button> & { children: React.ReactNode }>;
   className?: string;
   width?: "default" | "stretch" | "fit";
+  orientation: "horizontal" | "vertical";
 }
 
 export default function ButtonConsole({
@@ -42,17 +43,18 @@ export default function ButtonConsole({
   variant,
   width,
   rounded,
+  orientation,
 }: ButtonConsoleProps) {
   return (
     <Flex
-      direction="row"
+      direction={orientation === "horizontal" ? "row" : "column"}
       gap={variant === "alone" ? "none" : "md"}
       width="stretch"
       align="center"
       className={cn(
         buttonConsoleVariants({ variant, width, rounded }),
-        className,
-        "overflow-x-auto"
+        "overflow-hidden",
+        className
       )}
     >
       {buttons.map(({ children, ...buttonProps }, index) => (

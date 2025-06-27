@@ -1,39 +1,31 @@
 import { cn } from "../cn";
 import { cva, type VariantProps } from "class-variance-authority";
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
   children: React.ReactNode;
   className?: string;
 }
 
-const buttonVariants = cva("", {
+const buttonVariants = cva("hover:cursor-pointer", {
   variants: {
     variant: {
       primary: [
-        "bg-black",
-        "text-white",
-        "border-black",
-        "border-2",
-        "hover:bg-white",
-        "hover:text-black",
-        "transition-all",
-        "duration-150",
-      ].join(" "),
-      secondary: [
-        "bg-[#F5F6FA]",
-        "hover:bg-gray-300",
-        "hover:text-black",
+        "bg-primary",
+        "hover:bg-secondary",
         "hover:border-transparent",
         "transition-all",
         "duration-150",
       ].join(" "),
-      tertiary: [
-        "bg-transparent",
-        "text-black",
+      secondary: [
+        "bg-light",
+        "text-dark",
         "border-transparent",
-        "hover:bg-[#343B4C]",
-        "hover:text-black",
+        "hover:bg-subtitle",
+        "hover:text-light",
       ].join(" "),
+      disabled: ["bg-primary", "text-subtitle", "hover:cursor-not-alowed"],
     },
     width: {
       default: "w-fit",
@@ -47,10 +39,17 @@ const buttonVariants = cva("", {
       circle: "rounded-full",
     },
     size: {
-      default: "pt-2 pb-2 pl-2.5 pr-2.5 text-md",
-      sm: "pt-1 pb-1 pl-1.5 pr-1.5 text-sm",
-      md: "pt-2 pb-2 pl-2.5 pr-2.5 text-md",
-      lg: "pt-3 pb-3 pl-3.5 pr-3.5 text-lg",
+      default: "px-md py-sm text-md",
+      sm: "px-sm py-xs text-sm",
+      md: "px-md py-sm text-md",
+      lg: "px-lg py-md text-lg",
+      centeredSm: "p-sm text-sm",
+      centeredMd: "p-md text-md",
+      centeredLg: "p-lg text-lg",
+    },
+    align: {
+      none: "",
+      center: "mx-auto",
     },
     shape: {
       default: " ",
@@ -62,6 +61,7 @@ const buttonVariants = cva("", {
     width: "default",
     size: "default",
     rounded: "md",
+    align: "center",
   },
 });
 
@@ -81,6 +81,7 @@ export default function Button({
         buttonVariants({ variant, width, size, rounded }),
         className
       )}
+      {...props}
     >
       {children}
     </button>

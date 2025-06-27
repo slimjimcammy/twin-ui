@@ -1,11 +1,9 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../cn";
 import { Flex } from "../../layout/Flex";
-import VerticalNavGroup from "./VerticalNavGroup";
-import VerticalNavItem from "./VerticalNavItem";
-import VerticalNavFooter from "./VerticalNavFooter";
-import VerticalNavHeader from "./VerticalNavHeader";
 import Widget from "../../layout/Widget";
+import { Text } from "../../ui/Text";
+import Button from "../../ui/Button";
 
 const verticalNavVariants = cva("relative", {
   variants: {
@@ -28,32 +26,73 @@ const verticalNavVariants = cva("relative", {
   },
 });
 
+interface Action {
+  icon: React.ReactNode;
+  label: string;
+  variant: "primary" | "secondary" | "tertiary";
+}
+
+interface Group {
+  label: string;
+  actions: Action[];
+}
+
 export interface VerticalNavProps
   extends VariantProps<typeof verticalNavVariants> {
-  children: React.ReactNode;
   className?: string;
+  groups: Group[];
+  expanded?: Boolean;
 }
 
 export function VerticalNav({
-  children,
   className,
   variant,
   height,
+  groups,
+  expanded = false,
 }: VerticalNavProps) {
   return (
     <Widget
       variant="sm"
-      className={cn(verticalNavVariants({ variant, height }), className)}
+      className={cn(
+        verticalNavVariants({ variant, height }),
+        `${expanded ? "p-md w-[200px]" : "p-0 w-fit"}`,
+        className
+      )}
     >
-      <Flex direction="column" gap="sm" height="stretch" justify="start">
-        {children}
+      <Flex direction="column" gap="lg" height="stretch" width="stretch">
+        {groups.map((group, g_index) => (
+          <Flex key={g_index} direction="column" gap="sm">
+            {expanded && (
+              <Text variant="caption" color="dimmed">
+                {group.label}
+              </Text>
+            )}
+            <Flex direction="column" width={expanded ? "stretch" : "fit"}>
+              {group.actions.map((action, a_index) => (
+                <Button
+                  key={a_index}
+                  width={expanded ? "stretch" : "default"}
+                  className={
+                    expanded ? "w-full h-fit py-md px-lg" : "w-fit p-md h-fit"
+                  }
+                  variant="primary"
+                  size={expanded ? "default" : "centeredMd"}
+                >
+                  <Flex direction="row" align="center" gap="md">
+                    {action.icon}
+                    {expanded && (
+                      <Text color="default" variant="p" weight="light">
+                        {action.label}
+                      </Text>
+                    )}
+                  </Flex>
+                </Button>
+              ))}
+            </Flex>
+          </Flex>
+        ))}
       </Flex>
     </Widget>
   );
 }
-
-// Attach compound components
-VerticalNav.Group = VerticalNavGroup;
-VerticalNav.Item = VerticalNavItem;
-VerticalNav.Footer = VerticalNavFooter;
-VerticalNav.Header = VerticalNavHeader;
