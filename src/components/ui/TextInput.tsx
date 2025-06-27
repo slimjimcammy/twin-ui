@@ -64,8 +64,7 @@ export interface TextInputProps
   flexProps?: Omit<FlexProps, "children" | "className">;
 }
 
-export default function TextField({
-
+export default function TextInput({
   type = "text",
   label,
   placeholder,

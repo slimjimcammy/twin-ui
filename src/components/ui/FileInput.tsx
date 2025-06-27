@@ -1,6 +1,6 @@
 import { Flex } from "../layout/Flex";
 import { Text } from "./Text";
-import Button, { type ButtonProps } from "./Button";
+import Button from "./Button";
 import { useRef } from "react";
 
 export interface FileInputProps
@@ -10,7 +10,10 @@ export interface FileInputProps
   > {
   label?: string;
   helperText?: string;
-  buttonProps?: ButtonProps;
+  buttonProps?: {
+    variant?: "primary" | "secondary";
+    size?: "sm" | "md" | "lg";
+  };
   className?: string;
 }
 
@@ -24,7 +27,7 @@ export default function FileInput({
   const fileInputRef = useRef<HTMLInputElement>(null);
   return (
     <Flex direction="column" gap="sm" className={className}>
-      {label && <Text variant="h6">{label}</Text>}
+      {label && <Text variant="caption">{label}</Text>}
       <input
         ref={fileInputRef}
         type="file"

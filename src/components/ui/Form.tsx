@@ -1,55 +1,28 @@
-import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../cn";
+import { Flex, type FlexProps } from "../layout/Flex";
 
-// README:
-// - This component is not yet finished
-export interface FormProps
-  extends React.FormHTMLAttributes<HTMLFormElement>,
-    VariantProps<typeof formVariants> {
-  children: React.ReactNode;
+export interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
   className?: string;
-  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
-  onChange?: (e: React.FormEvent<HTMLFormElement>) => void;
+  children: React.ReactNode;
 }
 
-const formVariants = cva("flex flex-col gap-2", {
-  variants: {
-    variant: {  
-      default: "",
-      inline: "flex sm:flex-row sm:items-center", 
-    },
-    theme: {
-      none: "",
-      light: "bg-white text-black",
-      dark: "bg-black text-white"
-    },
-    size: {
-      sm: "text-sm gap-5",
-      md: "text-md gap-10",
-      lg: "text-lg gap-20",
-    },
-  },
-  defaultVariants: {
-    variant: "default",
-    theme:"none",
-    size:"md",
-  },
-});
-
-export default function Form({
-  children,
-  className,
-  variant,
-  onSubmit,
-  onChange,
-}: FormProps) {
+export default function Form({ className, children, ...props }: FormProps) {
   return (
-    <form
-      onSubmit={onSubmit}
-      onChange={onChange}
-      className={cn(formVariants({ variant }), className)}
-    >
+    <form className={cn(className, "flex flex-col gap-md")} {...props}>
       {children}
     </form>
+  );
+}
+
+interface FormRowProps
+  extends Omit<FlexProps, "children" | "direction" | "align"> {
+  children: React.ReactNode;
+}
+
+export function FormRow({ children, ...props }: FormRowProps) {
+  return (
+    <Flex direction="row" align="center" {...props}>
+      {children}
+    </Flex>
   );
 }

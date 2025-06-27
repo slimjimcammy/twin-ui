@@ -37,6 +37,7 @@ const flexVariants = cva("flex", {
     },
     gap: {
       none: "gap-0",
+      xs: "gap-xs",
       sm: "gap-sm",
       md: "gap-md",
       lg: "gap-lg",
