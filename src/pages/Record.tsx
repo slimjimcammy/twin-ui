@@ -1,9 +1,9 @@
 import Form, { FormRow } from "../components/ui/Form";
 import TextInput from "../components/ui/TextInput";
 import FileInput from "../components/ui/FileInput";
-import { Grid } from "../components/layout/Grid";
 import { Text } from "../components/ui/Text";
 import Button from "../components/ui/Button";
+import Textarea from "../components/ui/Textarea";
 import Widget from "../components/layout/Widget";
 import Image from "../components/ui/Image";
 import { Flex } from "../components/layout/Flex";
@@ -11,10 +11,13 @@ import { useState } from "react";
 export default function Record() {
   const [midiConnected, setMidiConnected] = useState(false);
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleMIDIConnect = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    // Eventual code to connect MIDI
     setMidiConnected(true);
   };
+
+
 
   return (
     <Flex
@@ -67,6 +70,14 @@ export default function Record() {
               (and start DJ-ing!)
             </Text>
           </Flex>
+          <Flex direction='row' gap='xs'>
+            <Button variant='secondary' onClick={handleMIDIConnect} size='sm'>
+                ConnectMIDI
+            </Button>
+            <Button variant='secondary' size='sm' disabled={!midiConnected} className={`transition-all duration-250 ${midiConnected? "bg-success" : "bg-error opacity-50"}`}>
+                Record  
+            </Button>
+          </Flex>
         </Widget>
         <Flex height="stretch" width="stretch">
           <Flex direction="column" width="stretch">
@@ -85,6 +96,7 @@ export default function Record() {
                   }}
                 />
               </FormRow>
+              <Textarea  label="Description"/>
               <FormRow gap="md">
                 <TextInput
                   label="Song 1"
@@ -99,8 +111,8 @@ export default function Record() {
                   className="w-full"
                 />
               </FormRow>
-
-              <Widget
+              <Flex direction='row' gap='sm'>
+                  <Widget
                 className="w-full aspect-square relative overflow-hidden"
                 padding="sm"
               >
@@ -120,7 +132,13 @@ export default function Record() {
                   className="absolute inset-0 w-full h-full object-cover"
                 />
               </Widget>
+              </Flex>
+              {/*Later on make it so when all fields are filled change color?*/}
+              <Button variant="secondary" size="md" className="bg-error opacity-50">
+                POST
+            </Button>
             </Form>
+            
           </Flex>
         </Flex>
       </Flex>
