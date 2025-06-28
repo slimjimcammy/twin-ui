@@ -65,22 +65,16 @@ export default function Textarea({
       {label && (
         <Flex direction="row" gap="sm" align="center" justify="start">
           <Text variant="h6">{label}</Text>
-          {props.required && <Text variant="p">*</Text>}
         </Flex>
       )}
       <textarea
         {...props}
-        placeholder={props.placeholder}
-        required={props.required}
-        rows={props.rows}
-        maxLength={props.maxLength}
         className={cn(
           textareaVariants({ width, height, padding }),
           textareaClassName
         )}
       />
       {helperText && <Text variant="p">{helperText}</Text>}
-      {props.maxLength && <Text variant="p">{props.maxLength} characters maximum</Text>}
     </Flex>
   );
 }
