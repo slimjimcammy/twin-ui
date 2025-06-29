@@ -23,7 +23,7 @@ export default function Record() {
     <Flex
       direction="column"
       gap="md"
-      className="pl-4 h-full min-h-0 overflow-x-hidden"
+      className="pl-4 h-full min-h-0 overflow-x-hidden "
       height="stretch"
       width="stretch"
     >
@@ -111,30 +111,30 @@ export default function Record() {
                   className="w-full"
                 />
               </FormRow>
-              <Flex direction='row' gap='sm'>
+              <Flex direction='row' gap='sm' justify='evenly'>
                   <Widget
-                className="w-full aspect-square relative overflow-hidden"
+                className="w-35 aspect-square relative overflow-hidden"
                 padding="sm"
               >
                 <Image
                   src="/beyonce.jpg"
                   alt="Album Cover"
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full object-cover "
                 />
               </Widget>
               <Widget
-                className="w-full aspect-square relative overflow-hidden"
+                className="w-35 aspect-square relative overflow-hidden"
                 padding="sm"
               >
                 <Image
                   src="/dragons.jpg"
                   alt="Album Cover"
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full object-cover"
                 />
               </Widget>
               </Flex>
-              {/*Later on make it so when all fields are filled change color?*/}
-              <Button variant="secondary" size="md" className="bg-error opacity-50">
+              {/*Eventual code to enable the button based on required forms (ref?) */}
+              <Button variant='disabled' size="md" disabled className="bg-light">
                 POST
             </Button>
             </Form>

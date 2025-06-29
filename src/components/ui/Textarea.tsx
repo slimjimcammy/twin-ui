@@ -64,7 +64,7 @@ export default function Textarea({
     <Flex direction="column" gap="sm" className={className}>
       {label && (
         <Flex direction="row" gap="sm" align="center" justify="start">
-          <Text variant="h6">{label}</Text>
+          <Text variant="caption">{label}</Text>
         </Flex>
       )}
       <textarea
