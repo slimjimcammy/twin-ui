@@ -10,6 +10,7 @@ const textareaVariants = cva(
     "transition-all duration-150",
     "focus:outline-none",
     "resize-none",
+    "text-light",
   ].join(" "),
   {
     variants: {
@@ -44,48 +45,36 @@ export interface TextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     VariantProps<typeof textareaVariants> {
   label?: string;
-  placeholder?: string;
   helperText?: string;
   className?: string;
   textareaClassName?: string;
-  required?: boolean;
-  rows?: number;
-  maxLength?: number;
 }
 
 export default function Textarea({
   label,
-  placeholder,
   helperText,
   className,
   textareaClassName,
-  required,
   width,
   height,
-  rows,
   padding,
-  maxLength,
+  ...props
 }: TextareaProps) {
   return (
     <Flex direction="column" gap="sm" className={className}>
       {label && (
         <Flex direction="row" gap="sm" align="center" justify="start">
-          <Text variant="h6">{label}</Text>
-          {required && <Text variant="p">*</Text>}
+          <Text variant="caption">{label}</Text>
         </Flex>
       )}
       <textarea
-        placeholder={placeholder}
-        required={required}
-        rows={rows}
-        maxLength={maxLength}
+        {...props}
         className={cn(
           textareaVariants({ width, height, padding }),
           textareaClassName
         )}
       />
       {helperText && <Text variant="p">{helperText}</Text>}
-      {maxLength && <Text variant="p">{maxLength} characters maximum</Text>}
     </Flex>
   );
 }

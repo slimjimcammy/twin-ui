@@ -1,105 +1,147 @@
-import Form from "../components/ui/Form";
-import TextField from "../components/ui/TextInput"
-import FileInput from "../components/ui/FileInput"
-import { Grid } from "../components/layout/Grid";
+import Form, { FormRow } from "../components/ui/Form";
+import TextInput from "../components/ui/TextInput";
+import FileInput from "../components/ui/FileInput";
 import { Text } from "../components/ui/Text";
 import Button from "../components/ui/Button";
+import Textarea from "../components/ui/Textarea";
 import Widget from "../components/layout/Widget";
 import Image from "../components/ui/Image";
-import { Container } from "../components/layout/Container";
+import { Flex } from "../components/layout/Flex";
 import { useState } from "react";
 export default function Record() {
-    const [midiConnected, setMidiConnected] = useState(false)
+  const [midiConnected, setMidiConnected] = useState(false);
 
-    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        setMidiConnected(true)
-    }
+  const handleMIDIConnect = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    // Eventual code to connect MIDI
+    setMidiConnected(true);
+  };
 
-    return (
-        <Container className="mt-10" width='default'>
-        <Text variant="h1" weight='bold' className="pb-4">
-            RECORD
-        </Text>
-        <Grid cols='two' spacing='xl' className="border rounded-sm p-5 border-white">
-        <Grid cols='one'>
-        <Form variant='inline' className="w-full">
-            <TextField label="Transition name" className="w-full"/>
-            <FileInput label="Audio" className="w-full"/> 
-        </Form>
-        <Form variant='inline' className="w-full">
-            <TextField label="Song 1" placeholder="KYOTO" helperText="Help" className="w-full"/>
-            <TextField label="Song 2" placeholder="JACKIE CHAN" helperText="HelpterText"className="w-full" />
-        </Form>
-        <Form variant='inline'>
-            <Widget
-                    className="w-full aspect-square relative overflow-hidden"
-                    padding="sm"
-                    >
-                    <Image
-                        src="/beyonce.jpg"
-                        alt="Album Cover"
-                        className="absolute inset-0 w-full h-full object-cover opacity-25"
-                    />
-                    <Widget
-                        padding="sm"
-                        className="absolute bottom-sm left-sm w-fit h-fit bg-[#05070A] z-10"
-                        glow="light"
-                    >
-                    <Text
-                        variant="pSm"
-                        color="default"
-                        font="heading"
-                        align="left"
-                        width="fit"
-                    >
-                        Beyonce Song
-                    </Text>
-                </Widget>
-            </Widget>
-            <Widget
-                className="w-full aspect-square relative overflow-hidden"
+
+
+  return (
+    <Flex
+      direction="column"
+      gap="md"
+      className="pl-4 h-full min-h-0 overflow-x-hidden "
+      height="stretch"
+      width="stretch"
+    >
+      <Text variant="h1" weight="bold" font="header">
+        RECORD
+      </Text>
+      <Flex direction="row" gap="md" height="stretch">
+        <Widget
+          direction="column"
+          padding="md"
+          gap="sm"
+          className="min-w-[250px]"
+          height="fit"
+        >
+          <Flex direction="column" gap="xs">
+            <Text variant="h6" font="default">
+              1. Fill Out Form{" "}
+            </Text>
+            <Text variant="caption" weight="thin" color="dimmed">
+              (Fill all required fields)
+            </Text>
+          </Flex>
+          <Flex direction="column" gap="xs">
+            <Text variant="h6" font="default">
+              2. Connect MIDI device{" "}
+            </Text>
+            <Text variant="caption" weight="thin" color="dimmed">
+              (Await confirmpation pop-up)
+            </Text>
+          </Flex>
+          <Flex direction="column" gap="xs">
+            <Text variant="h6" font="default">
+              3. Hit record on Cerato
+            </Text>
+            <Text variant="caption" weight="thin" color="dimmed">
+              (Button on X deck, on the Y)
+            </Text>
+          </Flex>
+          <Flex direction="column" gap="xs">
+            <Text variant="h6" font="default">
+              4. Press capture here
+            </Text>
+            <Text variant="caption" weight="thin" color="dimmed">
+              (and start DJ-ing!)
+            </Text>
+          </Flex>
+          <Flex direction='row' gap='xs'>
+            <Button variant='secondary' onClick={handleMIDIConnect} size='sm'>
+                ConnectMIDI
+            </Button>
+            <Button variant='secondary' size='sm' disabled={!midiConnected} className={`transition-all duration-250 ${midiConnected? "bg-success" : "bg-error opacity-50"}`}>
+                Record  
+            </Button>
+          </Flex>
+        </Widget>
+        <Flex height="stretch" width="stretch">
+          <Flex direction="column" width="stretch">
+            <Form className="w-full">
+              <FormRow gap="md">
+                <TextInput
+                  label="Transition name"
+                  className="flex-1"
+                  required
+                />
+                <FileInput
+                  label="Audio"
+                  buttonProps={{
+                    variant: "secondary",
+                    size: "sm",
+                  }}
+                />
+              </FormRow>
+              <Textarea  label="Description"/>
+              <FormRow gap="md">
+                <TextInput
+                  label="Song 1"
+                  placeholder="KYOTO"
+                  helperText="Help"
+                  className="w-full"
+                />
+                <TextInput
+                  label="Song 2"
+                  placeholder="JACKIE CHAN"
+                  helperText="HelpterText"
+                  className="w-full"
+                />
+              </FormRow>
+              <Flex direction='row' gap='sm' justify='evenly'>
+                  <Widget
+                className="w-35 aspect-square relative overflow-hidden"
                 padding="sm"
-            >
-            <Image
-                src="/dragons.jpg"
-                alt="Album Cover"
-                className="absolute inset-0 w-full h-full object-cover opacity-10"
-            />
-            <Widget
+              >
+                <Image
+                  src="/beyonce.jpg"
+                  alt="Album Cover"
+                  className="absolute inset-0 w-full object-cover "
+                />
+              </Widget>
+              <Widget
+                className="w-35 aspect-square relative overflow-hidden"
                 padding="sm"
-                className="absolute bottom-sm left-sm w-fit h-fit bg-[#05070A] z-10"
-                glow="light"
-            >
-            <Text
-                variant="pSm"
-                color="default"
-                font="heading"
-                align="left"
-                width="fit"
-            >
-                Bad Liar
-                </Text>
-                </Widget>
-            </Widget>
-        </Form>
-        </Grid>
-            <Grid cols='two' spacing='sm' justify='center' align='start'>
-            <Text variant='h4' font="heading">1. Fill Out Form <Text variant='pSm'>(Fill all required fields)</Text></Text>
-            <Text variant='h4' font="heading">2. Connect MIDI device <Text variant='pSm'> (Await confirmpation pop-up) </Text> </Text>
-            <Text variant='h4' font="heading">3. Hit record on Cerato  <Text variant='pSm'> (Button on X deck, on the Y)</Text> </Text>
-            <Text variant='h4' font="heading">4. Press capture here <Text variant='pSm'> (and start DJ-ing!)</Text></Text>
-            <Form onSubmit={handleFormSubmit}>
-                <Button shape="circle" size="sm" variant="secondary" type="submit">Connect MIDI</Button>
-                <Button shape="circle" size='sm' variant='secondary' disabled={!midiConnected} className={!midiConnected ? "opacity-50 cursor-not-allwed" : ""}>Record</Button>
+              >
+                <Image
+                  src="/dragons.jpg"
+                  alt="Album Cover"
+                  className="absolute inset-0 w-full object-cover"
+                />
+              </Widget>
+              </Flex>
+              {/*Eventual code to enable the button based on required forms (ref?) */}
+              <Button variant='disabled' size="md" disabled className="bg-light">
+                POST
+            </Button>
             </Form>
-            <Form variant='inline' className="p-0">
-                <Button size="md" variant="secondary">POST</Button>
-            </Form>
-        </Grid>
-        </Grid>
-        </Container>
-        
-         );
-
+            
+          </Flex>
+        </Flex>
+      </Flex>
+    </Flex>
+  );
 }
