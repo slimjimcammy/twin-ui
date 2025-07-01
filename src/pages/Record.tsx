@@ -9,6 +9,7 @@ import Image from "../components/ui/Image";
 import { Flex } from "../components/layout/Flex";
 import { useState } from "react";
 import "../index.css"
+import { useNavigate } from "react-router-dom";
 export default function Record() {
   const [midiConnected, setMidiConnected] = useState(false);
 
@@ -26,6 +27,7 @@ export default function Record() {
 
   // again, can change img to a filler img we have
   const addTrack = () => {
+    if (trackPairs.length >= 4) return;
     const nextNum = trackPairs.length + 1;
     const newTrack = {
         label: `Track ${nextNum}`,
@@ -35,6 +37,7 @@ export default function Record() {
   }
 
   const removeTrack = (index: number) => {
+    if (trackPairs.length <= 2) return;
     const updated = trackPairs.filter((_, i) => i !== index)
     const relabel = updated.map((trackPairs, i) => ({
         ...trackPairs,
