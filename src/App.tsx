@@ -6,6 +6,7 @@ import ThemeProvider from "./theme/ThemeProvider";
 import { defaultTheme } from "./theme/utils/defaultTheme";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Record from "./pages/Record";
+import Profile from "./pages/profile/Profile";
 
 export default function App() {
   return (
@@ -14,9 +15,11 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<ViewTransition />} />
+            {/* <Route path="/" element={<ForYou />} /> */}
             <Route path="/record" element={<Record />} />
             {/* <ForYou /> */}
             <Route path="*" element={<NotFound />} />
+            <Route path="/profile/:name" element={<Profile />} />
           </Routes>
         </BrowserRouter>
       </AppShell>
