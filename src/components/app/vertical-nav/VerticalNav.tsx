@@ -30,6 +30,7 @@ interface Action {
   icon: React.ReactNode;
   label: string;
   variant: "primary" | "secondary" | "tertiary";
+  onClick?: () => void;
 }
 
 interface Group {
@@ -78,6 +79,7 @@ export function VerticalNav({
                   }
                   variant="primary"
                   size={expanded ? "default" : "centeredMd"}
+                  onClick={action.onClick}
                 >
                   <Flex direction="row" align="center" gap="md">
                     {action.icon}

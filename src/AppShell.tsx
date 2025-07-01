@@ -9,12 +9,13 @@ import { ForumIcon } from "./icons/ForumIcon";
 import { ProfileIcon } from "./icons/ProfileIcon";
 import { RecordIcon } from "./icons/RecordIcon";
 import { SettingsIcon } from "./icons/SettingsIcon";
-
+import { useNavigate } from "react-router-dom";
 interface AppShellProps {
   children: React.ReactNode;
 }
 
 export default function AppShell({ children }: AppShellProps) {
+  const navigate = useNavigate();
   return (
     <Flex
       direction="column"
@@ -75,7 +76,8 @@ export default function AppShell({ children }: AppShellProps) {
                 {
                   icon: <ExploreIcon color="#F5F6FA" />,
                   label: "For You",
-                  variant: "tertiary",
+                  variant: "tertiary", 
+                  onClick: () => navigate("/for-you")
                 },
                 {
                   icon: <FollowIcon color="#F5F6FA" />,
@@ -96,6 +98,7 @@ export default function AppShell({ children }: AppShellProps) {
                   icon: <RecordIcon color="#F5F6FA" />,
                   label: "Record",
                   variant: "tertiary",
+                  onClick: () => navigate("/record"),
                 },
                 {
                   icon: <SettingsIcon color="#F5F6FA" />,
