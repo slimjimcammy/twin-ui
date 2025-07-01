@@ -8,6 +8,7 @@ import Widget from "../components/layout/Widget";
 import Image from "../components/ui/Image";
 import { Flex } from "../components/layout/Flex";
 import { useState } from "react";
+import "../index.css"
 export default function Record() {
   const [midiConnected, setMidiConnected] = useState(false);
 
@@ -17,13 +18,37 @@ export default function Record() {
     setMidiConnected(true);
   };
 
+  // Can later put in a filler image when we implement code to get cover image 
+  const [trackPairs, setTrackPairs] = useState([
+    {label: "Track 1", image: "beyonce.jpg"},
+    {label: "Track 2", image: "dragons.jpg"},
+  ])
+
+  // again, can change img to a filler img we have
+  const addTrack = () => {
+    const nextNum = trackPairs.length + 1;
+    const newTrack = {
+        label: `Track ${nextNum}`,
+        image: "beyonce.jpg",
+    }
+    setTrackPairs([...trackPairs, newTrack])
+  }
+
+  const removeTrack = (index: number) => {
+    const updated = trackPairs.filter((_, i) => i !== index)
+    const relabel = updated.map((trackPairs, i) => ({
+        ...trackPairs,
+        label: `Track ${i + 1}`,
+    }))
+    setTrackPairs(relabel)
+  }
 
 
   return (
     <Flex
       direction="column"
       gap="md"
-      className="pl-4 h-full min-h-0 overflow-x-hidden "
+      className="pl-4 h-full min-h-0 overflow-x-hidden scrollbar pr-4"
       height="stretch"
       width="stretch"
     >
@@ -50,9 +75,9 @@ export default function Record() {
             <Text variant="h6" font="default">
               2. Connect MIDI device{" "}
             </Text>
-            <Text variant="caption" weight="thin" color="dimmed">
-              (Await confirmpation pop-up)
-            </Text>
+              <Button variant='secondary' onClick={handleMIDIConnect} size='sm' className="mx-0">
+                ConnectMIDI
+            </Button>
           </Flex>
           <Flex direction="column" gap="xs">
             <Text variant="h6" font="default">
@@ -70,14 +95,10 @@ export default function Record() {
               (and start DJ-ing!)
             </Text>
           </Flex>
-          <Flex direction='row' gap='xs'>
-            <Button variant='secondary' onClick={handleMIDIConnect} size='sm'>
-                ConnectMIDI
-            </Button>
-            <Button variant='secondary' size='sm' disabled={!midiConnected} className={`transition-all duration-250 ${midiConnected? "bg-success" : "bg-error opacity-50"}`}>
+            <Button variant='secondary' size='sm' disabled={!midiConnected} className={`transition-all duration-250 mx-0 ${midiConnected? "bg-success" : "bg-error opacity-30"}`}>
                 Record  
             </Button>
-          </Flex>
+         
         </Widget>
         <Flex height="stretch" width="stretch">
           <Flex direction="column" width="stretch">
@@ -97,48 +118,43 @@ export default function Record() {
                 />
               </FormRow>
               <Textarea  label="Description"/>
-              <FormRow gap="md">
-                <TextInput
-                  label="Song 1"
-                  placeholder="KYOTO"
-                  helperText="Help"
-                  className="w-full"
-                />
-                <TextInput
-                  label="Song 2"
-                  placeholder="JACKIE CHAN"
-                  helperText="HelpterText"
-                  className="w-full"
-                />
-              </FormRow>
-              <Flex direction='row' gap='sm' justify='evenly'>
-                  <Widget
-                className="w-35 aspect-square relative overflow-hidden"
-                padding="sm"
-              >
-                <Image
-                  src="/beyonce.jpg"
-                  alt="Album Cover"
-                  className="absolute inset-0 w-full object-cover "
-                />
-              </Widget>
-              <Widget
-                className="w-35 aspect-square relative overflow-hidden"
-                padding="sm"
-              >
-                <Image
-                  src="/dragons.jpg"
-                  alt="Album Cover"
-                  className="absolute inset-0 w-full object-cover"
-                />
-              </Widget>
-              </Flex>
+              <Flex
+                    direction={trackPairs.length > 2 ? "column" : "row"}
+                    gap="sm"
+                    justify={trackPairs.length > 2 ? "start" : "evenly"}
+                >
+                    {trackPairs.map((pair, i) => (
+                    <Flex key={i}  direction="column" gap="xs" className="w-full">
+                        <FormRow>
+                            <TextInput
+                        label={pair.label}
+                        name={`song-${i}`}
+                        placeholder={pair.label}
+                        className="w-full"
+                        required
+                        />
+                        <Button type="button" onClick={() => removeTrack(i)} size='sm' className="bg-light text-error relative mt-7">
+                            x
+                        </Button>
+                        </FormRow>
+                        <Widget className={`${trackPairs.length > 2 ? "w-1/7" : "w-1/2"} aspect-square relative overflow-hidden mx-auto`} padding="sm">
+                        <Image
+                            src={pair.image}
+                            alt={`Album Cover ${i + 1}`}
+                            className="absolute inset-0 w-full object-cover"
+                        />
+                        </Widget>
+                    </Flex>
+                    ))}
+                </Flex>
+                <Button type='button' className="bg-light" onClick={addTrack} size='sm' >
+                    Add Song
+                </Button>
               {/*Eventual code to enable the button based on required forms (ref?) */}
               <Button variant='disabled' size="md" disabled className="bg-light">
                 POST
             </Button>
             </Form>
-            
           </Flex>
         </Flex>
       </Flex>
