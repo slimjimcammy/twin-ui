@@ -20,7 +20,7 @@ export function ProfileCard({
       direction="column"
       justify="start"
       align="center"
-      gap="sm"
+      gap="md"
       className="p-4 w-[200px]"
     >
       <Image
@@ -31,12 +31,12 @@ export function ProfileCard({
       <Text variant="p" weight="bold" align="center">
         {name}
       </Text>
-      <Text variant="pSm" weight="bold" align="center" color="dimmed">
+      {/* <Text variant="p" weight="bold" align="center" color="dimmed">
         {followerCount}
       </Text>
       <Button variant="secondary" size="sm" className="mt-2">
         Follow
-      </Button>
+      </Button> */}
     </Flex>
   );
 }
