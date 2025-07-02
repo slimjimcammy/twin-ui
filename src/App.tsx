@@ -7,22 +7,31 @@ import { defaultTheme } from "./theme/utils/defaultTheme";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Record from "./pages/Record";
 import Profile from "./pages/profile/Profile";
+import PrivateRoute from "./components/app/auth-provider/PrivateRoute";
+import AuthProvider from "./components/app/auth-provider/AuthProvider";
+import { Text } from "./components/ui/Text";
+import AuthPage from "./pages/auth-page/AuthPage";
 
 export default function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <AppShell>
+      <AuthProvider>
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<ViewTransition />} />
-            {/* <Route path="/" element={<ForYou />} /> */}
-            <Route path="/record" element={<Record />} />
-            {/* <ForYou /> */}
-            <Route path="*" element={<NotFound />} />
-            <Route path="/profile/:name" element={<Profile />} />
-          </Routes>
+          <AppShell>
+            <Routes>
+              <Route path="/" element={<Text>Log in silly!</Text>} />
+              <Route path="/auth" element={<AuthPage />} />
+              <Route element={<PrivateRoute />}>
+                <Route path="/transition/:id" element={<ViewTransition />} />
+                <Route path="/for-you" element={<ForYou />} />
+                <Route path="/record" element={<Record />} />
+                <Route path="/profile/:name" element={<Profile />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AppShell>
         </BrowserRouter>
-      </AppShell>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

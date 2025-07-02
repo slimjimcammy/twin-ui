@@ -16,6 +16,8 @@ export default function Profile() {
   const avatarSrc = "/beyonce.jpg";
   const followerCount = "1000";
 
+  console.log(name);
+
   return (
     <Flex
       direction="row"

@@ -9,12 +9,16 @@ import { ForumIcon } from "./icons/ForumIcon";
 import { ProfileIcon } from "./icons/ProfileIcon";
 import { RecordIcon } from "./icons/RecordIcon";
 import { SettingsIcon } from "./icons/SettingsIcon";
+import { useAuth } from "./components/app/auth-provider/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 interface AppShellProps {
   children: React.ReactNode;
 }
 
 export default function AppShell({ children }: AppShellProps) {
+  const auth = useAuth();
+
   return (
     <Flex
       direction="column"
@@ -34,30 +38,31 @@ export default function AppShell({ children }: AppShellProps) {
         }
         slotCenter={<></>}
         slotRight={
-          <ButtonConsole
-            variant="inline"
-            orientation="horizontal"
-            buttons={[
-              {
-                children: (
-                  <Text variant="caption" color="default" font="default">
-                    Sign In
-                  </Text>
-                ),
-                variant: "primary",
-                size: "sm",
-              },
-              {
-                children: (
-                  <Text variant="caption" color="dark" font="default">
-                    Sign Up
-                  </Text>
-                ),
-                variant: "secondary",
-                size: "sm",
-              },
-            ]}
-          />
+          // <ButtonConsole
+          //   variant="inline"
+          //   orientation="horizontal"
+          //   buttons={[
+          //     {
+          //       children: (
+          //         <Text variant="caption" color="default" font="default">
+          //           Sign In
+          //         </Text>
+          //       ),
+          //       variant: "primary",
+          //       size: "sm",
+          //     },
+          //     {
+          //       children: (
+          //         <Text variant="caption" color="dark" font="default">
+          //           Sign Up
+          //         </Text>
+          //       ),
+          //       variant: "secondary",
+          //       size: "sm",
+          //     },
+          //   ]}
+          // />
+          <></>
         }
       />
       <Flex
@@ -66,51 +71,53 @@ export default function AppShell({ children }: AppShellProps) {
         padding="sm"
         className="h-full min-h-0"
       >
-        <VerticalNav
-          expanded={true}
-          groups={[
-            {
-              label: "EXPLORE",
-              actions: [
-                {
-                  icon: <ExploreIcon color="#F5F6FA" />,
-                  label: "For You",
-                  variant: "tertiary",
-                },
-                {
-                  icon: <FollowIcon color="#F5F6FA" />,
-                  label: "Following",
-                  variant: "tertiary",
-                },
-                {
-                  icon: <ForumIcon color="#F5F6FA" />,
-                  label: "Forum",
-                  variant: "tertiary",
-                },
-              ],
-            },
-            {
-              label: "ACCOUNT",
-              actions: [
-                {
-                  icon: <RecordIcon color="#F5F6FA" />,
-                  label: "Record",
-                  variant: "tertiary",
-                },
-                {
-                  icon: <SettingsIcon color="#F5F6FA" />,
-                  label: "Settings",
-                  variant: "tertiary",
-                },
-                {
-                  icon: <ProfileIcon color="#F5F6FA" />,
-                  label: "Profile",
-                  variant: "tertiary",
-                },
-              ],
-            },
-          ]}
-        />
+        {auth.user && (
+          <VerticalNav
+            expanded={true}
+            groups={[
+              {
+                label: "EXPLORE",
+                actions: [
+                  {
+                    icon: <ExploreIcon color="#F5F6FA" />,
+                    label: "For You",
+                    variant: "tertiary",
+                  },
+                  {
+                    icon: <FollowIcon color="#F5F6FA" />,
+                    label: "Following",
+                    variant: "tertiary",
+                  },
+                  {
+                    icon: <ForumIcon color="#F5F6FA" />,
+                    label: "Forum",
+                    variant: "tertiary",
+                  },
+                ],
+              },
+              {
+                label: "ACCOUNT",
+                actions: [
+                  {
+                    icon: <RecordIcon color="#F5F6FA" />,
+                    label: "Record",
+                    variant: "tertiary",
+                  },
+                  {
+                    icon: <SettingsIcon color="#F5F6FA" />,
+                    label: "Settings",
+                    variant: "tertiary",
+                  },
+                  {
+                    icon: <ProfileIcon color="#F5F6FA" />,
+                    label: "Profile",
+                    variant: "tertiary",
+                  },
+                ],
+              },
+            ]}
+          />
+        )}
         {children}
       </Flex>
     </Flex>
