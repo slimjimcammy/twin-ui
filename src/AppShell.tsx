@@ -67,7 +67,7 @@ export default function AppShell({ children }: AppShellProps) {
         className="h-full min-h-0"
       >
         <VerticalNav
-          expanded={false}
+          expanded={true}
           groups={[
             {
               label: "EXPLORE",

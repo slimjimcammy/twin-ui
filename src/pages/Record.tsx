@@ -8,22 +8,45 @@ import Widget from "../components/layout/Widget";
 import Image from "../components/ui/Image";
 import { Flex } from "../components/layout/Flex";
 import { useState } from "react";
+import "../index.css";
 export default function Record() {
   const [midiConnected, setMidiConnected] = useState(false);
 
   const handleMIDIConnect = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    // Eventual code to connect MIDI
     setMidiConnected(true);
   };
 
+  // Can later put in a filler image when we implement code to get cover image
+  const [trackPairs, setTrackPairs] = useState([
+    { label: "Track 1", image: "beyonce.jpg" },
+    { label: "Track 2", image: "dragons.jpg" },
+  ]);
 
+  // again, can change img to a filler img we have
+  const addTrack = () => {
+    const nextNum = trackPairs.length + 1;
+    const newTrack = {
+      label: `Track ${nextNum}`,
+      image: "beyonce.jpg",
+    };
+    setTrackPairs([...trackPairs, newTrack]);
+  };
+
+  const removeTrack = (index: number) => {
+    const updated = trackPairs.filter((_, i) => i !== index);
+    const relabel = updated.map((trackPairs, i) => ({
+      ...trackPairs,
+      label: `Track ${i + 1}`,
+    }));
+    setTrackPairs(relabel);
+  };
 
   return (
     <Flex
       direction="column"
       gap="md"
-      className="pl-4 h-full min-h-0 overflow-x-hidden "
+      className="pl-4 h-full min-h-0 overflow-x-hidden scrollbar pr-4"
       height="stretch"
       width="stretch"
     >
@@ -50,9 +73,14 @@ export default function Record() {
             <Text variant="h6" font="default">
               2. Connect MIDI device{" "}
             </Text>
-            <Text variant="caption" weight="thin" color="dimmed">
-              (Await confirmpation pop-up)
-            </Text>
+            <Button
+              variant="secondary"
+              onClick={handleMIDIConnect}
+              size="sm"
+              className="mx-0"
+            >
+              ConnectMIDI
+            </Button>
           </Flex>
           <Flex direction="column" gap="xs">
             <Text variant="h6" font="default">
@@ -70,12 +98,17 @@ export default function Record() {
               (and start DJ-ing!)
             </Text>
           </Flex>
-          <Flex direction='row' gap='xs'>
-            <Button variant='secondary' onClick={handleMIDIConnect} size='sm'>
-                ConnectMIDI
+          <Flex direction="row" gap="xs">
+            <Button variant="secondary" onClick={handleMIDIConnect} size="sm">
+              Connect MIDI
             </Button>
-            <Button variant='secondary' size='sm' disabled={!midiConnected} className={`transition-all duration-250 ${midiConnected? "bg-success" : "bg-error opacity-50"}`}>
-                Record  
+            <Button
+              variant="secondary"
+              size="sm"
+              disabled={!midiConnected}
+              className={`transition-all duration-250 ${midiConnected ? "bg-success" : "bg-error opacity-50"}`}
+            >
+              Record
             </Button>
           </Flex>
         </Widget>
@@ -96,7 +129,7 @@ export default function Record() {
                   }}
                 />
               </FormRow>
-              <Textarea  label="Description"/>
+              <Textarea label="Description" />
               <FormRow gap="md">
                 <TextInput
                   label="Song 1"
@@ -111,34 +144,37 @@ export default function Record() {
                   className="w-full"
                 />
               </FormRow>
-              <Flex direction='row' gap='sm' justify='evenly'>
-                  <Widget
-                className="w-35 aspect-square relative overflow-hidden"
-                padding="sm"
-              >
-                <Image
-                  src="/beyonce.jpg"
-                  alt="Album Cover"
-                  className="absolute inset-0 w-full object-cover "
-                />
-              </Widget>
-              <Widget
-                className="w-35 aspect-square relative overflow-hidden"
-                padding="sm"
-              >
-                <Image
-                  src="/dragons.jpg"
-                  alt="Album Cover"
-                  className="absolute inset-0 w-full object-cover"
-                />
-              </Widget>
+              <Flex direction="row" gap="sm">
+                <Widget
+                  className="w-full aspect-square relative overflow-hidden"
+                  padding="sm"
+                >
+                  <Image
+                    src="/beyonce.jpg"
+                    alt="Album Cover"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </Widget>
+                <Widget
+                  className="w-full aspect-square relative overflow-hidden"
+                  padding="sm"
+                >
+                  <Image
+                    src="/dragons.jpg"
+                    alt="Album Cover"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </Widget>
               </Flex>
-              {/*Eventual code to enable the button based on required forms (ref?) */}
-              <Button variant='disabled' size="md" disabled className="bg-light">
+              {/*Later on make it so when all fields are filled change color?*/}
+              <Button
+                variant="secondary"
+                size="md"
+                className="bg-error opacity-50"
+              >
                 POST
-            </Button>
+              </Button>
             </Form>
-            
           </Flex>
         </Flex>
       </Flex>

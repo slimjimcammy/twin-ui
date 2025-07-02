@@ -45,7 +45,7 @@ export default function Transition({
           userName={userName}
           description={description}
         />
-        <TransitionActions likes={likes} comments={comments} shares={shares} />
+        {/* <TransitionActions likes={likes} comments={comments} shares={shares} /> */}
       </Flex>
     </Widget>
   );
