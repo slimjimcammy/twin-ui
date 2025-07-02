@@ -15,11 +15,11 @@ export default function Record() {
 
   const handleMIDIConnect = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    // Eventual code to connect MIDI
+      // Eventual code to connect MIDI
     setMidiConnected(true);
   };
 
-  // Can later put in a filler image when we implement code to get cover image 
+  // Can later put in a filler image when we implement code to get cover image
   const [trackPairs, setTrackPairs] = useState([
     {id: crypto.randomUUID(), name: "", image: "beyonce.jpg"},
     {id: crypto.randomUUID(), name: "", image: "dragons.jpg"},
@@ -49,7 +49,7 @@ export default function Record() {
     setTrackPairs(updated)
   }
 
-
+  
   return (
     <Flex
       direction="column"
@@ -81,8 +81,13 @@ export default function Record() {
             <Text variant="h6" font="default">
               2. Connect MIDI device{" "}
             </Text>
-              <Button variant='secondary' onClick={handleMIDIConnect} size='sm' className="mx-0">
-                ConnectMIDI
+            <Button
+              variant="secondary"
+              onClick={handleMIDIConnect}
+              size="sm"
+              className="mx-0"
+            >
+              ConnectMIDI
             </Button>
           </Flex>
           <Flex direction="column" gap="xs">
@@ -101,10 +106,14 @@ export default function Record() {
               (and start DJ-ing!)
             </Text>
           </Flex>
-            <Button variant='secondary' size='sm' disabled={!midiConnected} className={`transition-all duration-250 mx-0 ${midiConnected? "bg-success" : "bg-error opacity-30"}`}>
-                Record  
+            <Button
+              variant="secondary"
+              size="sm"
+              disabled={!midiConnected}
+              className={`transition-all duration-250 mx-0 ${midiConnected ? "bg-success" : "bg-error opacity-30"}`}
+            >
+              Record
             </Button>
-         
         </Widget>
         <Flex height="stretch" width="stretch">
           <Flex direction="column" width="stretch">
@@ -123,12 +132,12 @@ export default function Record() {
                   }}
                 />
               </FormRow>
-              <Textarea  label="Description"/>
+                <Textarea label="Description" />
               <Flex
                     direction={trackPairs.length > 2 ? "column" : "row"}
                     gap="sm"
                     justify={trackPairs.length > 2 ? "start" : "evenly"}
-                >
+               >
                     {trackPairs.map((track, i) => (
                     <Flex key={track.id}  direction="column" gap="xs" className="w-full">
                         <FormRow>
@@ -161,7 +170,7 @@ export default function Record() {
               {/*Eventual code to enable the button based on required forms (ref?) */}
               <Button variant='disabled' size="md" disabled className="bg-light">
                 POST
-            </Button>
+              </Button>
             </Form>
           </Flex>
         </Flex>
