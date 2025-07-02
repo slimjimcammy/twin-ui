@@ -135,7 +135,7 @@ export default function Record() {
                         <TextInput
                             key={track.id}
                             label={`Track ${trackPairs.indexOf(track) + 1}`}
-                            // name={`song-${i}`}
+                            name={`song-${i}`}
                             placeholder={`Track ${trackPairs.indexOf(track) + 1}`}
                             onChange={(e) => nameChange(track.id, e.target.value)}
                             className="w-full"
