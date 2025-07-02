@@ -21,29 +21,32 @@ export default function Record() {
 
   // Can later put in a filler image when we implement code to get cover image 
   const [trackPairs, setTrackPairs] = useState([
-    {label: "Track 1", image: "beyonce.jpg"},
-    {label: "Track 2", image: "dragons.jpg"},
+    {id: crypto.randomUUID(), name: "", image: "beyonce.jpg"},
+    {id: crypto.randomUUID(), name: "", image: "dragons.jpg"},
   ])
 
   // again, can change img to a filler img we have
   const addTrack = () => {
     if (trackPairs.length >= 4) return;
-    const nextNum = trackPairs.length + 1;
     const newTrack = {
-        label: `Track ${nextNum}`,
+        id: crypto.randomUUID(),
+        name: "",
         image: "beyonce.jpg",
     }
     setTrackPairs([...trackPairs, newTrack])
+  }
+  const nameChange = (id: string, newName: string) => {
+    setTrackPairs((prev) => 
+        prev.map((track) => 
+            track.id === id ? {...track, name: newName} : track
+        )
+    )
   }
 
   const removeTrack = (index: number) => {
     if (trackPairs.length <= 2) return;
     const updated = trackPairs.filter((_, i) => i !== index)
-    const relabel = updated.map((trackPairs, i) => ({
-        ...trackPairs,
-        label: `Track ${i + 1}`,
-    }))
-    setTrackPairs(relabel)
+    setTrackPairs(updated)
   }
 
 
@@ -126,15 +129,17 @@ export default function Record() {
                     gap="sm"
                     justify={trackPairs.length > 2 ? "start" : "evenly"}
                 >
-                    {trackPairs.map((pair, i) => (
-                    <Flex key={i}  direction="column" gap="xs" className="w-full">
+                    {trackPairs.map((track, i) => (
+                    <Flex key={track.id}  direction="column" gap="xs" className="w-full">
                         <FormRow>
-                            <TextInput
-                        label={pair.label}
-                        name={`song-${i}`}
-                        placeholder={pair.label}
-                        className="w-full"
-                        required
+                        <TextInput
+                            key={track.id}
+                            label={`Track ${trackPairs.indexOf(track) + 1}`}
+                            // name={`song-${i}`}
+                            placeholder={`Track ${trackPairs.indexOf(track) + 1}`}
+                            onChange={(e) => nameChange(track.id, e.target.value)}
+                            className="w-full"
+                            required
                         />
                         <Button type="button" onClick={() => removeTrack(i)} size='sm' className="bg-light text-error relative mt-7">
                             x
@@ -142,8 +147,8 @@ export default function Record() {
                         </FormRow>
                         <Widget className={`${trackPairs.length > 2 ? "w-1/7" : "w-1/2"} aspect-square relative overflow-hidden mx-auto`} padding="sm">
                         <Image
-                            src={pair.image}
-                            alt={`Album Cover ${i + 1}`}
+                            src={track.image}
+                            alt={`Album Cover ${trackPairs.indexOf(track) + 1}`}
                             className="absolute inset-0 w-full object-cover"
                         />
                         </Widget>
