@@ -8,40 +8,48 @@ import Widget from "../components/layout/Widget";
 import Image from "../components/ui/Image";
 import { Flex } from "../components/layout/Flex";
 import { useState } from "react";
-import "../index.css";
+import "../index.css"
+import { useNavigate } from "react-router-dom";
 export default function Record() {
   const [midiConnected, setMidiConnected] = useState(false);
 
   const handleMIDIConnect = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+      // Eventual code to connect MIDI
     setMidiConnected(true);
   };
 
   // Can later put in a filler image when we implement code to get cover image
   const [trackPairs, setTrackPairs] = useState([
-    { label: "Track 1", image: "beyonce.jpg" },
-    { label: "Track 2", image: "dragons.jpg" },
-  ]);
+    {id: crypto.randomUUID(), name: "", image: "beyonce.jpg"},
+    {id: crypto.randomUUID(), name: "", image: "dragons.jpg"},
+  ])
 
   // again, can change img to a filler img we have
   const addTrack = () => {
-    const nextNum = trackPairs.length + 1;
+    if (trackPairs.length >= 4) return;
     const newTrack = {
-      label: `Track ${nextNum}`,
-      image: "beyonce.jpg",
-    };
-    setTrackPairs([...trackPairs, newTrack]);
-  };
+        id: crypto.randomUUID(),
+        name: "",
+        image: "beyonce.jpg",
+    }
+    setTrackPairs([...trackPairs, newTrack])
+  }
+  const nameChange = (id: string, newName: string) => {
+    setTrackPairs((prev) => 
+        prev.map((track) => 
+            track.id === id ? {...track, name: newName} : track
+        )
+    )
+  }
 
   const removeTrack = (index: number) => {
-    const updated = trackPairs.filter((_, i) => i !== index);
-    const relabel = updated.map((trackPairs, i) => ({
-      ...trackPairs,
-      label: `Track ${i + 1}`,
-    }));
-    setTrackPairs(relabel);
-  };
+    if (trackPairs.length <= 2) return;
+    const updated = trackPairs.filter((_, i) => i !== index)
+    setTrackPairs(updated)
+  }
 
+    
   return (
     <Flex
       direction="column"
@@ -77,7 +85,8 @@ export default function Record() {
               variant="secondary"
               onClick={handleMIDIConnect}
               size="sm"
-              className="mx-0"
+
+              className="mx-0 px-0"
             >
               ConnectMIDI
             </Button>
@@ -98,19 +107,15 @@ export default function Record() {
               (and start DJ-ing!)
             </Text>
           </Flex>
-          <Flex direction="row" gap="xs">
-            <Button variant="secondary" onClick={handleMIDIConnect} size="sm">
-              Connect MIDI
-            </Button>
             <Button
               variant="secondary"
               size="sm"
               disabled={!midiConnected}
-              className={`transition-all duration-250 ${midiConnected ? "bg-success" : "bg-error opacity-50"}`}
+              className={`transition-all duration-250 mx-0 ${midiConnected ? "bg-success" : "bg-error opacity-30"}`}
+
             >
-              Record
+                Record  
             </Button>
-          </Flex>
         </Widget>
         <Flex height="stretch" width="stretch">
           <Flex direction="column" width="stretch">
@@ -129,49 +134,43 @@ export default function Record() {
                   }}
                 />
               </FormRow>
-              <Textarea label="Description" />
-              <FormRow gap="md">
-                <TextInput
-                  label="Song 1"
-                  placeholder="KYOTO"
-                  helperText="Help"
-                  className="w-full"
-                />
-                <TextInput
-                  label="Song 2"
-                  placeholder="JACKIE CHAN"
-                  helperText="HelpterText"
-                  className="w-full"
-                />
-              </FormRow>
-              <Flex direction="row" gap="sm">
-                <Widget
-                  className="w-full aspect-square relative overflow-hidden"
-                  padding="sm"
-                >
-                  <Image
-                    src="/beyonce.jpg"
-                    alt="Album Cover"
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                </Widget>
-                <Widget
-                  className="w-full aspect-square relative overflow-hidden"
-                  padding="sm"
-                >
-                  <Image
-                    src="/dragons.jpg"
-                    alt="Album Cover"
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                </Widget>
-              </Flex>
-              {/*Later on make it so when all fields are filled change color?*/}
-              <Button
-                variant="secondary"
-                size="md"
-                className="bg-error opacity-50"
-              >
+                <Textarea label="Description" />
+              <Flex
+                    direction={trackPairs.length > 2 ? "column" : "row"}
+                    gap="sm"
+                    justify={trackPairs.length > 2 ? "start" : "evenly"}
+               >
+                    {trackPairs.map((track, i) => (
+                    <Flex key={track.id}  direction="column" gap="xs" className="w-full">
+                        <FormRow>
+                        <TextInput
+                            key={track.id}
+                            label={`Track ${trackPairs.indexOf(track) + 1}`}
+                            name={`song-${i}`}
+                            placeholder={`Track ${trackPairs.indexOf(track) + 1}`}
+                            onChange={(e) => nameChange(track.id, e.target.value)}
+                            className="w-full"
+                            required
+                        />
+                        <Button type="button" onClick={() => removeTrack(i)} size='sm' className="bg-light text-error relative mt-7">
+                            x
+                        </Button>
+                        </FormRow>
+                        <Widget className={`${trackPairs.length > 2 ? "w-1/7" : "w-1/2"} aspect-square relative overflow-hidden mx-auto`} padding="sm">
+                        <Image
+                            src={track.image}
+                            alt={`Album Cover ${trackPairs.indexOf(track) + 1}`}
+                            className="absolute inset-0 w-full object-cover"
+                        />
+                        </Widget>
+                    </Flex>
+                    ))}
+                </Flex>
+                <Button type='button' className="bg-light" onClick={addTrack} size='sm' >
+                    Add Song
+                </Button>
+              {/*Eventual code to enable the button based on required forms (ref?) */}
+              <Button variant='disabled' size="md" disabled className="bg-light">
                 POST
               </Button>
             </Form>

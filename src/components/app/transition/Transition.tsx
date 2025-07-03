@@ -3,7 +3,7 @@ import { Flex } from "../../layout/Flex";
 import { TransitionCover } from "./components/TransitionCover";
 import { TransitionMeta } from "./components/TransitionMeta";
 import { TransitionActions } from "./components/TransitionActions";
-
+import { useNavigate } from "react-router-dom";
 export interface TransitionProps {
   leftCoverSrc: string;
   leftTitle: string;
@@ -29,9 +29,11 @@ export default function Transition({
   comments,
   shares,
 }: TransitionProps) {
+  const navigate = useNavigate();
   return (
     <Widget className="group hover:cursor-pointer" height="fit" variant="md">
-      <Flex direction="column" className="relative">
+      {/*No postIDs yet for these posts so will just go to post 1 */}
+      <Flex direction="column" className="relative" onClick={() => navigate("/posts/1")}>
         <Flex direction="row">
           <TransitionCover src={leftCoverSrc} title={leftTitle} align="left" />
           <TransitionCover
