@@ -49,7 +49,7 @@ export default function Record() {
     setTrackPairs(updated)
   }
 
-  
+    
   return (
     <Flex
       direction="column"
@@ -85,6 +85,7 @@ export default function Record() {
               variant="secondary"
               onClick={handleMIDIConnect}
               size="sm"
+
               className="mx-0 px-0"
             >
               ConnectMIDI
@@ -110,9 +111,10 @@ export default function Record() {
               variant="secondary"
               size="sm"
               disabled={!midiConnected}
-              className={`transition-all duration-250 ${midiConnected ? "bg-success" : "bg-error opacity-30"}`}
+              className={`transition-all duration-250 mx-0 ${midiConnected ? "bg-success" : "bg-error opacity-30"}`}
+
             >
-              Record
+                Record  
             </Button>
         </Widget>
         <Flex height="stretch" width="stretch">

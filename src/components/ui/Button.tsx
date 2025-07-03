@@ -81,7 +81,6 @@ export default function Button({
         buttonVariants({ variant, width, size, rounded }),
         className
       )}
-      {...props}
     >
       {children}
     </button>
