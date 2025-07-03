@@ -25,7 +25,7 @@ const buttonVariants = cva("hover:cursor-pointer", {
         "hover:bg-subtitle",
         "hover:text-light",
       ].join(" "),
-      disabled: ["bg-primary", "text-subtitle", "hover:cursor-not-alowed"],
+      disabled: ["bg-primary", "text-subtitle", "hover:cursor-not-alowed", "opacity-50"],
     },
     width: {
       default: "w-fit",

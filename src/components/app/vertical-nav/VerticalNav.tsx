@@ -31,6 +31,7 @@ interface Action {
   label: string;
   variant: "primary" | "secondary" | "tertiary";
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 interface Group {
@@ -77,9 +78,10 @@ export function VerticalNav({
                   className={
                     expanded ? "w-full h-fit py-md px-lg" : "w-fit p-md h-fit"
                   }
-                  variant="primary"
+                  variant={action.disabled? "disabled" : "primary"}
                   size={expanded ? "default" : "centeredMd"}
                   onClick={action.onClick}
+                  
                 >
                   <Flex direction="row" align="center" gap="md">
                     {action.icon}

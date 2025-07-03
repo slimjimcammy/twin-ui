@@ -83,11 +83,13 @@ export default function AppShell({ children }: AppShellProps) {
                   icon: <FollowIcon color="#F5F6FA" />,
                   label: "Following",
                   variant: "tertiary",
+                  disabled: true,
                 },
                 {
                   icon: <ForumIcon color="#F5F6FA" />,
                   label: "Forum",
                   variant: "tertiary",
+                  disabled: true,
                 },
               ],
             },
@@ -104,6 +106,7 @@ export default function AppShell({ children }: AppShellProps) {
                   icon: <SettingsIcon color="#F5F6FA" />,
                   label: "Settings",
                   variant: "tertiary",
+                  disabled: true,
                 },
                 {
                   icon: <ProfileIcon color="#F5F6FA" />,
