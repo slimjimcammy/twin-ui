@@ -21,7 +21,7 @@ export default function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="/profiles/:profile_id" element={<NotFound/>} />
             <Route path="/posts/:post_id" element={<ViewTransition/>}/>
-            <Route path="/profile/:name" element={<Profile />} />
+            <Route path="/profile/:userID" element={<Profile />} />
           </Routes>
            </AppShell>
         </BrowserRouter>
