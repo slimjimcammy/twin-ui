@@ -17,7 +17,7 @@ export function TransitionCover({
       <Image
         src={src}
         alt={title}
-        className={`object-cover transition-opacity duration-200 opacity-65 group-hover:opacity-100 ${align === "left" ? "rounded-tl-md" : "rounded-tr-md"}`}
+        className={`object-cover transition-opacity duration-200 opacity-65  group-hover:opacity-100 aspect-square min-w-70 ${align === "left" ? "rounded-tl-md" : "rounded-tr-md"}`}
       />
       <Text
         variant="strong"
