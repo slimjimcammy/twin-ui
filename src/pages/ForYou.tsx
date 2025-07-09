@@ -50,10 +50,11 @@ export default function ForYou() {
           className="flex-1 min-h-0 overflow-y-auto"
         >
           <Transition
-            leftCoverSrc="/beyonce.jpg"
-            leftTitle="Beyonce adoiuhawiof owa wao fawhi"
-            rightCoverSrc="/dragons.jpg"
-            rightTitle="Dragons"
+            songs={[
+              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
+              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },  
+            ]}
             userAvatarSrc="/beyonce.jpg"
             userName="minski"
             description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. oiahoifha owoi aoao oawhdio aua iiua hiu diaiu iua iuw iu"
@@ -62,10 +63,12 @@ export default function ForYou() {
             shares={1}
           />
           <Transition
-            leftCoverSrc="/dragons.jpg"
-            leftTitle="Dragons"
-            rightCoverSrc="/beyonce.jpg"
-            rightTitle="Beyonce"
+            songs={[
+              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
+              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+            ]}
             userAvatarSrc="/dragons.jpg"
             userName="dragonfan"
             description="Another description for a different transition."
@@ -74,10 +77,10 @@ export default function ForYou() {
             shares={3}
           />
           <Transition
-            leftCoverSrc="/beyonce.jpg"
-            leftTitle="Beyonce"
-            rightCoverSrc="/beyonce.jpg"
-            rightTitle="Beyonce Again"
+            songs={[
+              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
+              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+            ]}
             userAvatarSrc="/beyonce.jpg"
             userName="queenb"
             description="Beyonce everywhere!"
@@ -86,10 +89,10 @@ export default function ForYou() {
             shares={10}
           />
           <Transition
-            leftCoverSrc="/dragons.jpg"
-            leftTitle="Dragons"
-            rightCoverSrc="/dragons.jpg"
-            rightTitle="More Dragons"
+            songs={[
+              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
+              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+            ]}
             userAvatarSrc="/dragons.jpg"
             userName="dragonmaster"
             description="All about dragons."
@@ -98,10 +101,10 @@ export default function ForYou() {
             shares={4}
           />
           <Transition
-            leftCoverSrc="/beyonce.jpg"
-            leftTitle="Beyonce"
-            rightCoverSrc="/dragons.jpg"
-            rightTitle="Dragons"
+            songs={[
+              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
+              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+            ]}
             userAvatarSrc="/beyonce.jpg"
             userName="minski"
             description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
@@ -110,10 +113,10 @@ export default function ForYou() {
             shares={1}
           />
           <Transition
-            leftCoverSrc="/dragons.jpg"
-            leftTitle="Dragons"
-            rightCoverSrc="/beyonce.jpg"
-            rightTitle="Beyonce"
+            songs={[
+              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
+              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+            ]}
             userAvatarSrc="/dragons.jpg"
             userName="dragonfan"
             description="Another description for a different transition."
@@ -122,10 +125,10 @@ export default function ForYou() {
             shares={3}
           />
           <Transition
-            leftCoverSrc="/beyonce.jpg"
-            leftTitle="Beyonce"
-            rightCoverSrc="/beyonce.jpg"
-            rightTitle="Beyonce Again"
+            songs={[
+              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
+              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+            ]}
             userAvatarSrc="/beyonce.jpg"
             userName="queenb"
             description="Beyonce everywhere!"
@@ -134,10 +137,10 @@ export default function ForYou() {
             shares={10}
           />
           <Transition
-            leftCoverSrc="/dragons.jpg"
-            leftTitle="Dragons"
-            rightCoverSrc="/dragons.jpg"
-            rightTitle="More Dragons"
+            songs={[
+              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
+              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+            ]}
             userAvatarSrc="/dragons.jpg"
             userName="dragonmaster"
             description="All about dragons."
@@ -146,10 +149,10 @@ export default function ForYou() {
             shares={4}
           />
           <Transition
-            leftCoverSrc="/beyonce.jpg"
-            leftTitle="Beyonce"
-            rightCoverSrc="/dragons.jpg"
-            rightTitle="Dragons"
+            songs={[
+              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
+              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+            ]}
             userAvatarSrc="/beyonce.jpg"
             userName="minski"
             description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
@@ -158,10 +161,10 @@ export default function ForYou() {
             shares={1}
           />
           <Transition
-            leftCoverSrc="/dragons.jpg"
-            leftTitle="Dragons"
-            rightCoverSrc="/beyonce.jpg"
-            rightTitle="Beyonce"
+            songs={[
+              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
+              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+            ]}
             userAvatarSrc="/dragons.jpg"
             userName="dragonfan"
             description="Another description for a different transition."

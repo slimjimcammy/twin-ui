@@ -5,10 +5,10 @@ import { TransitionMeta } from "./components/TransitionMeta";
 import { TransitionActions } from "./components/TransitionActions";
 import { useNavigate } from "react-router-dom";
 export interface TransitionProps {
-  leftCoverSrc: string;
-  leftTitle: string;
-  rightCoverSrc: string;
-  rightTitle: string;
+  songs: {
+    album_cover_img_url: string;
+    title: string;
+  }[];
   userAvatarSrc: string;
   userName: string;
   description: string;
@@ -18,10 +18,7 @@ export interface TransitionProps {
 }
 
 export default function Transition({
-  leftCoverSrc,
-  leftTitle,
-  rightCoverSrc,
-  rightTitle,
+  songs,  
   userAvatarSrc,
   userName,
   description,
@@ -30,24 +27,36 @@ export default function Transition({
   shares,
 }: TransitionProps) {
   const navigate = useNavigate();
+  const songPairs = [];
+  for(let i = 0; i < songs.length; i += 2) {
+    songPairs.push(songs.slice(i, i + 2));
+  }
+  const coverSize = songs.length > 2 ? "sm" : "md";
   return (
-    <Widget className="group hover:cursor-pointer" height="fit" variant="md">
+    <Widget className="group hover:cursor-pointer" height="full" variant="md">
       {/*No postIDs yet for these posts so will just go to post 1 */}
       <Flex direction="column" className="relative" onClick={() => navigate("/posts/1")}>
-        <Flex direction="row">
-          <TransitionCover src={leftCoverSrc} title={leftTitle} align="left" />
-          <TransitionCover
-            src={rightCoverSrc}
-            title={rightTitle}
-            align="right"
-          />
-        </Flex>
+        {songPairs.map((pair, index) => (
+          <Flex direction="row" key={index}>
+            {pair.map((song, i) => (
+              song.album_cover_img_url && song.title && (
+                <TransitionCover
+                  key={i}
+                  src={song.album_cover_img_url}
+                  title={song.title}  
+                  align={i === 0 ? "left" : "right"}
+                  size={coverSize}
+                />
+              )
+            ))}
+          </Flex>
+        ))}
         <TransitionMeta
           userAvatarSrc={userAvatarSrc}
           userName={userName}
           description={description}
         />
-        {/* <TransitionActions likes={likes} comments={comments} shares={shares} /> */}
+        <TransitionActions likes={likes} comments={comments} shares={shares} />
       </Flex>
     </Widget>
   );

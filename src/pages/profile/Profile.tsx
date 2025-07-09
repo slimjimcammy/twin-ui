@@ -35,8 +35,10 @@ export interface Post {
   likes: number,
   shares: number,
   description: string,
-  outgoing_song_id: number,
-  incoming_song_id: number,
+  song_1_id: number,
+  song_2_id: number,
+  song_3_id?: number | null,
+  song_4_id?: number | null,
 }
 
 export interface Comments {
@@ -78,9 +80,11 @@ export default function Profile() {
         const postAndSongs = await Promise.all(
           posts.map(async (post) => {
             const songIDs = [
-              post.outgoing_song_id,
-              post.incoming_song_id,
-            ];
+              post.song_1_id,
+              post.song_2_id,
+              post.song_3_id,
+              post.song_4_id,
+            ].filter((id): id is number => id !== null);
             const songPromises = songIDs.map((id) => 
             fetch(`http://localhost:8000/songs/${id}`).then((res) => res.json())
             );
@@ -147,10 +151,7 @@ export default function Profile() {
               (PostWithSongs.map(({post, songs}) => (
                 <Transition
                   key={post.id}
-                  leftCoverSrc={songs[0].album_cover_img_url ??"/beyonce.jpg"}
-                  leftTitle={songs[0].title ?? "Unkown"}
-                  rightCoverSrc={songs[1].album_cover_img_url ??"/dragons.jpg"}
-                  rightTitle={songs[1].title ??"Unknown Right Title"}
+                  songs={songs}
                   userAvatarSrc={user?.profile_img_url || "/default-avatar.jpg"}
                   userName={`${user.nickname}`}
                   description={post.description}
