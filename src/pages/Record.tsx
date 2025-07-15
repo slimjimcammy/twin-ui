@@ -14,19 +14,22 @@ export default function Record() {
   const [midiConnected, setMidiConnected] = useState(false);
   const socketRef = useRef<WebSocket | null>(null);
   const[isRecording, setIsRecording] = useState(false);
+  const isRecordingRef = useRef(false);
 
   const handleRecord = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (isRecording) {
-      console.log("We are recording, time to stop recording")
-    } else {
-      console.log("We are not recording, time to start recording")
-        console.log("Retrieving Full Summarization")
-        const stopMessage = JSON.stringify({ command: "KILL/SUMMARIZE" })
-        socketRef.current.send(stopMessage)
-    }
-    setIsRecording((prev) => !prev);
+  e.preventDefault();
+
+  if (isRecordingRef.current) {
+    console.log("We are recording, time to stop recording");
+    const stopMessage = JSON.stringify({ command: "KILL/SUMMARIZE" });
+    socketRef.current?.send(stopMessage);
+  } else {
+    console.log("We are not recording, time to start recording");
   }
+
+  isRecordingRef.current = !isRecordingRef.current;
+  setIsRecording(isRecordingRef.current);
+};
 
   const handleMIDIConnect = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -36,35 +39,33 @@ export default function Record() {
       }
     const socket = new WebSocket("ws://localhost:6789")
    
-    socket.onopen = () => {
+    socket.onopen = async () => {
       console.log("websocket connected to python");
       setMidiConnected(true);
        socketRef.current = socket;
-    }
-    socket.onerror = (error) => {
-      console.log("error connecting:", error)
-    }
-    
-    const midiAccess = await navigator.requestMIDIAccess(); 
-    
+       const midiAccess = await navigator.requestMIDIAccess(); 
+    console.log("pooooop");
     for (let input of midiAccess.inputs.values()) {
         input.onmidimessage = (msg) => {
           const [status, data1, data2] = msg.data;
           //Filter out the connection noise
+
           if (status === 248) return;
-          if (isRecording && socket.readyState === WebSocket.OPEN) {
+          const timestamp = Date.now();
 
-            const timestamp = Date.now();
-
-            const midiEvent = { status, data1, data2, timestamp };
-
-            console.log("Sending MIDI:", midiEvent);
-
-            socket.send(JSON.stringify(midiEvent));
+          const midiEvent = { status, data1, data2, timestamp };
+          console.log(isRecording);
+          if (isRecordingRef.current && socketRef.current?.readyState === WebSocket.OPEN) {
+              console.log("Sending MIDI:", midiEvent);
+              socketRef.current.send(JSON.stringify(midiEvent));
           }
 
         };
-      } 
+      }
+    }
+    socket.onerror = (error) => {
+      console.log("error connecting:", error)
+    } 
     
   };
 
