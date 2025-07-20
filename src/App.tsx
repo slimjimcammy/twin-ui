@@ -11,18 +11,21 @@ import Profile from "./pages/profile/Profile";
 export default function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <AppShell>
         <BrowserRouter>
+        <AppShell>
           <Routes>
             <Route path="/" element={<ViewTransition />} />
             {/* <Route path="/" element={<ForYou />} /> */}
             <Route path="/record" element={<Record />} />
-            {/* <ForYou /> */}
+            <Route path="/for-you" element={<ForYou />}/>
             <Route path="*" element={<NotFound />} />
+            <Route path="/profiles/:profile_id" element={<NotFound/>} />
+            <Route path="/posts/:post_id" element={<ViewTransition/>}/>
             <Route path="/profile/:name" element={<Profile />} />
           </Routes>
+           </AppShell>
         </BrowserRouter>
-      </AppShell>
+     
     </ThemeProvider>
   );
 }
