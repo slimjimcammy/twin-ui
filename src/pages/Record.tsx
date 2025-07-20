@@ -7,16 +7,66 @@ import Textarea from "../components/ui/Textarea";
 import Widget from "../components/layout/Widget";
 import Image from "../components/ui/Image";
 import { Flex } from "../components/layout/Flex";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "../index.css"
 import { useNavigate } from "react-router-dom";
 export default function Record() {
   const [midiConnected, setMidiConnected] = useState(false);
+  const socketRef = useRef<WebSocket | null>(null);
+  const[isRecording, setIsRecording] = useState(false);
+  const isRecordingRef = useRef(false);
 
-  const handleMIDIConnect = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleRecord = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  e.preventDefault();
+
+  if (isRecordingRef.current) {
+    console.log("We are recording, time to stop recording");
+    const stopMessage = JSON.stringify({ command: "KILL/SUMMARIZE" });
+    socketRef.current?.send(stopMessage);
+  } else {
+    console.log("We are not recording, time to start recording");
+  }
+
+  isRecordingRef.current = !isRecordingRef.current;
+  setIsRecording(isRecordingRef.current);
+};
+
+  const handleMIDIConnect = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-      // Eventual code to connect MIDI
-    setMidiConnected(true);
+    if (!navigator.requestMIDIAccess) {
+        alert("Web MIDI not supported for browser.");
+        return;
+      }
+    const socket = new WebSocket("ws://localhost:6789")
+   
+    socket.onopen = async () => {
+      console.log("websocket connected to python");
+      setMidiConnected(true);
+       socketRef.current = socket;
+       const midiAccess = await navigator.requestMIDIAccess(); 
+    console.log("pooooop");
+    for (let input of midiAccess.inputs.values()) {
+        input.onmidimessage = (msg) => {
+          const [status, data1, data2] = msg.data;
+          //Filter out the connection noise
+
+          if (status === 248) return;
+          const timestamp = Date.now();
+
+          const midiEvent = { status, data1, data2, timestamp };
+          console.log(isRecording);
+          if (isRecordingRef.current && socketRef.current?.readyState === WebSocket.OPEN) {
+              console.log("Sending MIDI:", midiEvent);
+              socketRef.current.send(JSON.stringify(midiEvent));
+          }
+
+        };
+      }
+    }
+    socket.onerror = (error) => {
+      console.log("error connecting:", error)
+    } 
+    
   };
 
   // Can later put in a filler image when we implement code to get cover image
@@ -111,11 +161,15 @@ export default function Record() {
               variant="secondary"
               size="sm"
               disabled={!midiConnected}
-              className={`transition-all duration-250 mx-0 ${midiConnected ? "bg-success" : "bg-error opacity-30"}`}
-
+              className={`transition-all duration-250 mx-0 ${midiConnected ? "bg-success opacity-50" : "bg-error opacity-30"} 
+              ${!isRecording && midiConnected  ? "opacity-100" : ""}`}
+              onClick={handleRecord}
             >
-                Record  
+                {isRecording? "Stop Recording" : "Record"} 
             </Button>
+            <Text variant="caption" weight="thin"> {isRecording? "Currently Recording..." : "Not Currently Recording..."}
+              
+            </Text>
         </Widget>
         <Flex height="stretch" width="stretch">
           <Flex direction="column" width="stretch">
