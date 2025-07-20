@@ -112,6 +112,8 @@ export default function AppShell({ children }: AppShellProps) {
                   icon: <ProfileIcon color="#F5F6FA" />,
                   label: "Profile",
                   variant: "tertiary",
+                  // eventually get logic of getting user id
+                  onClick: () => navigate("/profile/0")
                 },
               ],
             },

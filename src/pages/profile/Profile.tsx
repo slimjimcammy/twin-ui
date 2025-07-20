@@ -5,9 +5,105 @@ import { ProfileCard } from "../view-transition/components/ProfileCard";
 import { useParams } from "react-router-dom";
 import Transition from "../../components/app/transition/Transition";
 import { Grid } from "../../components/layout/Grid";
+import { useEffect, useState } from "react";
+
+export interface User{
+    id: number,
+    email: string,
+    password: string,
+    join_date: string,
+    first_name: string,
+    last_name: string,
+    profile_img_url: string,
+    role: string,
+    nickname: string,
+  }
+export interface Song{
+  id: number,
+  soundcloud_song_id: number,
+  title: string,
+  artist_name: string,
+  album_cover_img_url: string,
+}
+
+export interface Post {
+  id: number,
+  user_id: number,
+  transition_audio_url: string,
+  transition_json_summary_url: string,
+  post_date: string,
+  likes: number,
+  shares: number,
+  description: string,
+  song_1_id: number,
+  song_2_id: number,
+  song_3_id?: number | null,
+  song_4_id?: number | null,
+}
+
+export interface Comments {
+  id: number,
+  parent_comment_id: number,
+  user_id: number,
+  post_id: number,
+  content: string,
+  comment_date: string,
+}
+
+type PostWithSongs = {
+  post: Post;
+  songs: Song[];
+}
 
 export default function Profile() {
-  const { name } = useParams();
+  const { userID } = useParams<{userID: string}>();
+  const [user, setUser] = useState<User | null>(null);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [PostWithSongs, setPostWithSongs] = useState<PostWithSongs[]>([]);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const user_id = Number(userID)
+      try {
+        const userResult = await fetch(`http://localhost:8000/users/${user_id}`);
+        const userData = await userResult.json();
+        if(!userResult.ok || !userData) {
+          setUser(null);
+          return;
+        }
+        setUser(userData)
+
+        const postResult = await fetch(`http://localhost:8000/posts/${user_id}`);
+        const posts: Post[] = await postResult.json();
+        {/* need to change post backend to store more songs */}
+        const postAndSongs = await Promise.all(
+          posts.map(async (post) => {
+            const songIDs = [
+              post.song_1_id,
+              post.song_2_id,
+              post.song_3_id,
+              post.song_4_id,
+            ].filter((id): id is number => id !== null);
+            const songPromises = songIDs.map((id) => 
+            fetch(`http://localhost:8000/songs/${id}`).then((res) => res.json())
+            );
+            const songs = await Promise.all(songPromises);
+
+            return {post, songs}
+          })
+        );
+        setPostWithSongs(postAndSongs)
+        // const userPosts = await postResult.json();
+        // setPosts(userPosts)
+      } catch (error) {
+        console.error("failed to get user data", error);
+      }
+    };
+    fetchData();
+  }, [userID])
+
+  if (!user) return <Text> User not Found, Please Login</Text>
   // TODO: will eventually need state fetched from DB by handle name
   //            -- hardcode for now
   //   const [avatarSrc, setAvatarSrc] = useState("/beyonce.jpg");
@@ -34,8 +130,8 @@ export default function Profile() {
       >
         <Flex direction="column" gap="md">
           <ProfileCard
-            name={name || ""}
-            avatarSrc={avatarSrc}
+            name={`${user?.nickname}`}
+            avatarSrc={user?.profile_img_url || avatarSrc}
             followerCount={followerCount}
           />
         </Flex>
@@ -43,132 +139,27 @@ export default function Profile() {
       <Widget padding="md" className="w-[60%] min-w-[500px]">
         <Flex direction="column" gap="md">
           <Text variant="h3">My sets</Text>
-          <Widget height="stretch" className="flex-1 min-h-0" padding="md">
+          <Widget height="stretch" className={`flex-1 min-h-0 ${PostWithSongs.length === 0 ? "border-0" : ""}`} padding="md" >
             <Grid
               cols="one"
               spacing="md"
               className="flex-1 min-h-0 overflow-y-auto"
             >
-              <Transition
-                leftCoverSrc="/beyonce.jpg"
-                leftTitle="Beyonce adoiuhawiof owa wao fawhi"
-                rightCoverSrc="/dragons.jpg"
-                rightTitle="Dragons"
-                userAvatarSrc="/beyonce.jpg"
-                userName="minski"
-                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. oiahoifha owoi aoao oawhdio aua iiua hiu diaiu iua iuw iu"
-                likes={40}
-                comments={2}
-                shares={1}
-              />
-              <Transition
-                leftCoverSrc="/dragons.jpg"
-                leftTitle="Dragons"
-                rightCoverSrc="/beyonce.jpg"
-                rightTitle="Beyonce"
-                userAvatarSrc="/dragons.jpg"
-                userName="dragonfan"
-                description="Another description for a different transition."
-                likes={12}
-                comments={5}
-                shares={3}
-              />
-              <Transition
-                leftCoverSrc="/beyonce.jpg"
-                leftTitle="Beyonce"
-                rightCoverSrc="/beyonce.jpg"
-                rightTitle="Beyonce Again"
-                userAvatarSrc="/beyonce.jpg"
-                userName="queenb"
-                description="Beyonce everywhere!"
-                likes={100}
-                comments={20}
-                shares={10}
-              />
-              <Transition
-                leftCoverSrc="/dragons.jpg"
-                leftTitle="Dragons"
-                rightCoverSrc="/dragons.jpg"
-                rightTitle="More Dragons"
-                userAvatarSrc="/dragons.jpg"
-                userName="dragonmaster"
-                description="All about dragons."
-                likes={55}
-                comments={8}
-                shares={4}
-              />
-              <Transition
-                leftCoverSrc="/beyonce.jpg"
-                leftTitle="Beyonce"
-                rightCoverSrc="/dragons.jpg"
-                rightTitle="Dragons"
-                userAvatarSrc="/beyonce.jpg"
-                userName="minski"
-                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
-                likes={40}
-                comments={2}
-                shares={1}
-              />
-              <Transition
-                leftCoverSrc="/dragons.jpg"
-                leftTitle="Dragons"
-                rightCoverSrc="/beyonce.jpg"
-                rightTitle="Beyonce"
-                userAvatarSrc="/dragons.jpg"
-                userName="dragonfan"
-                description="Another description for a different transition."
-                likes={12}
-                comments={5}
-                shares={3}
-              />
-              <Transition
-                leftCoverSrc="/beyonce.jpg"
-                leftTitle="Beyonce"
-                rightCoverSrc="/beyonce.jpg"
-                rightTitle="Beyonce Again"
-                userAvatarSrc="/beyonce.jpg"
-                userName="queenb"
-                description="Beyonce everywhere!"
-                likes={100}
-                comments={20}
-                shares={10}
-              />
-              <Transition
-                leftCoverSrc="/dragons.jpg"
-                leftTitle="Dragons"
-                rightCoverSrc="/dragons.jpg"
-                rightTitle="More Dragons"
-                userAvatarSrc="/dragons.jpg"
-                userName="dragonmaster"
-                description="All about dragons."
-                likes={55}
-                comments={8}
-                shares={4}
-              />
-              <Transition
-                leftCoverSrc="/beyonce.jpg"
-                leftTitle="Beyonce"
-                rightCoverSrc="/dragons.jpg"
-                rightTitle="Dragons"
-                userAvatarSrc="/beyonce.jpg"
-                userName="minski"
-                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
-                likes={40}
-                comments={2}
-                shares={1}
-              />
-              <Transition
-                leftCoverSrc="/dragons.jpg"
-                leftTitle="Dragons"
-                rightCoverSrc="/beyonce.jpg"
-                rightTitle="Beyonce"
-                userAvatarSrc="/dragons.jpg"
-                userName="dragonfan"
-                description="Another description for a different transition."
-                likes={12}
-                comments={5}
-                shares={3}
-              />
+              {PostWithSongs.length == 0 ? (
+                <Text>No sets recorded.</Text>
+              ) :
+              (PostWithSongs.map(({post, songs}) => (
+                <Transition
+                  key={post.id}
+                  songs={songs}
+                  userAvatarSrc={user?.profile_img_url || "/default-avatar.jpg"}
+                  userName={`${user.nickname}`}
+                  description={post.description}
+                  likes={post.likes}
+                  comments={0}
+                  shares={post.shares}
+                />
+              )))}
             </Grid>
           </Widget>
         </Flex>
