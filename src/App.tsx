@@ -7,9 +7,10 @@ import { defaultTheme } from "./theme/utils/defaultTheme";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Record from "./pages/Record";
 import Profile from "./pages/profile/Profile";
-
+import { AuthProvider } from "./components/app/auth/AuthContext";
 export default function App() {
   return (
+    <AuthProvider>
     <ThemeProvider theme={defaultTheme}>
         <BrowserRouter>
         <AppShell>
@@ -27,5 +28,6 @@ export default function App() {
         </BrowserRouter>
      
     </ThemeProvider>
+    </AuthProvider>
   );
 }
