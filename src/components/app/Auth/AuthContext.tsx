@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-const clientID = "499106697903-doporbmj6p4quj7umsqci4fvh81teiu1.apps.googleusercontent.com"
+const clientID = "http://499106697903-doporbmj6p4quj7umsqci4fvh81teiu1.apps.googleusercontent.com/"
 interface AuthContextType {
   isAuthenticated: boolean;
   user: any | null;
@@ -49,7 +49,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           },
           body: JSON.stringify({ idToken: response.credential }),
         });
-
         if (res.ok) {
           const data = await res.json();
           setUser(data.user);
@@ -64,6 +63,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   } else {
     console.error("Google script not loaded.");
   }
+}
 
   const logout = async () => {
     setUser(null);
