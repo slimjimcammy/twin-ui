@@ -41,13 +41,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     google.accounts.id.initialize({
       client_id: clientID,
       callback: async (response: any) => {
-        const res = await fetch('/api/auth/google', {
+        const res = await fetch('http://localhost:8000/auth/google', {
           method: 'POST',
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ idToken: response.credential }),
+          body: JSON.stringify({ poopy: response.credential }),
         });
         if (res.ok) {
           const data = await res.json();
