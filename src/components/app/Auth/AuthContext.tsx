@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-const clientID = "499106697903-doporbmj6p4quj7umsqci4fvh81teiu1.apps.googleusercontent.com/"
+const clientID = "499106697903-doporbmj6p4quj7umsqci4fvh81teiu1.apps.googleusercontent.com"
 interface AuthContextType {
   isAuthenticated: boolean;
   user: any | null;
