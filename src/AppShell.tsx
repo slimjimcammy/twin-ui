@@ -31,9 +31,14 @@ export default function AppShell({ children }: AppShellProps) {
       <HorizontalNav
         centerJustify="start"
         slotLeft={
-          <Text variant="h4" color="default" font="header">
-            TWIN
-          </Text>
+          <div
+            onClick={() => navigate("/for-you")}
+            className="cursor-pointer hover:opacity-80 transition"
+          >
+            <Text variant="h4" color="default" font="header">
+              TWIN
+            </Text>
+          </div>
         }
         slotCenter={<></>}
         slotRight={
