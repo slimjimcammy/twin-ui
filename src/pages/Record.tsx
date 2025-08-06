@@ -145,7 +145,7 @@ export default function Record() {
           </Flex>
           <Flex direction="column" gap="xs">
             <Text variant="h6" font="default">
-              3. Hit record on Cerato
+              3. Hit record on your software
             </Text>
             <Text variant="caption" weight="thin" color="dimmed">
               (Button on X deck, on the Y)

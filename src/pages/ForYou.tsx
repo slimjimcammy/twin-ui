@@ -51,123 +51,120 @@ export default function ForYou() {
         >
           <Transition
             songs={[
-              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
-              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
-              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },  
+              { album_cover_img_url: "/beyonce.jpg", title: "Sorry" },
+              { album_cover_img_url: "/dragons.jpg", title: "Zero" },
             ]}
-            userAvatarSrc="/beyonce.jpg"
+            userAvatarSrc="/user.png"
             userName="minski"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. oiahoifha owoi aoao oawhdio aua iiua hiu diaiu iua iuw iu"
+            description="Creative transition between my two favorite songs."
             likes={40}
             comments={2}
             shares={1}
           />
           <Transition
             songs={[
-              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
-              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
-              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
-              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+              { album_cover_img_url: "/gkmc.jpeg", title: "Poetic Justice" },
+              { album_cover_img_url: "/Ready_To_Die.jpg", title: "Big Poppa" },
             ]}
-            userAvatarSrc="/dragons.jpg"
+            userAvatarSrc="/user.png"
             userName="dragonfan"
-            description="Another description for a different transition."
+            description="This transition is wild!"
             likes={12}
             comments={5}
             shares={3}
           />
           <Transition
             songs={[
-              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
-              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+              { album_cover_img_url: "/hitz.jpg", title: "HITZ 4 THE HOOD" },
+              { album_cover_img_url: "/yosemite.jpeg", title: "Yosemite" },
             ]}
-            userAvatarSrc="/beyonce.jpg"
+            userAvatarSrc="/user.png"
             userName="queenb"
-            description="Beyonce everywhere!"
+            description="Going UKG this time"
             likes={100}
             comments={20}
             shares={10}
           />
           <Transition
             songs={[
-              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
-              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+              { album_cover_img_url: "/5hours.jpg", title: "SINGLE LADIES (5HOURS HOUSE REMIX)" },
+              { album_cover_img_url: "/fties.jpg", title: "Family Ties (GUDFELLA Edit)" },
             ]}
-            userAvatarSrc="/dragons.jpg"
+            userAvatarSrc="/user.png"
             userName="dragonmaster"
-            description="All about dragons."
+            description="Some unofficial remixes"
             likes={55}
             comments={8}
             shares={4}
           />
           <Transition
             songs={[
-              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
-              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+              { album_cover_img_url: "/chanel.jpeg", title: "Chanel (Shankz Remix)" },
+              { album_cover_img_url: "/acraze.jpg", title: "A Milli ACRAZE remix" },
             ]}
-            userAvatarSrc="/beyonce.jpg"
+            userAvatarSrc="/user.png"
             userName="minski"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
+            description="House remixes are so good"
             likes={40}
             comments={2}
             shares={1}
           />
           <Transition
             songs={[
-              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
-              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+              { album_cover_img_url: "/beyonce.jpg", title: "Formation" },
+              { album_cover_img_url: "/dragons.jpg", title: "Bad Liar" },
             ]}
-            userAvatarSrc="/dragons.jpg"
+            userAvatarSrc="/user.png"
             userName="dragonfan"
-            description="Another description for a different transition."
+            description="These two songs go so well together"
             likes={12}
             comments={5}
             shares={3}
           />
           <Transition
             songs={[
-              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
-              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+              { album_cover_img_url: "/notthesame.jpg", title: "Guess We're Not the Same" },
+              { album_cover_img_url: "/animals.png", title: "Animals" },
             ]}
-            userAvatarSrc="/beyonce.jpg"
-            userName="queenb"
-            description="Beyonce everywhere!"
+            userAvatarSrc="/user.png"
+            userName="technouser"
+            description="Mixing UKG with Progressive house is a fun challenge!"
             likes={100}
             comments={20}
             shares={10}
           />
           <Transition
             songs={[
-              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
-              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+              { album_cover_img_url: "/borderline.jpg", title: "BORDERLINE (AVELLO REMIX)" },
+              { album_cover_img_url: "/skrillex.jpeg", title: "Butterflies" },
             ]}
-            userAvatarSrc="/dragons.jpg"
+            userAvatarSrc="/user.png"
             userName="dragonmaster"
-            description="All about dragons."
+            description="Mixing unreleased with released bangers"
             likes={55}
             comments={8}
             shares={4}
           />
           <Transition
             songs={[
-              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
-              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+              { album_cover_img_url: "/otis.jpg", title: "otis dub" },
+              { album_cover_img_url: "/littlecloser.jpg", title: "A Little Closer" },
             ]}
-            userAvatarSrc="/beyonce.jpg"
+            userAvatarSrc="/user.png"
             userName="minski"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
+            description="The SoundCloud only song is so fire!"
             likes={40}
             comments={2}
             shares={1}
           />
           <Transition
             songs={[
-              { album_cover_img_url: "/beyonce.jpg", title: "Beyonce adoiuhawiof owa wao fawhi" },
-              { album_cover_img_url: "/dragons.jpg", title: "Dragons" },
+              { album_cover_img_url: "/beyonce.jpg", title: "Sand Castles" },
+              { album_cover_img_url: "/dragons.jpg", title: "Stuck" },
             ]}
-            userAvatarSrc="/dragons.jpg"
+            userAvatarSrc="/user.png"
             userName="dragonfan"
-            description="Another description for a different transition."
+            description="Had to do another transition between my two favorite artists!"
             likes={12}
             comments={5}
             shares={3}

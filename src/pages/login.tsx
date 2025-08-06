@@ -34,6 +34,7 @@ export default function Login() {
           </Button>
         </Flex>
       )}
+      <p className="text-sm text-subtitle">Only authorized test users can log in for now.</p>
     </Flex>
   );
 }
