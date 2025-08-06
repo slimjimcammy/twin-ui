@@ -10,12 +10,14 @@ import { ProfileIcon } from "./icons/ProfileIcon";
 import { RecordIcon } from "./icons/RecordIcon";
 import { SettingsIcon } from "./icons/SettingsIcon";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./components/app/auth/AuthContext";
 interface AppShellProps {
   children: React.ReactNode;
 }
 
 export default function AppShell({ children }: AppShellProps) {
   const navigate = useNavigate();
+  const { isAuthenticated, logout } = useAuth();
   return (
     <Flex
       direction="column"
@@ -35,30 +37,51 @@ export default function AppShell({ children }: AppShellProps) {
         }
         slotCenter={<></>}
         slotRight={
-          <ButtonConsole
-            variant="inline"
-            orientation="horizontal"
-            buttons={[
-              {
-                children: (
-                  <Text variant="caption" color="default" font="default">
-                    Sign In
-                  </Text>
-                ),
-                variant: "primary",
-                size: "sm",
-              },
-              {
-                children: (
-                  <Text variant="caption" color="dark" font="default">
-                    Sign Up
-                  </Text>
-                ),
-                variant: "secondary",
-                size: "sm",
-              },
-            ]}
-          />
+          !isAuthenticated ? (
+            <ButtonConsole
+              variant="inline"
+              orientation="horizontal"
+              buttons={[
+                {
+                  children: (
+                    <Text variant="caption" color="default" font="default">
+                      Sign In
+                    </Text>
+                  ),
+                  variant: "primary",
+                  size: "sm",
+                  onClick: () => navigate("/login"),
+                },
+               // {
+               //   children: (
+               //     <Text variant="caption" color="dark" font="default">
+               //       Sign Up
+               //     </Text>
+               //   ),
+               //   variant: "secondary",
+               //   size: "sm",
+               //   onClick: () => navigate("/login"),
+             //   },
+              ]}
+            />
+          ) : (
+            <ButtonConsole
+              variant="inline"
+              orientation="horizontal"
+              buttons={[
+                {
+                  children: (
+                    <Text variant="caption" color="white" font="default">
+                      Logout
+                    </Text>
+                  ),
+                  variant: "secondary",
+                  size: "sm",
+                  onClick: logout,
+                },
+              ]}
+            />
+          )
         }
       />
       <Flex

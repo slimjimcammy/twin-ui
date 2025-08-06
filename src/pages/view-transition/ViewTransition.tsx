@@ -2,8 +2,12 @@ import { Flex } from "../../components/layout/Flex";
 import Widget from "../../components/layout/Widget";
 import ShowingTransition from "./components/ShowingTransition";
 import { ArtistProfileSection } from "./components/ArtistProfileSection";
+import { useState } from "react";
+import Image from "../../components/ui/Image";
+import Button from "../../components/ui/Button";
 
 export default function ViewTransition() {
+  const [visualize, setVisualize] = useState(false);
   const trackInfo = {
     user: {
       name: "minski",
@@ -100,32 +104,53 @@ export default function ViewTransition() {
 
   return (
     <Flex
+  direction="column"
+  gap="md"
+  className="pl-4 h-full min-h-0 overflow-y-hidden"
+  height="stretch"
+  width="stretch"
+>
+  <Widget padding="none" className="h-full overflow-hidden w-full">
+    <Flex
       direction="column"
-      gap="md"
-      className="pl-4 h-full min-h-0 overflow-y-hidden"
-      height="stretch"
       width="stretch"
+      height="stretch"
+      className="min-h-0"
     >
-      <Widget padding="none" className="h-full overflow-hidden w-full">
-        <Flex
-          direction="column"
-          width="stretch"
-          height="stretch"
-          className="min-h-0"
-        >
-          <ShowingTransition
-            fromArtist={{ name: "Beyonce", imageSrc: "/beyonce.jpg" }}
-            toArtist={{ name: "Dragons", imageSrc: "/dragons.jpg" }}
-            trackInfo={trackInfo}
-            isPlaying={false}
-          />
+      <ShowingTransition
+        fromArtist={{ name: "Beyonce", imageSrc: "/beyonce.jpg" }}
+        toArtist={{ name: "Dragons", imageSrc: "/dragons.jpg" }}
+        trackInfo={trackInfo}
+        isPlaying={false}
+      />
 
-          <ArtistProfileSection
-            profile={artistProfileData.profile}
-            moreFromArtist={artistProfileData.moreFromArtist}
+      <Button
+        onClick={() => setVisualize(!visualize)}
+        variant="secondary"
+        size="sm"
+        className="ml-auto mr-4 mt-2"
+      >
+        {visualize ? "Back to Suggestions" : "Visualize"}
+    </Button>
+
+
+      {visualize ? (
+        <Flex direction="column" justify="center" align="center" className="flex-1">
+          <Image
+            src="/Djsim.png"
+            alt="DJ Simulation"
+            className="w-[500px] h-auto rounded-xl shadow-lg"
           />
+          <p className="text-sm text-subtitle">Visualizer in progress...</p>
         </Flex>
-      </Widget>
+      ) : (
+        <ArtistProfileSection
+          profile={artistProfileData.profile}
+          moreFromArtist={artistProfileData.moreFromArtist}
+        />
+      )}
     </Flex>
+  </Widget>
+</Flex>
   );
 }
