@@ -78,7 +78,7 @@ export default function ForYou() {
           <Transition
           postID={3}
             songs={[
-              { album_cover_img_url: "/hitz.jpg", title: "HITZ 4 THE HOOD", RealName: "Charlie Snell"  },
+              { album_cover_img_url: "/hitz.jpg", title: "HITZ 4 THE HOOD", RealName: "Charlie Shell"  },
               { album_cover_img_url: "/yosemite.jpeg", title: "Yosemite", RealName: "Interplanetary Criminal"  },
             ]}
             userAvatarSrc="/user.png"
