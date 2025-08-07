@@ -84,7 +84,8 @@ export default function TextInput({
       {label && (
         <Flex direction="row" gap="sm" align="center" justify="start">
           <Text variant="caption">{label}</Text>
-          {required && <Text variant="p">*</Text>}
+          {required && <Text variant="p" className="text-red-800">*</Text>}
+          
         </Flex>
       )}
       <input

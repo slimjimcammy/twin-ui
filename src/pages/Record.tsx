@@ -199,6 +199,7 @@ export default function Record() {
                     {trackPairs.map((track, i) => (
                     <Flex key={track.id}  direction="column" gap="xs" className="w-full">
                         <FormRow>
+                          <Image src="Souncloudx.png" className="w-4 h-4 mr-1 mt-1"/>
                         <TextInput
                             key={track.id}
                             label={`Track ${trackPairs.indexOf(track) + 1}`}
