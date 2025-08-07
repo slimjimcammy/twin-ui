@@ -5,26 +5,40 @@ import { ArtistProfileSection } from "./components/ArtistProfileSection";
 import { useState } from "react";
 import Image from "../../components/ui/Image";
 import Button from "../../components/ui/Button";
+import { useLocation } from "react-router-dom"
 
 export default function ViewTransition() {
+  const location = useLocation();
+  const state = location.state || {};
+  const song1 = state.songs?.[0];
+  const song2 = state.songs?.[1];
   const [visualize, setVisualize] = useState(false);
+  // state={{
+  //         songs,
+  //         userAvatarSrc,
+  //         userName,
+  //         description,
+  //         likes,
+  //         comments,
+  //         shares,
+  //       }}
   const trackInfo = {
     user: {
-      name: "minski",
-      avatarSrc: "/beyonce.jpg",
+      name: state.userName,
+      avatarSrc: state.userAvatarSrc,
     },
     socials: {
-      likes: 40,
-      comments: 11,
-      shares: 3,
+      likes: state.likes,
+      comments: state.comments,
+      shares: state.shares,
     },
-    description: `Descps9f osoi seoijosI  mizsm ow popa dcsl;pl a;;a wfp feiwoo qijoijq wooi cdosivnksek joeoi sois oik nkx,m skel awo afpo vflml lokpoe kfopk spdk;ok ;skdo;`,
+    description: state.description,
   };
 
   const artistProfileData = {
     profile: {
-      name: "minski",
-      avatarSrc: "/beyonce.jpg",
+      name: state.userName,
+      avatarSrc: state.userAvatarSrc,
       followerCount: "11K",
     },
     moreFromArtist: {
@@ -33,7 +47,7 @@ export default function ViewTransition() {
         {
           from: { name: "Beyonce", imageSrc: "/beyonce.jpg" },
           to: {
-            name: "Imagine Dragons Imagine Dragons",
+            name: "Imagine Dragons",
             imageSrc: "/dragons.jpg",
           },
           likes: 841,
@@ -118,8 +132,8 @@ export default function ViewTransition() {
       className="min-h-0"
     >
       <ShowingTransition
-        fromArtist={{ name: "Beyonce", imageSrc: "/beyonce.jpg" }}
-        toArtist={{ name: "Dragons", imageSrc: "/dragons.jpg" }}
+        fromArtist={{ name: song1.title, imageSrc: song1.album_cover_img_url, RealName: song1.RealName }}
+        toArtist={{ name: song2.title, imageSrc: song2.album_cover_img_url, RealName: song2.RealName }}
         trackInfo={trackInfo}
         isPlaying={false}
       />

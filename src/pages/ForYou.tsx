@@ -50,9 +50,10 @@ export default function ForYou() {
           className="flex-1 min-h-0 overflow-y-auto"
         >
           <Transition
+          postID={1}
             songs={[
-              { album_cover_img_url: "/beyonce.jpg", title: "Sorry" },
-              { album_cover_img_url: "/dragons.jpg", title: "Zero" },
+              { album_cover_img_url: "/beyonce.jpg", title: "Sorry", RealName: "Beyonce" },
+              { album_cover_img_url: "/dragons.jpg", title: "Zero", RealName: "Imagine Dragons"},
             ]}
             userAvatarSrc="/user.png"
             userName="minski"
@@ -62,9 +63,10 @@ export default function ForYou() {
             shares={1}
           />
           <Transition
+          postID={2}
             songs={[
-              { album_cover_img_url: "/gkmc.jpeg", title: "Poetic Justice" },
-              { album_cover_img_url: "/Ready_To_Die.jpg", title: "Big Poppa" },
+              { album_cover_img_url: "/gkmc.jpeg", title: "Poetic Justice", RealName: "Kendrick Lamar"},
+              { album_cover_img_url: "/Ready_To_Die.jpg", title: "Big Poppa", RealName: "Notorious B.I.G."  },
             ]}
             userAvatarSrc="/user.png"
             userName="dragonfan"
@@ -74,9 +76,10 @@ export default function ForYou() {
             shares={3}
           />
           <Transition
+          postID={3}
             songs={[
-              { album_cover_img_url: "/hitz.jpg", title: "HITZ 4 THE HOOD" },
-              { album_cover_img_url: "/yosemite.jpeg", title: "Yosemite" },
+              { album_cover_img_url: "/hitz.jpg", title: "HITZ 4 THE HOOD", RealName: "Charlie Snell"  },
+              { album_cover_img_url: "/yosemite.jpeg", title: "Yosemite", RealName: "Interplanetary Criminal"  },
             ]}
             userAvatarSrc="/user.png"
             userName="queenb"
@@ -86,9 +89,10 @@ export default function ForYou() {
             shares={10}
           />
           <Transition
+          postID={4}
             songs={[
-              { album_cover_img_url: "/5hours.jpg", title: "SINGLE LADIES (5HOURS HOUSE REMIX)" },
-              { album_cover_img_url: "/fties.jpg", title: "Family Ties (GUDFELLA Edit)" },
+              { album_cover_img_url: "/5hours.jpg", title: "SINGLE LADIES (5HOURS HOUSE REMIX)" , RealName: "5hours" },
+              { album_cover_img_url: "/fties.jpg", title: "Family Ties (GUDFELLA Edit)", RealName: "Gudfella" },
             ]}
             userAvatarSrc="/user.png"
             userName="dragonmaster"
@@ -98,9 +102,10 @@ export default function ForYou() {
             shares={4}
           />
           <Transition
+          postID={5}
             songs={[
-              { album_cover_img_url: "/chanel.jpeg", title: "Chanel (Shankz Remix)" },
-              { album_cover_img_url: "/acraze.jpg", title: "A Milli ACRAZE remix" },
+              { album_cover_img_url: "/chanel.jpeg", title: "Chanel (Shankz Remix)", RealName: "Shankz"  },
+              { album_cover_img_url: "/acraze.jpg", title: "A Milli ACRAZE remix", RealName: "Acraze"  },
             ]}
             userAvatarSrc="/user.png"
             userName="minski"
@@ -110,9 +115,10 @@ export default function ForYou() {
             shares={1}
           />
           <Transition
+          postID={6}
             songs={[
-              { album_cover_img_url: "/beyonce.jpg", title: "Formation" },
-              { album_cover_img_url: "/dragons.jpg", title: "Bad Liar" },
+              { album_cover_img_url: "/beyonce.jpg", title: "Formation", RealName: "Beyonce"  },
+              { album_cover_img_url: "/dragons.jpg", title: "Bad Liar", RealName: "Imagine Dragons"  },
             ]}
             userAvatarSrc="/user.png"
             userName="dragonfan"
@@ -122,9 +128,10 @@ export default function ForYou() {
             shares={3}
           />
           <Transition
+          postID={7}
             songs={[
-              { album_cover_img_url: "/notthesame.jpg", title: "Guess We're Not the Same" },
-              { album_cover_img_url: "/animals.png", title: "Animals" },
+              { album_cover_img_url: "/notthesame.jpg", title: "Guess We're Not the Same", RealName: "Sammy Virji"  },
+              { album_cover_img_url: "/animals.png", title: "Animals", RealName: "Martin Garrix"  },
             ]}
             userAvatarSrc="/user.png"
             userName="technouser"
@@ -134,9 +141,10 @@ export default function ForYou() {
             shares={10}
           />
           <Transition
+          postID={8}
             songs={[
-              { album_cover_img_url: "/borderline.jpg", title: "BORDERLINE (AVELLO REMIX)" },
-              { album_cover_img_url: "/skrillex.jpeg", title: "Butterflies" },
+              { album_cover_img_url: "/borderline.jpg", title: "BORDERLINE (AVELLO REMIX)", RealName: "Avello"  },
+              { album_cover_img_url: "/skrillex.jpeg", title: "Butterflies", RealName: "Skrillex"  },
             ]}
             userAvatarSrc="/user.png"
             userName="dragonmaster"
@@ -146,9 +154,10 @@ export default function ForYou() {
             shares={4}
           />
           <Transition
+          postID={9}
             songs={[
-              { album_cover_img_url: "/otis.jpg", title: "otis dub" },
-              { album_cover_img_url: "/littlecloser.jpg", title: "A Little Closer" },
+              { album_cover_img_url: "/otis.jpg", title: "otis dub", RealName: "Oppidan"  },
+              { album_cover_img_url: "/littlecloser.jpg", title: "A Little Closer", RealName: "Diffrent"  },
             ]}
             userAvatarSrc="/user.png"
             userName="minski"
@@ -158,9 +167,10 @@ export default function ForYou() {
             shares={1}
           />
           <Transition
+          postID={10}
             songs={[
-              { album_cover_img_url: "/beyonce.jpg", title: "Sand Castles" },
-              { album_cover_img_url: "/dragons.jpg", title: "Stuck" },
+              { album_cover_img_url: "/beyonce.jpg", title: "Sand Castles", RealName: "Beyonce"  },
+              { album_cover_img_url: "/dragons.jpg", title: "Stuck", RealName: "Imagine Dragons"  },
             ]}
             userAvatarSrc="/user.png"
             userName="dragonfan"

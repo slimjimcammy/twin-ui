@@ -7,6 +7,7 @@ import { Text } from "../../../ui/Text";
 type ArtistInfoProps = {
   name: string;
   imageSrc: string;
+  RealName: string;
 };
 
 type PlayerHeaderProps = {
@@ -48,7 +49,7 @@ export function PlayerHeader({ fromArtist, toArtist }: PlayerHeaderProps) {
           <Flex direction="column" justify="center">
             <Text variant="h6">{fromArtist.name}</Text>
             <Text variant="p" weight="thin">
-              Artist
+              {fromArtist.RealName}
             </Text>
           </Flex>
         </Flex>
@@ -58,7 +59,7 @@ export function PlayerHeader({ fromArtist, toArtist }: PlayerHeaderProps) {
               {toArtist.name}
             </Text>
             <Text variant="p" weight="thin" align="right">
-              Artist
+              {toArtist.RealName}
             </Text>
           </Flex>
           <Widget className="overflow-hidden">

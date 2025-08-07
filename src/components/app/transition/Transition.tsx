@@ -4,10 +4,13 @@ import { TransitionCover } from "./components/TransitionCover";
 import { TransitionMeta } from "./components/TransitionMeta";
 import { TransitionActions } from "./components/TransitionActions";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 export interface TransitionProps {
+  postID: number;
   songs: {
     album_cover_img_url: string;
     title: string;
+    RealName: string;
   }[];
   userAvatarSrc: string;
   userName: string;
@@ -18,6 +21,7 @@ export interface TransitionProps {
 }
 
 export default function Transition({
+  postID,
   songs,  
   userAvatarSrc,
   userName,
@@ -34,8 +38,22 @@ export default function Transition({
   const coverSize = songs.length > 2 ? "sm" : "md";
   return (
     <Widget className="group hover:cursor-pointer" height="full" variant="md">
+      <Link 
+        to={`/posts/${postID}`}
+        state={{
+          songs,
+          userAvatarSrc,
+          userName,
+          description,
+          likes,
+          comments,
+          shares,
+        }}
+        
+        >
       {/*No postIDs yet for these posts so will just go to post 1 */}
-      <Flex direction="column" className="relative" onClick={() => navigate("/posts/1")}>
+      {/*onClick={() => navigate(`/posts/${postID}`)} */}
+      <Flex direction="column" className="relative"  >
         {songPairs.map((pair, index) => (
           <Flex direction="row" key={index}>
             {pair.map((song, i) => (
@@ -58,6 +76,7 @@ export default function Transition({
         />
         <TransitionActions likes={likes} comments={comments} shares={shares} />
       </Flex>
+      </Link>
     </Widget>
   );
 }
