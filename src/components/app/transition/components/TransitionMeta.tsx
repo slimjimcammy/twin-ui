@@ -29,11 +29,11 @@ export function TransitionMeta({
         </Text>
       </Flex>
       <Text
-        variant="caption"
+        variant="span"
         color="default"
         font="default"
         weight="thin"
-        className="line-clamp-2 h-[32px]"
+        className="line-clamp-2 h-[35px]"
       >
         {description}
       </Text>

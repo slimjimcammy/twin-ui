@@ -209,7 +209,7 @@ export default function Record() {
                             className="w-full"
                             required
                         />
-                        <Button type="button" onClick={() => removeTrack(i)} size='sm' className="bg-light text-error relative mt-7">
+                        <Button type="button" onClick={() => removeTrack(i)} size='md' className="bg-light ml-2 text-error relative mt-7 ">
                             x
                         </Button>
                         </FormRow>

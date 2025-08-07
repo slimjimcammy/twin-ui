@@ -7,7 +7,7 @@ interface SeekBarProps {
 
 export function SeekBar({ className }: SeekBarProps) {
   const [progress, setProgress] = useState(0);
-  const totalDuration = 225; // Assuming a total duration of 3:45 (225 seconds)
+  const totalDuration = 30; // Assuming a total duration of 3:45 (225 seconds)
 
   const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
     const bar = e.currentTarget;
@@ -36,7 +36,7 @@ export function SeekBar({ className }: SeekBarProps) {
           style={{ width: `${progress}%` }}
         />
       </div>
-      <span className="text-xs text-gray-400">3:45</span>
+      <span className="text-xs text-gray-400">0:30</span>
     </div>
   );
 }

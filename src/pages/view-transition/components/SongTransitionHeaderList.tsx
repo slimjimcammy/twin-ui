@@ -49,11 +49,13 @@ export function SongTransitionHeaderList({
                 height="stretch"
               />
             </Widget>
-            <Text variant="caption" weight="light" className="truncate">
-              {item.from.name} song to
-              <Text variant="span2" color="dimmed">
+            <Text variant="span"  weight="light" className="truncate">
+              {item.from.name}
+              <Text variant="span" className="text-green-500"> to
+              <Text variant="span" color="dimmed">
                 {" "}
                 {item.to.name}
+                </Text>
               </Text>
             </Text>
           </Flex>
