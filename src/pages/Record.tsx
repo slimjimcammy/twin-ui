@@ -17,6 +17,8 @@ export default function Record() {
   const[isRecording, setIsRecording] = useState(false);
   const isRecordingRef = useRef(false);
   const { isAuthenticated } = useAuth();
+  const [transitionName, setTransitionName] = useState("");
+  const [audioFile, setAudioFile] = useState<File | null>(null);
 
   const handleRecord = async (e: React.MouseEvent<HTMLButtonElement>) => {
   e.preventDefault();
@@ -184,6 +186,8 @@ export default function Record() {
                 />
                 <FileInput
                   label="Audio"
+                  onChange={(e) => setAudioFile(e.target.files?.[0] ?? null)}
+                  valueLabel={audioFile?.name}
                   buttonProps={{
                     variant: "secondary",
                     size: "sm",
