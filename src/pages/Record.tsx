@@ -186,6 +186,7 @@ export default function Record() {
                 />
                 <FileInput
                   label="Audio"
+                  accept="audio/*"
                   onChange={(e) => setAudioFile(e.target.files?.[0] ?? null)}
                   valueLabel={audioFile?.name}
                   buttonProps={{
