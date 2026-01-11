@@ -14,6 +14,7 @@ export interface FileInputProps
     variant?: "primary" | "secondary";
     size?: "sm" | "md" | "lg";
   };
+  valueLabel?: string;
   className?: string;
 }
 
@@ -22,6 +23,7 @@ export default function FileInput({
   label,
   helperText,
   buttonProps,
+  valueLabel,
   ...inputProps
 }: FileInputProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -34,9 +36,19 @@ export default function FileInput({
         className="hidden"
         {...inputProps}
       />
-      <Button onClick={() => fileInputRef.current?.click()} {...buttonProps}>
+      <Button 
+        type="button"
+        onClick={() =>  {
+          console.log("clicked");
+          fileInputRef.current?.click() }} {...buttonProps} >
         Choose File
       </Button>
+
+      {valueLabel && (
+        <Text variant="caption" color="dimmed">
+          {valueLabel}
+        </Text>
+      )}
 
       {helperText && (
         <Text variant="p" color="default">
