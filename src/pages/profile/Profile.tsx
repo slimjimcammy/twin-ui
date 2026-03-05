@@ -65,9 +65,11 @@ export default function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       const user_id = Number(userID)
+      console.log(user_id);
       try {
         const userResult = await fetch(`http://localhost:8000/users/${user_id}`);
         const userData = await userResult.json();
+        console.log(userData);
         if(!userResult.ok || !userData) {
           setUser(null);
           return;

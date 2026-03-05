@@ -17,7 +17,7 @@ interface AppShellProps {
 
 export default function AppShell({ children }: AppShellProps) {
   const navigate = useNavigate();
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, user } = useAuth();
   return (
     <Flex
       direction="column"
@@ -136,7 +136,7 @@ export default function AppShell({ children }: AppShellProps) {
                   label: "Profile",
                   variant: "tertiary",
                   // eventually get logic of getting user id
-                  onClick: () => navigate("/profile/0")
+                  onClick: () => navigate(`/profile/${user?.id}`)
                 },
               ],
             },

@@ -3,7 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 const clientID = "499106697903-doporbmj6p4quj7umsqci4fvh81teiu1.apps.googleusercontent.com"
 interface AuthContextType {
   isAuthenticated: boolean;
-  user: any | null;
+  user: any | null; 
   loginWithGoogle: () => void;
   logout: () => void;
 }
@@ -21,12 +21,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<any | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
+  /* useEffect(() => {
     (async () => {
       try {
-        const res = await fetch('/api/me', { credentials: 'include' });
+      // was /api/me
+        const res = await fetch('http://localhost:8000/auth/google', { credentials: 'include' });
         if (res.ok) {
           const data = await res.json();
+          console.log("google response:", data);
           setUser(data);
           setIsAuthenticated(true);
         }
@@ -35,8 +37,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     })();
   }, []);
+  */
 
   const loginWithGoogle = () => {
+  console.log("chin")
   if (window.google) {
     google.accounts.id.initialize({
       client_id: clientID,
@@ -51,7 +55,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
         if (res.ok) {
           const data = await res.json();
-          setUser(data.user);
+          console.log("google response:", data);
+          setUser(data.user); 
           setIsAuthenticated(true);
         } else {
           console.error("Login failed");
