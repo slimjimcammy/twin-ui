@@ -136,7 +136,11 @@ export default function AppShell({ children }: AppShellProps) {
                   label: "Profile",
                   variant: "tertiary",
                   // eventually get logic of getting user id
-                  onClick: () => navigate(`/profile/${user?.id}`)
+                  onClick: () => 
+                    {
+                      console.log("User:", user);
+                      navigate(`/profile/${user?.id}`)
+                }
                 },
               ],
             },

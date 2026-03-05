@@ -56,7 +56,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (res.ok) {
           const data = await res.json();
           console.log("google response:", data);
-          setUser(data.user); 
+          setUser(data); 
           setIsAuthenticated(true);
         } else {
           console.error("Login failed");

@@ -27,7 +27,7 @@ export default function Login() {
       ) : (
         <Flex direction="column" gap="sm" align="center">
           <Text variant="p">
-            Logged in as: <strong>{user?.idToken || "Unknown User"}</strong>
+            Logged in as: <strong>{user?.id || "Unknown User"}</strong>
           </Text>
           <Button onClick={logout} variant="secondary" size="sm">
             Logout

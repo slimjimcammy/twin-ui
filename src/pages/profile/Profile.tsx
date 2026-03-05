@@ -64,6 +64,7 @@ export default function Profile() {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log(user?.id)
       const user_id = Number(userID)
       console.log(user_id);
       try {
