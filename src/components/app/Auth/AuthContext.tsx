@@ -21,11 +21,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<any | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  /* useEffect(() => {
+   useEffect(() => {
     (async () => {
       try {
-      // was /api/me
-        const res = await fetch('http://localhost:8000/auth/google', { credentials: 'include' });
+        const res = await fetch('http://localhost:8000/me', { credentials: 'include' });
         if (res.ok) {
           const data = await res.json();
           console.log("google response:", data);
@@ -37,7 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     })();
   }, []);
-  */
+  
 
   const loginWithGoogle = () => {
   console.log("chin")
