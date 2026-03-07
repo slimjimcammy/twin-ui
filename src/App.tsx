@@ -16,8 +16,7 @@ export default function App() {
         <BrowserRouter>
         <AppShell>
           <Routes>
-            <Route path="/" element={<ViewTransition />} />
-            {/* <Route path="/" element={<ForYou />} /> */}
+            <Route path="/" element={<ForYou />} />
             <Route path="/record" element={<Record />} />
             <Route path="/login" element={<Login />} />
             <Route path="/for-you" element={<ForYou />}/>

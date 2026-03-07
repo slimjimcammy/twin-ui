@@ -31,9 +31,14 @@ export default function AppShell({ children }: AppShellProps) {
       <HorizontalNav
         centerJustify="start"
         slotLeft={
+          <div
+            onClick={() => navigate("/")}
+            style={{ cursor: "pointer" }}
+          >
           <Text variant="h4" color="default" font="header">
             TWIN
           </Text>
+          </div>
         }
         slotCenter={<></>}
         slotRight={
