@@ -50,7 +50,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ poopy: response.credential }),
+          body: JSON.stringify({ id_token: response.credential }),
         });
         if (res.ok) {
           const data = await res.json();

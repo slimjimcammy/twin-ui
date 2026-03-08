@@ -19,21 +19,104 @@ export default function Record() {
   const { isAuthenticated } = useAuth();
   const [transitionName, setTransitionName] = useState("");
   const [audioFile, setAudioFile] = useState<File | null>(null);
+  const [description, setDescription] = useState("");
+  const midiEventsRef = useRef<any[]>([]);
+
+
 
   const handleRecord = async (e: React.MouseEvent<HTMLButtonElement>) => {
   e.preventDefault();
-
-  if (isRecordingRef.current) {
+    if (!isRecordingRef.current) {
+    console.log("Starting recording");
+    midiEventsRef.current = [];
+  } else
+  {
     console.log("We are recording, time to stop recording");
     const stopMessage = JSON.stringify({ command: "KILL/SUMMARIZE" });
     socketRef.current?.send(stopMessage);
-  } else {
-    console.log("We are not recording, time to start recording");
   }
 
   isRecordingRef.current = !isRecordingRef.current;
   setIsRecording(isRecordingRef.current);
 };
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
+  if(!audioFile)
+  {
+    alert("Audio File is required!");
+    return;
+  }
+  const uploadInit = await fetch("http://localhost:8000/uploads/track-pair", {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      mp3_filename: audioFile.name,
+      mp3_content_type: audioFile.type,
+      json_filename: "metadata.json",
+      json_content_type: "application/json",
+    }),
+  });
+
+  const uploadData = await uploadInit.json();
+
+  const mp3UploadUrl = uploadData.mp3.upload_url;
+  const mp3Key = uploadData.mp3.s3_key;
+
+  const jsonUploadUrl = uploadData.json.upload_url;
+  const jsonKey = uploadData.json.s3_key;
+
+  await fetch(mp3UploadUrl, {
+    method: "PUT",
+    headers: {
+      "Content-Type": audioFile.type,
+    },
+    body: audioFile,
+  });
+
+  const recordingData = {
+    events: midiEventsRef.current
+  };
+
+  await fetch(jsonUploadUrl, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(recordingData),
+  });
+
+  
+  const postRes = await fetch("http://localhost:8000/posts/from-upload", 
+    {
+      method: "POST",
+      credentials: "include",
+      headers:
+      {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+      transition_name: transitionName,
+      description: description,
+      transition_audio_url:  mp3Key,
+      transition_json_summary_url: jsonKey,
+      // trackPairs[0]?.id ||
+      song_1_id:  0,
+      // trackPairs[1]?.id ||
+      song_2_id:  1,
+    }),
+    }
+  )
+  if(!postRes.ok)
+  {
+    alert("post creation failed");
+    return;
+  }
+  alert("Upload done");
+}
 
   const handleMIDIConnect = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -62,8 +145,8 @@ export default function Record() {
           if (isRecordingRef.current && socketRef.current?.readyState === WebSocket.OPEN) {
               console.log("Sending MIDI:", midiEvent);
               socketRef.current.send(JSON.stringify(midiEvent));
+              midiEventsRef.current.push(midiEvent);
           }
-
         };
       }
     }
@@ -74,6 +157,7 @@ export default function Record() {
   };
 
   // Can later put in a filler image when we implement code to get cover image
+  // UH id should be something real
   const [trackPairs, setTrackPairs] = useState([
     {id: crypto.randomUUID(), name: "", image: "beyonce.jpg"},
     {id: crypto.randomUUID(), name: "", image: "dragons.jpg"},
@@ -177,12 +261,14 @@ export default function Record() {
         </Widget>
         <Flex height="stretch" width="stretch">
           <Flex direction="column" width="stretch">
-            <Form className="w-full">
+            <Form className="w-full" onSubmit={handleSubmit}>
               <FormRow gap="md">
                 <TextInput
                   label="Transition name"
                   className="flex-1"
                   required
+                  value={transitionName}
+                  onChange={(e) => setTransitionName(e.target.value)}
                 />
                 <FileInput
                   label="Audio"
@@ -195,7 +281,7 @@ export default function Record() {
                   }}
                 />
               </FormRow>
-                <Textarea label="Description" />
+                <Textarea label="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
               <Flex
                     direction={trackPairs.length > 2 ? "column" : "row"}
                     gap="sm"
@@ -231,7 +317,7 @@ export default function Record() {
                     Add Song
                 </Button>
               {/*Eventual code to enable the button based on required forms (ref?) */}
-              <Button variant='disabled' size="md" disabled className="bg-light">
+              <Button size="md" type="submit" disabled={!transitionName || !audioFile || trackPairs.some(t => !t.name)} className="bg-light">
                 POST
               </Button>
             </Form>
