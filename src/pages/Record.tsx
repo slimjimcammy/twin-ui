@@ -11,6 +11,8 @@ import { useState, useRef } from "react";
 import "../index.css"
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../components/app/auth/AuthContext";
+import TrackSearchInput from "./view-transition/components/SongSearchDropdown";
+// IMPORTANT, ADD FEATURE WHERE IF NOT LOGGED IN CAN'T POST/UPLOAD
 export default function Record() {
   const [midiConnected, setMidiConnected] = useState(false);
   const socketRef = useRef<WebSocket | null>(null);
@@ -69,7 +71,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   const jsonUploadUrl = uploadData.json.upload_url;
   const jsonKey = uploadData.json.s3_key;
 
-  await fetch(mp3UploadUrl, {
+  const mp3Res = await fetch(mp3UploadUrl, {
     method: "PUT",
     headers: {
       "Content-Type": audioFile.type,
@@ -77,17 +79,29 @@ const handleSubmit = async (e: React.FormEvent) => {
     body: audioFile,
   });
 
+    if (!mp3Res.ok) {
+    console.error("Failed to upload MP3", mp3Res.status, await mp3Res.text());
+    alert("Failed to upload MP3 to S3");
+    return;
+  }
+
   const recordingData = {
     events: midiEventsRef.current
   };
 
-  await fetch(jsonUploadUrl, {
+  const jsonUpload = await fetch(jsonUploadUrl, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(recordingData),
   });
+
+  if (!jsonUpload.ok) {
+    console.error("Failed to upload JSON", jsonUpload.status, await jsonUpload.text());
+    alert("Failed to upload JSON to S3");
+    return;
+  }
 
   
   const postRes = await fetch("http://localhost:8000/posts/from-upload", 
@@ -103,10 +117,8 @@ const handleSubmit = async (e: React.FormEvent) => {
       description: description,
       transition_audio_url:  mp3Key,
       transition_json_summary_url: jsonKey,
-      // trackPairs[0]?.id ||
-      song_1_id:  0,
-      // trackPairs[1]?.id ||
-      song_2_id:  1,
+      song_1_id: trackPairs[0].song?.soundcloud_song_id,
+      song_2_id: trackPairs[1].song?.soundcloud_song_id,  
     }),
     }
   )
@@ -158,10 +170,17 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   // Can later put in a filler image when we implement code to get cover image
   // UH id should be something real
-  const [trackPairs, setTrackPairs] = useState([
-    {id: crypto.randomUUID(), name: "", image: "beyonce.jpg"},
-    {id: crypto.randomUUID(), name: "", image: "dragons.jpg"},
-  ])
+ type TrackPair = {
+  id: string;
+  name: string;
+  image: string;
+  song?: Song;
+};
+
+const [trackPairs, setTrackPairs] = useState<TrackPair[]>([
+  { id: crypto.randomUUID(), name: "", image: "beyonce.jpg" },
+  { id: crypto.randomUUID(), name: "", image: "dragons.jpg" },
+]);
 
   // again, can change img to a filler img we have
   const addTrack = () => {
@@ -290,14 +309,24 @@ const handleSubmit = async (e: React.FormEvent) => {
                     {trackPairs.map((track, i) => (
                     <Flex key={track.id}  direction="column" gap="xs" className="w-full">
                         <FormRow>
-                        <TextInput
-                            key={track.id}
-                            label={`Track ${trackPairs.indexOf(track) + 1}`}
-                            name={`song-${i}`}
-                            placeholder={`Track ${trackPairs.indexOf(track) + 1}`}
-                            onChange={(e) => nameChange(track.id, e.target.value)}
-                            className="w-full"
-                            required
+                        <TrackSearchInput
+                          label={`Track ${i + 1}`}
+                          value={track.name}
+                          onChange={(val) => nameChange(track.id, val)}
+                          onSelect={(song) => {
+                            setTrackPairs((prev) =>
+                              prev.map((t) =>
+                                t.id === track.id
+                                  ? {
+                                      ...t,
+                                      name: `${song.title} - ${song.artist_name}`,
+                                      image: song.album_cover_img_url,
+                                      song
+                                    }
+                                  : t
+                              )
+                            );
+                          }}
                         />
                         <Button type="button" onClick={() => removeTrack(i)} size='sm' className="bg-light text-error relative mt-7">
                             x
