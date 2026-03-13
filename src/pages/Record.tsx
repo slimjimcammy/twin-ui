@@ -231,7 +231,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           </Flex>
           <Flex direction="column" gap="xs">
             <Text variant="h6" font="default">
-              3. Hit record on Cerato
+              3. Hit record on Serato
             </Text>
             <Text variant="caption" weight="thin" color="dimmed">
               (Button on X deck, on the Y)

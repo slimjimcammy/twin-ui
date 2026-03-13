@@ -8,6 +8,7 @@ import { Grid } from "../../components/layout/Grid";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../components/app/auth/AuthContext";
 import Button from "../../components/ui/Button";
+import FileInput from "../../components/ui/FileInput";
 
 export interface User{
     id: number,
@@ -19,7 +20,7 @@ export interface User{
     profile_img_url: string,
     role: string,
     nickname: string,
-  }
+}
 export interface Song{
   id: number,
   soundcloud_song_id: number,
@@ -97,11 +98,13 @@ export default function Profile() {
   };
 
   const handleProfilePictureUpload = async () => {
-    if (!selectedPfpFile) return;
-
+  console.log("upload clicked", selectedPfpFile);
+    if (!selectedPfpFile) {
+      console.log("no file selected");
+      return;
+    }
     try {
       setSavingProfile(true);
-
       const createUploadRes = await fetch("http://localhost:8000/uploads/pfp", {
         method: "POST",
         credentials: "include",
@@ -276,19 +279,21 @@ export default function Profile() {
               Save nickname
             </Button>
 
-            <Text variant="p" className="mt-2">
-              Upload profile picture
-            </Text>
-            <input
-              type="file"
-              accept="image/*"
-              className="w-[220px] text-sm text-center"
-              onChange={(e) => {
-                const file = e.target.files?.[0] || null;
-                setSelectedPfpFile(file);
-              }}
-            />
-
+                <FileInput
+                  label="Upload profile picture"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0] || null;
+                    console.log("selected file:", file);
+                    setSelectedPfpFile(file);
+                  }}
+                  valueLabel={selectedPfpFile?.name}
+                  buttonProps={{
+                    variant: "secondary",
+                    size: "sm",
+                  }}
+                />
+                
             <Button
               onClick={handleProfilePictureUpload}
               variant="secondary"
@@ -297,6 +302,7 @@ export default function Profile() {
             >
               Upload profile picture
             </Button>
+
           </Flex>
         )}
       </Flex>
