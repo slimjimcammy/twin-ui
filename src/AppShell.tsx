@@ -82,8 +82,11 @@ export default function AppShell({ children }: AppShellProps) {
                   ),
                   variant: "secondary",
                   size: "sm",
-                  onClick: logout,
-                },
+                  onClick: () => {
+                    logout();
+                    navigate("/");
+                  },
+                }
               ]}
             />
           )
