@@ -12,11 +12,16 @@ type ArtistInfoProps = {
 type PlayerHeaderProps = {
   fromArtist: ArtistInfoProps;
   toArtist: ArtistInfoProps;
+  middleArtists?: ArtistInfoProps[];
 };
 
 const DARK_BACKGROUND_COLOR = "#05070A";
 
-export function PlayerHeader({ fromArtist, toArtist }: PlayerHeaderProps) {
+export function PlayerHeader({
+  fromArtist,
+  toArtist,
+  middleArtists = [],
+}: PlayerHeaderProps) {
   const { dominantColor: fromColor } = useExtractColors(fromArtist.imageSrc, {
     format: "hex",
   });
@@ -52,6 +57,26 @@ export function PlayerHeader({ fromArtist, toArtist }: PlayerHeaderProps) {
             </Text>
           </Flex>
         </Flex>
+        {middleArtists.length > 0 && (
+          <Flex direction="column" justify="center" align="center" gap="sm" className="px-4">
+            {middleArtists.map((artist, index) => (
+              <Flex key={index} direction="column" align="center" gap="sm">
+
+                <Widget className="w-[40px] h-[40px] overflow-hidden flex-shrink-0">
+                  <Image
+                    src={artist.imageSrc}
+                    alt={artist.name}
+                    width="stretch"
+                    height="stretch"
+                  />
+                </Widget>
+                <Text variant="caption" color="dimmed" className="truncate max-w-[180px]">
+                  {artist.name}
+                </Text>
+              </Flex>
+            ))}
+          </Flex>
+        )}
         <Flex direction="row" gap="lg">
           <Flex direction="column" justify="center">
             <Text variant="h6" align="right">

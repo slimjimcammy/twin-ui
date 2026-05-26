@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Flex } from "../../../components/layout/Flex";
 import Widget from "../../../components/layout/Widget";
 import Image from "../../../components/ui/Image";
@@ -5,6 +6,7 @@ import { Text } from "../../../components/ui/Text";
 import { HeartIcon } from "../../../icons/HeartIcon";
 
 export type TransitionItem = {
+  id: number;
   from: {
     name: string;
     imageSrc: string;
@@ -23,6 +25,7 @@ type SongTransitionHeaderListProps = {
 export function SongTransitionHeaderList({
   transitions,
 }: SongTransitionHeaderListProps) {
+  const navigate = useNavigate();
   return (
     <Flex
       direction="column"
@@ -31,7 +34,8 @@ export function SongTransitionHeaderList({
       className="overflow-y-auto"
     >
       {transitions.map((item, idx) => (
-        <Flex direction="row" align="center" justify="between" key={idx}>
+        <Flex direction="row" align="center" justify="between" key={idx} onClick={() => navigate(`/posts/${item.id}`)} className="cursor-pointer hover:opacity-80 transition">
+          
           <Flex direction="row" gap="sm" align="center" className="min-w-0">
             <Widget className="w-[30px] h-[30px] overflow-hidden flex-shrink-0">
               <Image
@@ -47,6 +51,7 @@ export function SongTransitionHeaderList({
                 alt={item.to.name}
                 width="stretch"
                 height="stretch"
+                
               />
             </Widget>
             <Text variant="caption" weight="light" className="truncate">

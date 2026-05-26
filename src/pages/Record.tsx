@@ -103,7 +103,24 @@ const handleSubmit = async (e: React.FormEvent) => {
     return;
   }
 
-  
+  await Promise.all(
+  trackPairs
+    .filter((pair) => pair?.song)
+      .map((pair) =>
+        fetch("http://localhost:8000/songs/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            soundcloud_song_id: pair.song.soundcloud_song_id,
+            title: pair.song.title,
+            artist_name: pair.song.artist_name,
+            album_cover_img_url: pair.song.album_cover_img_url,
+          }),
+        })
+      )
+  );
   const postRes = await fetch("http://localhost:8000/posts/from-upload", 
     {
       method: "POST",
@@ -118,7 +135,9 @@ const handleSubmit = async (e: React.FormEvent) => {
       transition_audio_url:  mp3Key,
       transition_json_summary_url: jsonKey,
       song_1_id: trackPairs[0].song?.soundcloud_song_id,
-      song_2_id: trackPairs[1].song?.soundcloud_song_id,  
+      song_2_id: trackPairs[1].song?.soundcloud_song_id, 
+      song_3_id: trackPairs[2].song?.soundcloud_song_id,
+      song_4_id: trackPairs[3]?.song?.soundcloud_song_id, 
     }),
     }
   )

@@ -5,7 +5,7 @@ import ButtonConsole from "../../button-console/ButtonConsole";
 
 type SocialCounts = {
   likes: number;
-  comments: number;
+  // comments: number;
   shares: number;
 };
 
@@ -51,23 +51,23 @@ export function TrackInfo({ user, socials, description }: TrackInfoProps) {
               variant: "primary",
               size: "sm",
             },
-            {
-              children: (
-                <Flex direction="row" gap="sm" align="center">
-                  <img
-                    src="/comment.svg"
-                    alt="Comment"
-                    className="brightness-0 invert"
-                    style={{ width: 24, height: 24 }}
-                  />
-                  <Text variant="p" color="default" font="default">
-                    {socials.comments}
-                  </Text>
-                </Flex>
-              ),
-              variant: "primary",
-              size: "sm",
-            },
+            // {
+            //   children: (
+            //     <Flex direction="row" gap="sm" align="center">
+            //       <img
+            //         src="/comment.svg"
+            //         alt="Comment"
+            //         className="brightness-0 invert"
+            //         style={{ width: 24, height: 24 }}
+            //       />
+            //       <Text variant="p" color="default" font="default">
+            //         {socials.comments}
+            //       </Text>
+            //     </Flex>
+            //   ),
+            //   variant: "primary",
+            //   size: "sm",
+            // },
             {
               children: (
                 <Flex direction="row" gap="sm" align="center">

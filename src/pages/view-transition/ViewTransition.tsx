@@ -2,105 +2,146 @@ import { Flex } from "../../components/layout/Flex";
 import Widget from "../../components/layout/Widget";
 import ShowingTransition from "./components/ShowingTransition";
 import { ArtistProfileSection } from "./components/ArtistProfileSection";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "../../components/ui/Image";
 import Button from "../../components/ui/Button";
-
+import { useParams } from "react-router-dom";
+import type { Post } from "../profile/Profile"
+import type { Song } from "../profile/Profile";
+import type { User } from "../profile/Profile";
+import { Text } from "../../components/ui/Text";
 export default function ViewTransition() {
+  const { post_id } = useParams<{post_id: string}>();
+  const [post, setPost] = useState<Post | null>(null);
+  const [User, setUser] = useState<User | null>(null);
+  const [songs, setSongs] = useState<Song[]>([]);
+  const [audioURL, setAudioURL] = useState("");
+  const [jsonURL, setJSONURL] = useState("");
+  const [otherPosts, setOtherPosts] = useState<Post[]>([]);
+  const [notFound, setNotFound] = useState(false);
+  useEffect (() => {
+    async function getPost() {
+      const postID = Number(post_id);
+      console.log(postID)
+      const postData = await fetch(`http://localhost:8000/post/${postID}`);
+      if (!postData.ok) {
+        setNotFound(true);
+        return;
+      }
+      const data = await postData.json();
+      console.log(data);
+      setPost(data);
+    }
+    getPost();
+  }, [post_id]);
+
+  useEffect(() => {
+    if(!post) return;
+    async function getUser() {
+      const userData = await fetch (`http://localhost:8000/users/${post.user_id}`)
+      const data = await userData.json();
+
+      setUser(data);
+    }
+
+    getUser();
+  }, [post]);
+
+
+
+  useEffect(() => {
+    if(!User) return;
+    async function getRestPosts() {
+      const restPosts = await fetch (`http://localhost:8000/posts/songs/${post.user_id}`)
+      const data = await restPosts.json();
+
+      setOtherPosts(data)
+    }
+
+    getRestPosts();
+  }, [User])
+
+  useEffect(() => {
+    if(!post) return;
+    const postID = Number(post_id)
+    async function getPostMedia() {
+      const postMedia = await fetch(`http://localhost:8000/posts/${postID}/media`)
+      const data = await postMedia.json();
+
+      setAudioURL(data.audio_url);
+      setJSONURL(data.json_url);
+    }
+    getPostMedia();
+  }, [post])
+
+  useEffect(() => {
+    if(!post) return;
+    async function getSongInfo() {
+      const songIds = [
+      post?.song_1_id,
+      post?.song_2_id,
+      post?.song_3_id,
+      post?.song_4_id,
+    ].filter(Boolean);
+
+    const songResponses = await Promise.all(
+      songIds.map((id) =>
+        fetch(`http://localhost:8000/songs/${id}`).then((res) => res.json())
+      )
+    );
+
+    setSongs(songResponses);
+    }
+    getSongInfo();
+  }, [post])
+
+
   const [visualize, setVisualize] = useState(false);
   const trackInfo = {
     user: {
-      name: "minski",
-      avatarSrc: "/beyonce.jpg",
+      name: User?.nickname ?? "unknown",
+      avatarSrc: User?.profile_img_url ?? "beyonce.jpg",
     },
     socials: {
-      likes: 40,
-      comments: 11,
-      shares: 3,
+      likes: post?.likes ?? 0,
+      // comments: post?.comments ?? 0,
+      shares: post?.shares ?? 0,
     },
-    description: `Descps9f osoi seoijosI  mizsm ow popa dcsl;pl a;;a wfp feiwoo qijoijq wooi cdosivnksek joeoi sois oik nkx,m skel awo afpo vflml lokpoe kfopk spdk;ok ;skdo;`,
+    description: post?.description ?? "unkown",
   };
 
   const artistProfileData = {
     profile: {
-      name: "minski",
-      avatarSrc: "/beyonce.jpg",
+      name: User?.nickname ?? "uknwown",
+      avatarSrc: User?.profile_img_url ?? "beyonce.jpg",
       followerCount: "11K",
     },
     moreFromArtist: {
       title: "More from this artist",
-      transitions: [
-        {
-          from: { name: "Beyonce", imageSrc: "/beyonce.jpg" },
-          to: {
-            name: "Imagine Dragons Imagine Dragons",
-            imageSrc: "/dragons.jpg",
-          },
-          likes: 841,
+      transitions: otherPosts.filter((otherPosts) => otherPosts.id !== post?.id).map((item) => ({
+      id: item.id,
+      from: {
+        name: item?.song_1.artist_name,
+        imageSrc: item?.song_1.album_cover_img_url,
+      },
+      to: {
+        name: item?.song_2.artist_name,
+        imageSrc: item?.song_2.album_cover_img_url,
+      },
+      likes: post?.likes,
+    }))
         },
-        {
-          from: { name: "Beyonce", imageSrc: "/beyonce.jpg" },
-          to: { name: "Imagine Dragons", imageSrc: "/dragons.jpg" },
-          likes: 500,
-        },
-        {
-          from: { name: "Beyonce", imageSrc: "/beyonce.jpg" },
-          to: { name: "Imagine Dragons", imageSrc: "/dragons.jpg" },
-          likes: 500,
-        },
-        {
-          from: { name: "Beyonce", imageSrc: "/beyonce.jpg" },
-          to: { name: "Imagine Dragons", imageSrc: "/dragons.jpg" },
-          likes: 500,
-        },
-        {
-          from: { name: "Beyonce", imageSrc: "/beyonce.jpg" },
-          to: { name: "Imagine Dragons", imageSrc: "/dragons.jpg" },
-          likes: 500,
-        },
-        {
-          from: { name: "Beyonce", imageSrc: "/beyonce.jpg" },
-          to: { name: "Imagine Dragons", imageSrc: "/dragons.jpg" },
-          likes: 500,
-        },
-        {
-          from: { name: "Beyonce", imageSrc: "/beyonce.jpg" },
-          to: { name: "Imagine Dragons", imageSrc: "/dragons.jpg" },
-          likes: 500,
-        },
-        {
-          from: { name: "Beyonce", imageSrc: "/beyonce.jpg" },
-          to: { name: "Imagine Dragons", imageSrc: "/dragons.jpg" },
-          likes: 500,
-        },
-        {
-          from: { name: "Beyonce", imageSrc: "/beyonce.jpg" },
-          to: { name: "Imagine Dragons", imageSrc: "/dragons.jpg" },
-          likes: 500,
-        },
-        {
-          from: { name: "Beyonce", imageSrc: "/beyonce.jpg" },
-          to: { name: "Imagine Dragons", imageSrc: "/dragons.jpg" },
-          likes: 500,
-        },
-        {
-          from: { name: "Beyonce", imageSrc: "/beyonce.jpg" },
-          to: { name: "Imagine Dragons", imageSrc: "/dragons.jpg" },
-          likes: 500,
-        },
-        {
-          from: { name: "Beyonce", imageSrc: "/beyonce.jpg" },
-          to: { name: "Imagine Dragons", imageSrc: "/dragons.jpg" },
-          likes: 500,
-        },
-        {
-          from: { name: "Beyonce", imageSrc: "/beyonce.jpg" },
-          to: { name: "Imagine Dragons", imageSrc: "/dragons.jpg" },
-          likes: 500,
-        },
-      ],
-    },
-  };
+      };
+  
+
+    if (notFound) {
+      return (
+        <Flex  height="stretch">
+          <Text variant="h3">Post not found</Text>
+        </Flex>
+      );
+    }
+
 
   return (
     <Flex
@@ -117,11 +158,14 @@ export default function ViewTransition() {
       height="stretch"
       className="min-h-0"
     >
+  
       <ShowingTransition
-        fromArtist={{ name: "Beyonce", imageSrc: "/beyonce.jpg" }}
-        toArtist={{ name: "Dragons", imageSrc: "/dragons.jpg" }}
+        artists={songs.map((song) => ({
+          name: song.artist_name,
+          imageSrc: song.album_cover_img_url,
+        }))}
         trackInfo={trackInfo}
-        isPlaying={false}
+        audioSrc={audioURL || undefined}
       />
 
       <Button
