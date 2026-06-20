@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Record from "./pages/Record";
 import Login from "./pages/Login";
 import Profile from "./pages/profile/Profile";
+import TestVisualizer from "./pages/TestVisualizer";
 import { AuthProvider } from "./components/app/auth/AuthContext";
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
             <Route path="/for-you" element={<ForYou />}/>
             <Route path="*" element={<NotFound />} />
             <Route path="/profiles/:profile_id" element={<NotFound/>} />
+            <Route path="/test-visualizer" element={<TestVisualizer />} />
             <Route path="/posts/:post_id" element={<ViewTransition/>}/>
             <Route path="/profile/:userID" element={<Profile />} />
           </Routes>
