@@ -242,18 +242,20 @@ export default function ViewTransition() {
           direction="column"
           justify="start"
           align="center"
-          className="flex-1 min-h-0 overflow-hidden px-4 pt-0 pb-2 -mt-25"
+          className="relative flex-1 min-h-0 overflow-hidden px-4 pt-0 pb-2 -mt-22"
         >
           {jsonLoading ? (
             <p className="text-sm text-subtitle">Loading deck visualization...</p>
           ) : jsonError ? (
             <p className="text-sm text-red-400">{jsonError}</p>
           ) : midiLog ? (
-            <DJDeckVisualizer
-              midiLog={midiLog}
-              speed={1}
-              className="w-full"
-            />
+            <div className="w-full flex justify-center">
+              <DJDeckVisualizer
+                midiLog={midiLog}
+                speed={1}
+                className="w-full"
+              />
+            </div>
           ) : (
             <p className="text-sm text-subtitle">
               No deck visualization available for this post.

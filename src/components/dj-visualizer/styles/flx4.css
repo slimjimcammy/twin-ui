@@ -926,8 +926,8 @@
 
 .dj-visualizer-shell {
   --viz-design-width: 1360px;
-  --viz-scale: 0.40;
-  --viz-controls-height: 44px;
+  --viz-scale: 0.46;
+  --viz-controls-height: 72px;
   --viz-controller-height: calc(var(--viz-design-width) * 5 / 9);
 
   width: calc(var(--viz-design-width) * var(--viz-scale));
@@ -996,4 +996,491 @@
   .dj-visualizer-shell .mixer-section {
     min-height: 0;
   }
+}
+
+
+
+
+
+
+
+/* INCORPERATE INTO SITE */
+/* ---------- Twin visual polish ---------- */
+
+.dj-visualizer-shell {
+  position: relative;
+  isolation: isolate;
+  border-radius: 22px;
+}
+
+/* Soft background glow behind the deck */
+.dj-visualizer-shell::before {
+  content: "";
+  position: absolute;
+  inset: 12% 8% 0;
+  z-index: -1;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(56, 189, 248, 0.12), transparent 38%),
+    radial-gradient(circle at 50% 85%, rgba(15, 23, 42, 0.9), transparent 58%);
+  filter: blur(28px);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* Fade the visualizer into the lower black area */
+.dj-visualizer-shell::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 92%;
+  height: 34px;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, transparent, rgba(3, 7, 18, 0.9));
+  pointer-events: none;
+}
+
+.dj-visualizer-shell .flx-controller {
+  border-color: rgba(148, 163, 184, 0.14);
+  background:
+    linear-gradient(180deg, rgba(20, 26, 38, 0.92), rgba(3, 7, 18, 0.98)),
+    radial-gradient(circle at 50% 20%, rgba(148, 163, 184, 0.08), transparent 42%);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.dj-visualizer-shell .deck-section,
+.dj-visualizer-shell .mixer-section {
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(3, 7, 18, 0.96));
+  border-color: rgba(148, 163, 184, 0.11);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.05),
+    0 12px 30px rgba(0,0,0,0.24);
+}
+
+.dj-visualizer-shell .jog-wheel {
+  background:
+    linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.78));
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,0.05),
+    0 10px 28px rgba(0,0,0,0.38);
+}
+
+.dj-visualizer-shell .jog-outer {
+  background:
+    radial-gradient(circle, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 1) 78%);
+}
+
+.dj-visualizer-shell .jog-center {
+  color: #67e8f9;
+  border-color: rgba(103, 232, 249, 0.24);
+  box-shadow:
+    inset 0 0 18px rgba(103, 232, 249, 0.06),
+    0 0 18px rgba(103, 232, 249, 0.05);
+}
+
+.dj-visualizer-shell .playback-controls {
+  opacity: 0.86;
+  transform: translateY(2px);
+}
+
+.dj-visualizer-shell .playback-controls button {
+  height: 26px;
+  padding: 0 11px;
+  border-radius: 999px;
+  border-color: rgba(148, 163, 184, 0.18);
+  color: rgba(226, 232, 240, 0.88);
+  background:
+    linear-gradient(180deg, rgba(30, 41, 59, 0.86), rgba(15, 23, 42, 0.92));
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 8px 18px rgba(0,0,0,0.22);
+}
+
+.dj-visualizer-shell .playback-controls button:hover {
+  border-color: rgba(56, 189, 248, 0.42);
+  color: #f8fafc;
+  box-shadow:
+    0 0 18px rgba(56, 189, 248, 0.12),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.dj-visualizer-shell {
+  animation: twinVizFadeIn 220ms ease-out both;
+}
+
+@keyframes twinVizFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+
+
+
+
+/* ---------- Twin visualizer toolbar ---------- */
+
+.dj-visualizer-shell .visualizer-toolbar {
+  width: var(--viz-design-width);
+  height: var(--viz-controls-height);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.dj-visualizer-shell .controller-picker {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+}
+
+.dj-visualizer-shell .controller-picker label {
+  color: rgba(203, 213, 225, 0.72);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.dj-visualizer-shell .controller-picker select {
+  height: 38px;
+  min-width: 190px;
+  padding: 0 38px 0 14px;
+
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 999px;
+
+  color: rgba(248, 250, 252, 0.94);
+  background:
+    linear-gradient(180deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.96));
+
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+
+  outline: none;
+  cursor: pointer;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 10px 22px rgba(0,0,0,0.22);
+
+  appearance: none;
+  background-image:
+    linear-gradient(180deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.96)),
+    url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23CBD5E1' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, right 14px center;
+}
+
+.dj-visualizer-shell .controller-picker select:hover {
+  border-color: rgba(56, 189, 248, 0.42);
+  box-shadow:
+    0 0 18px rgba(56, 189, 248, 0.12),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.dj-visualizer-shell .controller-picker select:focus {
+  border-color: rgba(56, 189, 248, 0.65);
+  box-shadow:
+    0 0 0 3px rgba(56, 189, 248, 0.12),
+    0 0 18px rgba(56, 189, 248, 0.12),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.dj-visualizer-shell .playback-controls {
+  position: static;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-start;
+  align-items: end;
+  gap: 10px;
+  margin: 18px 0 0;
+  opacity: 0.94;
+  transform: none;
+}
+
+.dj-visualizer-shell .playback-controls button {
+  height: 38px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+
+  color: rgba(248, 250, 252, 0.92);
+  background:
+    linear-gradient(180deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.96));
+
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 10px 22px rgba(0,0,0,0.22);
+}
+
+.dj-visualizer-shell .playback-controls button:first-child {
+  border-color: rgba(56, 189, 248, 0.28);
+  color: #e0f2fe;
+}
+
+.dj-visualizer-shell .playback-controls button:hover:not(:disabled) {
+  border-color: rgba(56, 189, 248, 0.55);
+  color: #f8fafc;
+  box-shadow:
+    0 0 20px rgba(56, 189, 248, 0.15),
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 10px 22px rgba(0,0,0,0.22);
+}
+
+.dj-visualizer-shell .playback-controls button:disabled {
+  opacity: 0.58;
+  cursor: not-allowed;
+}
+
+
+
+
+
+
+
+/* ---------- Toolbar left, controller centered ---------- */
+
+.dj-visualizer-shell {
+  position: relative;
+}
+
+/* Keep the actual scaled controller centered */
+.dj-visualizer-shell .flx-page {
+  align-items: center;
+}
+
+/* Toolbar becomes independent of controller centering */
+.dj-visualizer-shell .visualizer-toolbar {
+  position: absolute;
+  top: calc(var(--viz-controls-height) * var(--viz-scale) + 4px);
+  left: 8px;
+  z-index: 10;
+
+  width: 170px;
+  height: auto;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+
+  padding: 0;
+}
+
+/* Make picker full width in the left rail */
+.dj-visualizer-shell .controller-picker {
+  width: 100%;
+  display: grid;
+  gap: 5px;
+}
+
+.dj-visualizer-shell .controller-picker label {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+}
+
+.dj-visualizer-shell .controller-picker select {
+  width: 100%;
+  min-width: 0;
+  height: 34px;
+  padding-left: 12px;
+  padding-right: 34px;
+  font-size: 10px;
+}
+
+/* Stack buttons vertically on the left */
+.dj-visualizer-shell .playback-controls {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin: 0;
+}
+
+.dj-visualizer-shell .playback-controls button {
+  width: 100%;
+  height: 34px;
+  padding: 0 12px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+
+
+
+
+
+
+
+/* ---------- Toolbar outside left, controller centered ---------- */
+
+.dj-visualizer-shell {
+  overflow: visible;
+}
+
+.dj-visualizer-shell .visualizer-stage {
+  position: relative;
+
+  width: calc(var(--viz-design-width) * var(--viz-scale));
+  height: calc(var(--viz-controller-height) * var(--viz-scale));
+
+  margin: 0 auto;
+}
+
+/* Only the controller gets scaled */
+.dj-visualizer-shell .flx-page {
+  width: var(--viz-design-width);
+  height: var(--viz-controller-height);
+  min-height: auto;
+
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform: scale(var(--viz-scale));
+  transform-origin: top left;
+}
+
+/* Toolbar is now outside the scaled deck */
+.dj-visualizer-shell .visualizer-toolbar {
+  position: absolute;
+
+  left: -190px;
+  top: 74px;
+
+  width: 170px;
+  z-index: 30;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+
+  padding: 0;
+}
+
+/* Controller dropdown */
+.dj-visualizer-shell .controller-picker {
+  width: 100%;
+  display: grid;
+  gap: 6px;
+}
+
+.dj-visualizer-shell .controller-picker label {
+  color: rgba(203, 213, 225, 0.72);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.dj-visualizer-shell .controller-picker select {
+  width: 100%;
+  height: 36px;
+  min-width: 0;
+
+  padding: 0 34px 0 12px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 999px;
+
+  color: rgba(248, 250, 252, 0.94);
+  background:
+    linear-gradient(180deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.96));
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 10px 22px rgba(0,0,0,0.22);
+}
+
+/* Stack buttons vertically */
+.dj-visualizer-shell .playback-controls {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+
+  position: static;
+  margin: 0;
+  opacity: 1;
+  transform: none;
+}
+
+.dj-visualizer-shell .playback-controls button {
+  width: 100%;
+  height: 36px;
+
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+
+  color: rgba(248, 250, 252, 0.92);
+  background:
+    linear-gradient(180deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.96));
+
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 10px 22px rgba(0,0,0,0.22);
+}
+
+.dj-visualizer-shell .playback-controls button:first-child {
+  border-color: rgba(56, 189, 248, 0.32);
+  color: #e0f2fe;
+}
+
+.dj-visualizer-shell .playback-controls button:hover:not(:disabled),
+.dj-visualizer-shell .controller-picker select:hover {
+  border-color: rgba(56, 189, 248, 0.52);
+  box-shadow:
+    0 0 20px rgba(56, 189, 248, 0.14),
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 10px 22px rgba(0,0,0,0.22);
+}
+
+.dj-visualizer-shell .playback-controls button:disabled {
+  opacity: 0.58;
+  cursor: not-allowed;
 }
