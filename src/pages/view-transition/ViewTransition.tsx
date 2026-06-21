@@ -240,9 +240,9 @@ export default function ViewTransition() {
       {visualize ? (
         <Flex
           direction="column"
-          justify="center"
+          justify="start"
           align="center"
-          className="flex-1 min-h-0 px-4 py-4"
+          className="flex-1 min-h-0 overflow-hidden px-4 pt-0 pb-2 -mt-25"
         >
           {jsonLoading ? (
             <p className="text-sm text-subtitle">Loading deck visualization...</p>
