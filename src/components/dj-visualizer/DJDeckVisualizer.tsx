@@ -5,11 +5,17 @@ import "./styles/flx4.css";
 type DJDeckVisualizerProps = {
   midiLog: MidiLogEvent[];
   speed?: number;
+  className?: string;
 };
 
 export default function DJDeckVisualizer({
   midiLog,
   speed = 1,
+  className = "",
 }: DJDeckVisualizerProps) {
-  return <FLX4Controller events={midiLog} speed={speed} />;
+  return (
+    <div className={`dj-visualizer-shell ${className}`}>
+      <FLX4Controller events={midiLog} speed={speed} />
+    </div>
+  );
 }

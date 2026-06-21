@@ -867,3 +867,35 @@
     0 0 18px rgba(56, 189, 248, 0.75),
     0 6px 14px rgba(0, 0, 0, 0.35);
 }
+
+
+.dj-visualizer-shell {
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.dj-visualizer-shell .flx-page {
+  min-height: auto;
+  width: 100%;
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+  display: grid;
+  place-items: center;
+}
+
+.dj-visualizer-shell .flx-controller {
+  width: 100%;
+  max-width: 820px;
+  max-height: none;
+  aspect-ratio: 9 / 5;
+}
+
+.dj-visualizer-shell .playback-controls {
+  position: static;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}

@@ -3,12 +3,13 @@ import Widget from "../../components/layout/Widget";
 import ShowingTransition from "./components/ShowingTransition";
 import { ArtistProfileSection } from "./components/ArtistProfileSection";
 import { useEffect, useState } from "react";
-import Image from "../../components/ui/Image";
 import Button from "../../components/ui/Button";
 import { useParams } from "react-router-dom";
 import type { Post } from "../profile/Profile"
 import type { Song } from "../profile/Profile";
 import type { User } from "../profile/Profile";
+import { DJDeckVisualizer } from "../../components/dj-visualizer";
+import type { MidiLogEvent } from "../../components/dj-visualizer";
 import { Text } from "../../components/ui/Text";
 export default function ViewTransition() {
   const { post_id } = useParams<{post_id: string}>();
@@ -17,6 +18,9 @@ export default function ViewTransition() {
   const [songs, setSongs] = useState<Song[]>([]);
   const [audioURL, setAudioURL] = useState("");
   const [jsonURL, setJSONURL] = useState("");
+  const [midiLog, setMidiLog] = useState<MidiLogEvent[] | null>(null);
+  const [jsonLoading, setJsonLoading] = useState(false);
+  const [jsonError, setJsonError] = useState("");
   const [otherPosts, setOtherPosts] = useState<Post[]>([]);
   const [notFound, setNotFound] = useState(false);
   useEffect (() => {
@@ -62,17 +66,72 @@ export default function ViewTransition() {
   }, [User])
 
   useEffect(() => {
-    if(!post) return;
-    const postID = Number(post_id)
+    if (!post) return;
+
+    const postID = Number(post_id);
+
     async function getPostMedia() {
-      const postMedia = await fetch(`http://localhost:8000/posts/${postID}/media`)
+      const postMedia = await fetch(`http://localhost:8000/posts/${postID}/media`);
+
+      if (!postMedia.ok) {
+        console.error("Failed to load post media");
+        return;
+      }
+
       const data = await postMedia.json();
 
-      setAudioURL(data.audio_url);
-      setJSONURL(data.json_url);
+      setAudioURL(data.audio_url ?? "");
+      setJSONURL(data.json_url ?? "");
     }
+
     getPostMedia();
-  }, [post])
+  }, [post, post_id]);
+
+  useEffect(() => {
+    if (!jsonURL) {
+      setMidiLog(null);
+      return;
+    }
+
+    async function getMidiJson() {
+      setJsonLoading(true);
+      setJsonError("");
+
+      try {
+        const response = await fetch(jsonURL);
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch MIDI JSON: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        const events = Array.isArray(data)
+          ? data
+          : Array.isArray(data.events)
+            ? data.events
+            : null;
+
+        if (!events) {
+          throw new Error("MIDI JSON must be an array or an object with an events array");
+        }
+
+        if (events.length === 0) {
+          throw new Error("MIDI JSON loaded, but it has zero events");
+        }
+
+        setMidiLog(events as MidiLogEvent[]);
+      } catch (error) {
+        console.error(error);
+        setMidiLog(null);
+        setJsonError("Could not load deck visualization JSON.");
+      } finally {
+        setJsonLoading(false);
+      }
+    }
+
+    getMidiJson();
+  }, [jsonURL]);
 
   useEffect(() => {
     if(!post) return;
@@ -179,13 +238,27 @@ export default function ViewTransition() {
 
 
       {visualize ? (
-        <Flex direction="column" justify="center" align="center" className="flex-1">
-          <Image
-            src="/Djsim.png"
-            alt="DJ Simulation"
-            className="w-[500px] h-auto rounded-xl shadow-lg"
-          />
-          <p className="text-sm text-subtitle">Visualizer in progress...</p>
+        <Flex
+          direction="column"
+          justify="center"
+          align="center"
+          className="flex-1 min-h-0 px-4 py-4"
+        >
+          {jsonLoading ? (
+            <p className="text-sm text-subtitle">Loading deck visualization...</p>
+          ) : jsonError ? (
+            <p className="text-sm text-red-400">{jsonError}</p>
+          ) : midiLog ? (
+            <DJDeckVisualizer
+              midiLog={midiLog}
+              speed={1}
+              className="w-full"
+            />
+          ) : (
+            <p className="text-sm text-subtitle">
+              No deck visualization available for this post.
+            </p>
+          )}
         </Flex>
       ) : (
         <ArtistProfileSection
