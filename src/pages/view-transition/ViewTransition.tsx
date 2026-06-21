@@ -242,7 +242,7 @@ export default function ViewTransition() {
           direction="column"
           justify="start"
           align="center"
-          className="relative flex-1 min-h-0 overflow-hidden px-4 pt-0 pb-2 -mt-22"
+          className="relative flex-1 min-h-0 overflow-hidden px-4 pt-0 pb-2 -mt-27"
         >
           {jsonLoading ? (
             <p className="text-sm text-subtitle">Loading deck visualization...</p>

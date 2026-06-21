@@ -820,7 +820,7 @@
 
 .dj-visualizer-shell {
   --viz-design-width: 1360px;
-  --viz-scale: 0.46;
+  --viz-scale: 0.44;
   --viz-controller-height: calc(var(--viz-design-width) * 5 / 9);
 
   width: 100%;
